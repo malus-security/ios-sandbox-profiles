@@ -1,0 +1,8 @@
+(version 1)
+(allow default)
+(allow network*
+	(local ip "*:*"))
+(allow network-inbound)
+(allow network-bind)
+(allow network-outbound
+	(regex #"^/private/tmp/launchd-[0-9]+\.[^/]+/sock$"))

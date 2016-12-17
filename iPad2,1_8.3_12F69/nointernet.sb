@@ -1,0 +1,11 @@
+(version 1)
+(allow default)
+(allow file*)
+(allow file-chroot)
+(allow file-write-create)
+(allow network*
+	(local ip "*:*"))
+(allow network-inbound)
+(allow network-bind)
+(allow network-outbound)
+(allow process-exec-interpreter)

@@ -1,0 +1,18 @@
+(version 1)
+(allow default)
+(allow file*
+	(subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+(allow file-chroot
+	(subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+(allow file-write-create
+	(subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+(allow network*
+	(subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox")
+	(local ip "*:*"))
+(allow network-inbound
+	(subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+(allow network-bind
+	(subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+(allow network-outbound
+	(regex #"^/private/tmp/launchd-[0-9]+\.[^/]+/sock$")
+	(subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))

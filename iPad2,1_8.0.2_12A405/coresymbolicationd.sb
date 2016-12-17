@@ -1,0 +1,54 @@
+(version 1)
+(deny default)
+(allow file-ioctl
+	(literal "/dev/dtracehelper"))
+(allow file-read*
+	(subpath "/")
+	(literal "/dev/random")
+	(literal "/dev/urandom")
+	(literal "/dev/null")
+	(literal "/dev/zero")
+	(literal "/dev/dtracehelper")
+	(require-all
+		(file-mode #o0004)
+		(require-any
+			(subpath "/usr/share")
+			(subpath "/usr/lib")
+			(subpath "/System")
+			(subpath "/private/var/db/dyld"))))
+(allow file-read-metadata
+	(literal "/var")
+	(literal "/private/etc/localtime")
+	(literal "/etc")
+	(literal "/tmp"))
+(allow file-write*
+	(subpath "/System/Library/Caches/com.apple.coresymbolicationd")
+	(subpath "/private/var/root/Library/Caches/com.apple.coresymbolicationd")
+	(require-all
+		(regex #"^/cores/")
+		(require-not (file-mode #o0000))))
+(allow file-write-data
+	(literal "/dev/null")
+	(literal "/dev/zero")
+	(literal "/dev/dtracehelper"))
+(allow iokit-get-properties)
+(allow mach-bootstrap)
+(allow mach-lookup
+	(global-name "com.apple.system.logger")
+	(global-name "com.apple.system.notification_center")
+	(global-name "com.apple.system.DirectoryService.libinfo_v1"))
+(allow network-outbound
+	(literal "/private/var/run/asl_input"))
+(allow process-info*)
+(allow process-info-listpids)
+(allow process-info-pidinfo)
+(allow process-info-pidfdinfo)
+(allow process-info-pidfileportinfo)
+(allow process-info-setcontrol)
+(allow process-info-dirtycontrol)
+(allow process-info-rusage)
+(allow signal
+	(target self)
+	(target self))
+(allow sysctl-read)
+(allow system-privilege)

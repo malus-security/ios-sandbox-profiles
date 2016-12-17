@@ -1,0 +1,72 @@
+(version 1)
+(allow default)
+(allow file*)
+(allow file-chroot)
+(allow file-ioctl)
+(allow file-issue-extension)
+(deny file-mount)
+(allow file-read*
+	(require-all
+		(require-not (subpath "/usr/share"))
+		(require-not (subpath "/usr/lib"))
+		(require-not (subpath "/System/Library"))
+		(require-not (literal "/private/var/mobile/Library/Preferences/.GlobalPreferences.plist"))
+		(require-not (regex #"^/private/var/Managed Preferences/mobile/com\.apple\..+\.plist$"))
+		(require-not (extension "com.apple.sandbox.executable"))
+		(require-not (extension "com.apple.security.exception.files.absolute-path.read-only"))
+		(require-not (extension "com.apple.security.exception.files.absolute-path.read-write"))
+		(require-not (subpath "/System/Library/Frameworks"))
+		(require-not (subpath "/System/Library/PrivateFrameworks"))
+		(require-not (subpath "/private/var/db/timezone"))
+		(require-any
+			(literal "/private/var")
+			(literal "/private/var/root")
+			(literal "/private/etc/master.passwd")
+			(require-all
+				(require-not (literal "/dev/zero"))
+				(require-not (literal "/dev/dtracehelper"))
+				(require-not (literal "/dev/random"))
+				(require-not (literal "/dev/urandom"))
+				(require-not (literal "/dev/aes_0"))
+				(require-not (literal "/dev/ptmx"))
+				(require-not (literal "/private/var/mobile/Library/Caches/com.apple.MobileGestalt.plist"))
+				(require-not (subpath "/private/var/mobile/Library/ConfigurationProfiles/PublicInfo"))
+				(require-not (subpath "/private/var/mobile"))
+				(require-not (subpath "/private/var/tmp"))
+				(require-not (literal "/dev/null"))
+				(require-any
+					(vnode-type BLOCK-DEVICE)
+					(vnode-type CHARACTER-DEVICE))))))
+(deny file-unmount)
+(allow file-write*
+	(require-all
+		(require-not (extension "com.apple.security.exception.files.absolute-path.read-write"))
+		(require-any
+			(literal "/private/var")
+			(literal "/private/var/root")
+			(literal "/private/etc/master.passwd")
+			(require-all
+				(require-not (subpath "/private/var/tmp"))
+				(require-not (subpath "/private/var/mobile"))))))
+(allow file-write-create)
+(allow file-write-data
+	(require-all
+		(require-not (literal "/dev/ptmx"))
+		(require-not (literal "/dev/aes_0"))
+		(require-any
+			(literal "/dev/urandom")
+			(literal "/dev/random"))))
+(allow file-write-flags)
+(allow file-write-mode)
+(allow file-write-unlink)
+(deny job-creation)
+(allow network-inbound)
+(allow network-bind)
+(allow network-outbound)
+(allow process-exec-interpreter)
+(allow system-info
+	(require-all
+		(require-not (info-type "net.link.addr"))
+		(require-any
+			(require-not (debug-mode))
+			(info-type "net.link.addr"))))

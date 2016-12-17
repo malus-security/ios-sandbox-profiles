@@ -1,0 +1,627 @@
+(version 1)
+(deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/dtracehelper")
+	(literal "/dev/aes_0"))
+(allow file-issue-extension
+	(extension-class "com.apple.quicklook.readonly")
+	(require-all
+		(extension "com.apple.sandbox.executable")
+		(extension-class "com.apple.nsurlsessiond.readonly"))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read")
+		(extension "com.apple.sandbox.executable"))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read")
+		(subpath "/private/var/mobile/Media")
+		(extension "com.apple.avasset.read-only")
+		(extension "com.apple.tcc.kTCCServicePhotos"))
+	(require-all
+		(extension-class "com.apple.nsurlstorage.extension-cache")
+		(regex #"^/private/var/mobile/Library/Caches/com\.apple\.Maps/" #"^/private/var/mobile/Library/Caches/com\.apple\.Maps$"))
+	(require-all
+		(subpath "/private/var/tmp")
+		(require-any
+			(extension-class "com.apple.app-sandbox.read")
+			(extension-class "com.apple.app-sandbox.read-write")))
+	(require-all
+		(subpath "/private/var/mobile/Library/Mobile Documents")
+		(require-any
+			(require-all
+				(extension-class "com.apple.app-sandbox.read-write")
+				(require-any
+					(extension "com.apple.librarian.ubiquity-container")
+					(require-entitlement "com.apple.private.librarian.container-proxy")))
+			(require-all
+				(extension-class "com.apple.app-sandbox.read")
+				(require-any
+					(extension "com.apple.librarian.ubiquity-container")
+					(require-entitlement "com.apple.private.librarian.container-proxy")))))
+	(require-all
+		(extension "com.apple.librarian.ubiquity-container")
+		(subpath "/private/var/mobile/Library/Mobile Documents")
+		(extension-class "com.apple.app-sandbox.read"))
+	(require-all
+		(require-any
+			(require-all
+				(extension-class "com.apple.app-sandbox.read-write"))
+			(require-all
+				(extension-class "com.apple.app-sandbox.read"))
+				(subpath "/private/var/mobile/Library/Cookies")))
+	(require-all
+		(require-any
+			(require-all
+				(extension-class "com.apple.app-sandbox.read-write"))
+			(require-all
+				(extension-class "com.apple.app-sandbox.read"))
+				(regex #"^/private/var/mobile/Library/Caches/com\.apple\.Maps/" #"^/private/var/mobile/Library/Caches/com\.apple\.Maps$")))
+	(require-all
+		(require-any
+			(require-all
+				(extension-class "com.apple.app-sandbox.read"))
+			(require-all
+				(extension-class "com.apple.app-sandbox.read-write"))
+				(extension "com.apple.app-sandbox.read-write"))))
+(allow file-read*
+	(literal "/private/var/mobile/Library/Preferences/com.apple.AppSupport.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.GEO.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.locationd.plist")
+	(subpath "/private/var/Managed Preferences/mobile")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.persistentconnection.plist")
+	(literal "/private/var/mobile/Library/Caches/.com.apple.persistentconnection.settings.lock.lock")
+	(regex #"^/private/var/mobile/Library/Logs/PersistentConnection/com\.apple\.Maps" #"^/private/var/mobile/Library/Logs/CrashReporter/PersistentConnection/com\.apple\.Maps")
+	(literal "/private/var/mobile/Library/Caches/com.apple.persistentconnection.intervalcache.plist")
+	(literal "/private/var/mobile/Library/Caches/com.apple.persistentconnection.intervalcache.plist.lock")
+	(literal "/private/var/mobile/Media/com.apple.itunes.lock_sync")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.PeoplePicker.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.AOSNotification.public.notbackedup.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.TelephonyUtilities.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.icloud.findmydeviced.postwipe.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.icloud.findmydeviced.public.notbackedup.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.accountsd.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.appleaccount.plist")
+	(subpath "/private/var/mobile/Library/Cookies")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.WebFoundation.plist")
+	(literal "/private/var/preferences/SystemConfiguration/com.apple.wifi.plist")
+	(subpath "/private/var/mobile/Library/Maps")
+	(regex #"^/private/var/mobile/Containers/Bundle/[^/]+/[-0-9A-Z]+/GeoJSON")
+	(subpath "/private/var/mobile/Library/Caches/Maps")
+	(subpath "/private/var/mobile/Library/SMS")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.MapsSupport.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.conference.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.ids.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.mms_override.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.weather.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.voiceservices.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.Maps.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.GMM.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.skyhookwireless.wps.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.assistant.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.assistant.backedup.plist")
+	(literal "/private/var/mobile/Library/Preferences/com.apple.internal.Voltaire.plist")
+	(literal "/private/var/preferences/com.apple.networkd.plist")
+	(literal "/private/var/preferences/com.apple.NetworkStatistics.plist")
+	(subpath "/AppleInternal")
+	(subpath "/private/var/db/timezone")
+	(subpath "/System/Library")
+	(subpath "/usr/lib")
+	(subpath "/usr/share")
+	(literal "/private/var/mobile/Library/Preferences/.GlobalPreferences.plist")
+	(extension "com.apple.sandbox.executable")
+	(extension "com.apple.security.exception.files.absolute-path.read-only")
+	(extension "com.apple.security.exception.files.absolute-path.read-write")
+	(subpath "/System/Library/Frameworks")
+	(subpath "/System/Library/PrivateFrameworks")
+	(require-all
+		(subpath "/Developer")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application"))))
+	(require-all
+		(subpath "/private/var/tmp")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")))
+	(require-all
+		(subpath "/private/var/mobile/XcodeBuiltProducts")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")))
+	(require-all
+		(require-not (literal "/private/var/mobile/Library/Caches/GeoServices/tguid.bin"))
+		(require-any
+			(literal "/private/var/mobile/Media/com.apple.itunes.lock_sync")
+			(subpath "/private/var/Managed Preferences/mobile")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.avfoundation.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.mobileslideshow.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.camera.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.springboard.plist")
+			(subpath "/Library/Ringtones")
+			(literal "/private/var/mobile/Media/Vibrations/UserGeneratedVibrationPatterns.plist")
+			(subpath "/private/var/tmp")
+			(regex #"^/private/var/mobile/Library/Caches/com\.apple\.Maps/" #"^/private/var/mobile/Library/Caches/com\.apple\.Maps$")
+			(regex #"^/private/var/mobile/Documents/com\.apple\.Maps\.settings$" #"^/private/var/mobile/Documents/com\.apple\.Maps\.settings/" #"^/private/var/mobile/Library/Saved Application State/com\.apple\.Maps.savedState/")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.assistant.plist")
+			(regex #"^/private/var/mobile/Library/Preferences/com\.apple\.Maps\.plist" #"^/private/var/mobile/Library/SyncedPreferences/com\.apple\.Maps\.plist" #"^/private/var/mobile/Library/SyncedPreferences/com\.apple\.Maps-.+\.plist" #"^/private/var/mobile/Library/Caches/Snapshots/com\.apple\.Maps-" #"^/private/var/mobile/Library/Caches/Snapshots/com\.apple\.Maps/" #"^/private/var/mobile/Library/Caches/Snapshots/com\.apple\.Maps$")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.demo-settings.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.DataAccess.BehaviorOptions.plist")
+			(subpath "/AppleInternal/Library/Frameworks/RadarCompose.framework")
+			(literal "/private/var/mobile/Library/Cookies")
+			(literal "/private/var/mobile/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
+			(literal "/private/var/mobile/Library/Cookies/com.apple.itunesstored.2.sqlitedb-journal")
+			(literal "/private/var/mobile/Library/Cookies/com.apple.itunesstored.2.sqlitedb-shm")
+			(literal "/private/var/mobile/Library/Cookies/com.apple.itunesstored.2.sqlitedb-wal")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.itunesstored.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.mobileipod.plist")
+			(literal "/private/var/mobile/Media/iTunes_Control/iTunes")
+			(literal "/private/var/mobile/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb")
+			(literal "/private/var/mobile/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-journal")
+			(literal "/private/var/mobile/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-shm")
+			(literal "/private/var/mobile/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-wal")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.medialibrary.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.homesharing.plist")
+			(literal "/private/var/mobile/Library/Caches/com.apple.iTunesStore/network-constraints.plist")
+			(regex #"^/private/var/mobile/Library/Caches/com\.apple\.iTunesStore/ISURLBag/com\.apple\.Maps$" #"^/private/var/mobile/Library/Caches/com\.apple\.iTunesStore/ISURLBag/com\.apple\.Maps/$" #"^/private/var/mobile/Library/Caches/com\.apple\.iTunesStore/ISURLBag/com\.apple\.Maps/.+$")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.coreaudio.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.coremedia.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.corevideo.plist")
+			(literal "/private/var/mobile/Library/Caches/com.apple.itunesstored/url-resolution.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.da.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.SpeakSelection.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.voiceservices.plist")
+			(subpath "/private/var/mobile/Library/VoiceServices/Assets")
+			(subpath "/private/var/mobile/Library/Assets/com_apple_MobileAsset_VoiceServicesVocalizerVoice")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.mediaaccessibility.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.mediaaccessibility.public.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.MobileAsset.plist")
+			(subpath "/private/var/mobile/Library/Caches/com.apple.keyboards")
+			(literal "/private/var/mobile/Library/Keyboard/LocalDictionary")
+			(literal "/com.apple.xpc.launchd.bootstrap.plist")
+			(extension "com.apple.app-sandbox.read")
+			(extension "com.apple.app-sandbox.read-write")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.keyboard.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.InputModePreferences.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.assistant.support.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.Preferences.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.EmojiPreferences.plist")
+			(subpath "/private/var/mobile/Library/Fonts")
+			(literal "/private/var/preferences/SystemConfiguration/com.apple.accounts.exists.plist")
+			(literal "/private/var/preferences/SystemConfiguration/com.apple.sinaweibo.plist")
+			(literal "/private/var/preferences/SystemConfiguration/com.apple.linkedin.plist")
+			(literal "/private/var/preferences/SystemConfiguration/com.apple.facebook.plist")
+			(literal "/private/var/preferences/SystemConfiguration/com.apple.twitter.plist")
+			(subpath "/private/var/mobile/Library/Caches/com.apple.IconsCache")
+			(subpath "/private/var/mobile/Library/Caches/com.apple.UIStatusBar")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.Sharing.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.CoreMotion.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.Accessibility.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.UIKit.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.WebUI.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.mt.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.preferences.sounds.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.telephonyutilities.dialassist.plist")
+			(literal "/private/var/mobile/Library/Preferences/.GlobalPreferences.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.logging.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.MapKit.internal.plist")
+			(literal "/private/var/preferences/SystemConfiguration/com.apple.radios.plist")
+			(literal "/private/var/preferences/com.apple.networkd.plist")
+			(literal "/private/var/preferences/com.apple.NetworkStatistics.plist")
+			(subpath "/Library/Dictionaries")
+			(subpath "/private/var/mobile/Library/Dictionaries")
+			(literal "/private/var/mobile/Library/Caches/DateFormats.plist")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.iokit.IOMobileGraphicsFamily.plist")
+			(subpath "/private/var/mobile/Library/Caches/GeoServices")
+			(literal "/private/var/mobile/Library/Preferences/com.apple.GEO.plist")
+			(literal "/private/var/mobile/Library/Caches/Checkpoint.plist")
+			(require-all
+				(extension "com.apple.avasset.read-only")
+				(subpath "/private/var/mobile/Media")
+				(extension "com.apple.tcc.kTCCServicePhotos"))
+			(require-all
+				(subpath "/private/var/Managed Preferences/mobile")
+				(extension "com.apple.tcc.kTCCServicePhotos"))
+			(require-all
+				(literal "/private/var/mobile/Library/Preferences/com.apple.avfoundation.plist")
+				(extension "com.apple.tcc.kTCCServicePhotos"))
+			(require-all
+				(literal "/private/var/mobile/Library/Preferences/com.apple.coreaudio.plist")
+				(extension "com.apple.tcc.kTCCServicePhotos"))
+			(require-all
+				(literal "/private/var/mobile/Library/Preferences/com.apple.coremedia.plist")
+				(extension "com.apple.tcc.kTCCServicePhotos"))
+			(require-all
+				(literal "/private/var/mobile/Library/Preferences/com.apple.corevideo.plist")
+				(extension "com.apple.tcc.kTCCServicePhotos"))
+			(require-all
+				(literal "/private/var/mobile/Library/Preferences/com.apple.itunesstored.plist")
+				(extension "com.apple.tcc.kTCCServicePhotos"))
+			(require-all
+				(subpath "/private/var/.DocumentRevisions-V100/PerUID")
+				(require-any
+					(extension "com.apple.revisiond.revision")
+					(extension "com.apple.app-sandbox.read")))
+			(require-all
+				(subpath "/private/var/.DocumentRevisions-V100/staging")
+				(require-any
+					(extension "com.apple.revisiond.staging")
+					(extension "com.apple.app-sandbox.read-write")))
+			(require-all
+				(vnode-type REGULAR-FILE)
+				(subpath "/private/var/mobile/Library/Application Support/CloudDocs/session/r")
+				(extension "com.apple.clouddocs.version"))
+			(require-all
+				(subpath "/private/var/mobile/Library/Mobile Documents")
+				(require-any
+					(extension "com.apple.librarian.ubiquity-container")
+					(require-entitlement "com.apple.private.librarian.container-proxy")))
+			(require-all
+				(subpath "/private/var/mobile/Library/Application Support/Ubiquity/genstore")
+				(extension "com.apple.librarian.ubiquity-revision"))
+			(require-all
+				(subpath "/private/var/mobile/Library/Assets")
+				(extension "com.apple.assets.read"))
+			(require-all
+				(require-not (subpath "/private/var/mobile/Library/FairPlay"))
+				(require-not (literal "/usr/sbin/fairplayd"))
+				(require-not (subpath "/private/var/mobile/Media"))
+				(require-any
+					(literal "/dev/zero")
+					(literal "/dev/random")
+					(literal "/dev/urandom")
+					(literal "/dev/aes_0")
+					(literal "/dev/ptmx")
+					(literal "/dev/dtracehelper")
+					(literal "/private/etc/hosts")
+					(literal "/")
+					(literal "/private/etc/services")
+					(literal "/private/etc/protocols")
+					(literal "/private/etc/passwd")
+					(literal "/private/etc/group")
+					(literal "/private/var/mobile/Library/Caches/com.apple.MobileGestalt.plist")
+					(subpath "/private/var/mobile/Library/ConfigurationProfiles/PublicInfo")
+					(literal "/private/var/mobile/Library/Preferences/com.apple.carrier.plist")
+					(regex #"^/System/Library/Carrier Bundles//carrier\.plist$" #"^/System/Library/Carrier Bundles/.+/carrier\.plist$" #"^/private/var/mobile/Library/Carrier Bundles//carrier\.plist$" #"^/private/var/mobile/Library/Carrier Bundles/.+/carrier\.plist$" #"^/System/Library/Carrier Bundles/\.png$" #"^/System/Library/Carrier Bundles/.+\.png$" #"^/private/var/mobile/Library/Carrier Bundles/\.png$" #"^/private/var/mobile/Library/Carrier Bundles/.+\.png$")
+					(subpath "/private/var/mobile/Library/Carrier Bundles/Overlay")
+					(regex #"^/private/var/mobile/Library/Carrier Bundles/\.bundle$" #"^/private/var/mobile/Library/Carrier Bundles/.+\.bundle$" #"^/private/var/mobile/Library/Carrier Bundles/\.bundle/Info\.plist$" #"^/private/var/mobile/Library/Carrier Bundles/.+\.bundle/Info\.plist$" #"^/private/var/mobile/Library/Carrier Bundles/\.bundle/\.lproj/" #"^/private/var/mobile/Library/Carrier Bundles/\.bundle/\.lproj$" #"^/private/var/mobile/Library/Carrier Bundles/.+\.bundle/\.lproj/" #"^/private/var/mobile/Library/Carrier Bundles/.+\.bundle/\.lproj$" #"^/private/var/mobile/Library/Carrier Bundles/\.bundle/[^/]+\.lproj/" #"^/private/var/mobile/Library/Carrier Bundles/\.bundle/[^/]+\.lproj$" #"^/private/var/mobile/Library/Carrier Bundles/.+\.bundle/[^/]+\.lproj/" #"^/private/var/mobile/Library/Carrier Bundles/.+\.bundle/[^/]+\.lproj$")
+					(literal "/dev/null")
+					(require-all
+						(vnode-type TTY)
+						(regex #"^/dev/ttyp[0-9a-f]$" #"^/dev/ptyp[0-9a-f]$"))
+					(require-all
+						(regex #"^/dev/ttys[0-9]" #"^/dev/ttys[0-9]+")
+						(extension "com.apple.sandbox.pty"))
+					(require-all
+						(subpath "/private/var/Managed Preferences/mobile")
+						(require-entitlement "com.apple.bulletinboard.dataprovider"))
+					(require-all
+						(literal "/private/var/mobile/Library/Preferences/com.apple.bulletinboard.plist")
+						(require-entitlement "com.apple.bulletinboard.dataprovider"))))
+			(require-all
+				(require-any
+					(require-all
+						(subpath "/private/var/mobile/Media/PhotoData/Metadata"))
+					(require-all
+						(subpath "/private/var/mobile/Media/PhotoData/Sync/FaceAlbumThumbnails"))
+					(require-all
+						(subpath "/private/var/mobile/Media/PhotoData/Thumbnails"))
+					(require-all
+						(literal "/private/var/mobile/Media/PhotoData/syncInfo.plist"))
+					(require-all
+						(regex #"^/private/var/mobile/Media/PhotoData/Photos.sqlite$" #"^/private/var/mobile/Media/PhotoData/Photos.sqlite-wal$" #"^/private/var/mobile/Media/PhotoData/Photos.sqlite-shm$" #"^/private/var/mobile/Media/PhotoData/Photos.sqlite-journal$"))
+						(extension "com.apple.tcc.kTCCServicePhotos")))
+			(require-all
+				(require-any
+					(require-all
+						(vnode-type REGULAR-FILE))
+					(require-all
+						(vnode-type DIRECTORY))
+						(regex #"^/private/var/mobile/Library/Caches/com.apple.nsurlsessiond/Downloads/com\.apple\.Maps/" #"^/private/var/mobile/Library/Caches/com.apple.nsurlsessiond/Downloads/com\.apple\.Maps$")))))
+	(require-all
+		(require-any
+			(require-all
+				(literal "/private/var/mobile/Library/Preferences/com.apple.mobilephone.speeddial.plist"))
+			(require-all
+				(subpath "/private/var/mobile/Library/AddressBook"))
+				(extension "com.apple.tcc.kTCCServiceAddressBook"))))
+(allow file-read-data
+	(regex #"^/private/var/ea/ea[.0-9]+$"))
+(allow file-read-metadata)
+(allow file-write*
+	(literal "/private/var/mobile/Library/Caches/.com.apple.persistentconnection.settings.lock.lock")
+	(literal "/private/var/mobile/Library/Caches/com.apple.persistentconnection.intervalcache.plist")
+	(literal "/private/var/mobile/Library/Caches/com.apple.persistentconnection.intervalcache.plist.lock")
+	(literal "/private/var/mobile/Media/com.apple.itunes.lock_sync")
+	(subpath "/private/var/mobile/Library/Cookies")
+	(subpath "/private/var/mobile/Library/Maps")
+	(subpath "/private/var/mobile/Library/Caches/Maps")
+	(subpath "/private/var/mobile/Library/SMS")
+	(extension "com.apple.security.exception.files.absolute-path.read-write")
+	(regex #"^/private/var/mobile/Library/Preferences/com\.apple\.Maps\.plist" #"^/private/var/mobile/Library/Preferences/com\.apple\.GMM\.plist" #"^/private/var/mobile/Library/Preferences/com\.skyhookwireless\.wps\.plist" #"^/private/var/mobile/Library/Preferences/com\.apple\.assistant\.plist" #"^/private/var/mobile/Library/Preferences/com\.apple\.assistant\.backedup\.plist" #"^/private/var/mobile/Library/Preferences/com\.apple\.internal\.Voltaire\.plist" #"^/private/var/mobile/Containers/Bundle/[^/]+/[-0-9A-Z]+/GeoJSON" #"^/private/var/mobile/Library/Preferences/com\.apple\.PeoplePicker\.plist" #"^/private/var/mobile/Library/Logs/PersistentConnection/com\.apple\.Maps" #"^/private/var/mobile/Library/Logs/CrashReporter/PersistentConnection/com\.apple\.Maps")
+	(require-all
+		(subpath "/private/var/tmp")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")))
+	(require-all
+		(require-not (regex #"^/private/var/mobile/Library/Preferences/com\.apple\.springboard\.plist"))
+		(require-not (literal "/private/var/mobile/Library/Caches/GeoServices/tguid.bin"))
+		(require-not (literal "/private/var/mobile/Library/Caches/DateFormats.plist"))
+		(require-any
+			(subpath "/private/var/tmp")
+			(regex #"^/private/var/mobile/Library/Caches/com\.apple\.Maps/" #"^/private/var/mobile/Library/Caches/com\.apple\.Maps$")
+			(literal "/private/var/mobile/Media/com.apple.itunes.lock_sync")
+			(regex #"^/private/var/mobile/Library/Preferences/com\.apple\.Maps\.plist" #"^/private/var/mobile/Library/Caches/Snapshots/com\.apple\.Maps-" #"^/private/var/mobile/Library/Caches/Snapshots/com\.apple\.Maps/" #"^/private/var/mobile/Library/Caches/Snapshots/com\.apple\.Maps$" #"^/private/var/mobile/Documents/com\.apple\.Maps\.settings$" #"^/private/var/mobile/Documents/com\.apple\.Maps\.settings/" #"^/private/var/mobile/Library/Saved Application State/com\.apple\.Maps.savedState/")
+			(literal "/private/var/mobile/Library/Cookies/com.apple.itunesstored.2.sqlitedb-journal")
+			(literal "/private/var/mobile/Library/Cookies")
+			(literal "/private/var/mobile/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
+			(literal "/private/var/mobile/Library/Cookies/com.apple.itunesstored.2.sqlitedb-shm")
+			(literal "/private/var/mobile/Library/Cookies/com.apple.itunesstored.2.sqlitedb-wal")
+			(literal "/private/var/mobile/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-journal")
+			(regex #"^/private/var/mobile/Library/Preferences/com\.apple\.mobileipod\.plist" #"^/private/var/mobile/Library/Preferences/com\.apple\.itunesstored\.plist")
+			(literal "/private/var/mobile/Media/iTunes_Control/iTunes")
+			(literal "/private/var/mobile/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb")
+			(literal "/private/var/mobile/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-shm")
+			(literal "/private/var/mobile/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-wal")
+			(literal "/private/var/mobile/Library/Caches/com.apple.iTunesStore/network-constraints.plist")
+			(regex #"^/private/var/mobile/Library/Caches/com\.apple\.iTunesStore/ISURLBag/com\.apple\.Maps$" #"^/private/var/mobile/Library/Caches/com\.apple\.iTunesStore/ISURLBag/com\.apple\.Maps/$" #"^/private/var/mobile/Library/Caches/com\.apple\.iTunesStore/ISURLBag/com\.apple\.Maps/.+$")
+			(subpath "/private/var/mobile/Library/Caches/com.apple.keyboards")
+			(regex #"^/private/var/mobile/Library/Preferences/com\.apple\.mediaaccessibility\.public\.plist")
+			(literal "/private/var/mobile/Library/Keyboard/LocalDictionary")
+			(extension "com.apple.app-sandbox.read-write")
+			(regex #"^/private/var/mobile/Library/Preferences/com\.apple\.Preferences\.plist" #"^/private/var/mobile/Library/Preferences/com\.apple\.EmojiPreferences\.plist")
+			(require-all
+				(vnode-type DIRECTORY)
+				(literal "/private/var/mobile/Library/Cookies"))
+			(require-all
+				(vnode-type DIRECTORY)
+				(literal "/private/var/mobile/Media/iTunes_Control/iTunes"))
+			(require-all
+				(subpath "/private/var/.DocumentRevisions-V100/staging")
+				(require-any
+					(extension "com.apple.revisiond.staging")
+					(extension "com.apple.app-sandbox.read-write")))
+			(require-all
+				(subpath "/private/var/mobile/Library/Mobile Documents")
+				(require-any
+					(extension "com.apple.librarian.ubiquity-container")
+					(require-entitlement "com.apple.private.librarian.container-proxy")))
+			(require-all
+				(require-not (subpath "/private/var/mobile/Media"))
+				(require-any
+					(literal "/dev/dtracehelper")
+					(literal "/dev/aes_0")
+					(literal "/dev/ptmx")
+					(require-all
+						(regex #"^/dev/ttys[0-9]" #"^/dev/ttys[0-9]+")
+						(extension "com.apple.sandbox.pty"))
+					(require-all
+						(require-not (literal "/dev/urandom"))
+						(require-not (literal "/dev/random"))
+						(require-any
+							(literal "/dev/zero")
+							(literal "/dev/null")))
+					(require-all
+						(vnode-type TTY)
+						(regex #"^/dev/ttyp[0-9a-f]$" #"^/dev/ptyp[0-9a-f]$"))))
+			(require-all
+				(require-any
+					(require-all
+						(vnode-type REGULAR-FILE))
+					(require-all
+						(vnode-type DIRECTORY))
+						(regex #"^/private/var/mobile/Library/Caches/com.apple.nsurlsessiond/Downloads/com\.apple\.Maps/" #"^/private/var/mobile/Library/Caches/com.apple.nsurlsessiond/Downloads/com\.apple\.Maps$")))))
+	(require-all
+		(require-any
+			(require-all
+				(literal "/private/var/mobile/Library/Preferences/com.apple.mobilephone.speeddial.plist"))
+			(require-all
+				(subpath "/private/var/mobile/Library/AddressBook"))
+				(extension "com.apple.tcc.kTCCServiceAddressBook"))))
+(allow file-write-create
+	(require-all
+		(require-not (regex #"^/private/var/mobile/Library/Logs/CrashReporter/CFNetwork_"))
+		(require-any
+			(require-all
+				(vnode-type DIRECTORY)
+				(require-any
+					(literal "/private/var/mobile/Library/Logs/PersistentConnection")
+					(literal "/private/var/mobile/Library/Logs/CrashReporter/PersistentConnection")))
+			(require-all
+				(vnode-type DIRECTORY)
+				(literal "/private/var/mobile/Library/Caches/com.apple.DictionaryServices"))
+			(require-all
+				(require-not (regex #"^/private/var/mobile/Library/Preferences/com\.apple\.Accessibility\.plist" #"^/private/var/mobile/Library/Preferences/com\.apple\.UIKit\.plist"))
+				(require-any
+					(require-all
+						(vnode-type DIRECTORY)
+						(literal "/private/var/mobile/Library/Caches"))
+					(require-all
+						(vnode-type DIRECTORY)
+						(literal "/private/var/mobile/Library/Saved Application State"))
+					(require-all
+						(vnode-type DIRECTORY)
+						(regex #"^/private/var/mobile/Library/Saved Application State/com\.apple\.Maps.savedState"))
+					(require-all
+						(vnode-type DIRECTORY)
+						(literal "/private/var/mobile/Library/Caches/Snapshots"))
+					(require-all
+						(vnode-type DIRECTORY)
+						(require-any
+							(literal "/private/var/mobile/Library/com.apple.iTunesStore")
+							(literal "/private/var/mobile/Library/com.apple.iTunesStore/LocalStorage")))
+					(require-all
+						(vnode-type DIRECTORY)
+						(require-any
+							(literal "/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag")
+							(literal "/private/var/mobile/Library/Caches/com.apple.iTunesStore")))
+					(require-all
+						(vnode-type REGULAR-FILE)
+						(extension "com.apple.private.safe-move.send")))))))
+(allow file-write-data
+	(literal "/private/var/mobile/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
+	(literal "/private/var/mobile/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb")
+	(regex #"^/private/var/ea/ea[.0-9]+$")
+	(require-all
+		(vnode-type REGULAR-FILE)
+		(extension "com.apple.private.safe-move.send")))
+(allow file-write-unlink
+	(require-all
+		(vnode-type REGULAR-FILE)
+		(extension "com.apple.private.safe-move.receive")))
+(allow iokit-open
+	(iokit-user-client-class "AppleJPEGDriverUserClient")
+	(iokit-user-client-class "IOMobileFramebufferUserClient")
+	(iokit-user-client-class "IOSurfaceRootUserClient")
+	(iokit-user-client-class "IOSurfaceSendRight")
+	(iokit-user-client-class "IOSurfaceAcceleratorClient")
+	(iokit-user-client-class "AppleKeyStoreUserClient")
+	(iokit-user-client-class "IOAccelSharedUserClient2")
+	(iokit-user-client-class "IOAccelContext")
+	(iokit-user-client-class "IOAccelDevice")
+	(iokit-user-client-class "IOAccelSharedUserClient")
+	(iokit-user-client-class "IOAccelSubmitter2")
+	(iokit-user-client-class "IOAccelContext2")
+	(iokit-user-client-class "IOAccelDevice2")
+	(extension "com.apple.security.exception.iokit-user-client-class")
+	(iokit-user-client-class "AppleMobileFileIntegrityUserClient"))
+(allow iokit-get-properties)
+(allow ipc-posix-shm*
+	(require-all
+		(ipc-posix-name-regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application")))))
+(allow ipc-posix-shm-read*
+	(ipc-posix-name "apple.shm.notification_center")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$" #"^apple\.shm\.cfprefsd\."))
+(allow ipc-posix-shm-write-data
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$"))
+(allow mach-bootstrap)
+(allow mach-lookup)
+(allow mach-register
+	(local-name "com.apple.iphone.axserver")
+	(global-name-regex #"^com\.apple\.assistant\.contextprovider\.")
+	(local-name-regex #"^com\.apple\.assistant\.contextprovider\.")
+	(local-name "com.apple.accessibility.gax.client"))
+(allow network-outbound)
+(allow user-preference-read
+	(preference-domain "com.apple.avfoundation")
+	(preference-domain "com.apple.camera")
+	(preference-domain "com.apple.mobileslideshow")
+	(preference-domain "com.apple.springboard")
+	(preference-domain "com.apple.assistant")
+	(preference-domain "com.apple.demo-settings")
+	(preference-domain "com.apple.DataAccess.BehaviorOptions")
+	(preference-domain "com.apple.itunesstored")
+	(preference-domain "com.apple.mobileipod")
+	(preference-domain "com.apple.medialibrary")
+	(preference-domain "com.apple.homesharing")
+	(preference-domain "com.apple.corevideo")
+	(preference-domain "com.apple.coreaudio")
+	(preference-domain "com.apple.coremedia")
+	(preference-domain "com.apple.da")
+	(preference-domain "com.apple.voiceservices")
+	(preference-domain "com.apple.SpeakSelection")
+	(preference-domain "com.apple.mediaaccessibility")
+	(preference-domain "com.apple.mediaaccessibility.public")
+	(preference-domain "com.apple.MobileAsset")
+	(preference-domain "com.apple.assistant.support")
+	(preference-domain "com.apple.keyboard")
+	(preference-domain "com.apple.InputModePreferences")
+	(preference-domain "com.apple.EmojiPreferences")
+	(preference-domain "com.apple.Preferences")
+	(preference-domain "com.apple.Sharing")
+	(preference-domain "com.apple.CoreMotion")
+	(preference-domain "com.apple.telephonyutilities.dialassist")
+	(preference-domain "com.apple.Accessibility")
+	(preference-domain "com.apple.UIKit")
+	(preference-domain "com.apple.WebUI")
+	(preference-domain "com.apple.mt")
+	(preference-domain "com.apple.preferences.sounds")
+	(preference-domain ".GlobalPreferences")
+	(preference-domain "com.apple.logging")
+	(preference-domain "com.apple.MapKit.internal")
+	(preference-domain "com.apple.iokit.IOMobileGraphicsFamily")
+	(preference-domain "com.apple.GEO")
+	(preference-domain "com.apple.locationd")
+	(preference-domain "com.apple.AppSupport")
+	(preference-domain "com.apple.persistentconnection")
+	(preference-domain "com.apple.PeoplePicker")
+	(preference-domain "com.apple.AOSNotification.public.notbackedup")
+	(preference-domain "com.apple.TelephonyUtilities")
+	(preference-domain "com.apple.icloud.findmydeviced.public.notbackedup")
+	(preference-domain "com.apple.icloud.findmydeviced.postwipe")
+	(preference-domain "com.apple.accountsd")
+	(preference-domain "com.apple.appleaccount")
+	(preference-domain "com.apple.WebFoundation")
+	(preference-domain "com.apple.MapsSupport")
+	(preference-domain "com.apple.conference")
+	(preference-domain "com.apple.ids")
+	(preference-domain "com.apple.mms_override")
+	(preference-domain "com.apple.weather")
+	(preference-domain "com.apple.internal.Voltaire")
+	(preference-domain "com.apple.Maps")
+	(preference-domain "com.apple.GMM")
+	(preference-domain "com.skyhookwireless.wps")
+	(preference-domain "com.apple.assistant.backedup")
+	(preference-domain "kCFPreferencesAnyApplication")
+	(extension "com.apple.security.exception.shared-preference.read-only")
+	(extension "com.apple.security.exception.shared-preference.read-write")
+	(require-all
+		(preference-domain "com.apple.itunesstored")
+		(extension "com.apple.tcc.kTCCServicePhotos"))
+	(require-all
+		(preference-domain "com.apple.bulletinboard")
+		(require-entitlement "com.apple.bulletinboard.dataprovider"))
+	(require-all
+		(require-any
+			(require-all
+				(preference-domain "com.apple.coremedia"))
+			(require-all
+				(preference-domain "com.apple.coreaudio"))
+			(require-all
+				(preference-domain "com.apple.avfoundation"))
+			(require-all
+				(preference-domain "com.apple.corevideo"))
+				(extension "com.apple.tcc.kTCCServicePhotos"))))
+(allow user-preference-write
+	(preference-domain "com.apple.mobileipod")
+	(preference-domain "com.apple.mediaaccessibility.public")
+	(preference-domain "com.apple.EmojiPreferences")
+	(preference-domain "com.apple.Preferences")
+	(preference-domain "com.apple.PeoplePicker")
+	(preference-domain "com.apple.internal.Voltaire")
+	(preference-domain "com.apple.Maps")
+	(preference-domain "com.apple.GMM")
+	(preference-domain "com.skyhookwireless.wps")
+	(preference-domain "com.apple.assistant")
+	(preference-domain "com.apple.assistant.backedup")
+	(extension "com.apple.security.exception.shared-preference.read-write")
+	(preference-domain "com.apple.itunesstored"))
+(allow process-info*)
+(allow process-info-listpids)
+(allow process-info-pidinfo)
+(allow process-info-pidfdinfo)
+(allow process-info-pidfileportinfo)
+(allow process-info-setcontrol)
+(allow process-info-dirtycontrol)
+(allow process-info-rusage)
+(allow pseudo-tty)
+(allow signal
+	(target self))
+(allow sysctl-read)
+(allow system-fsctl
+	(fsctl-command (_IO "h" 32))
+	(fsctl-command (_IO "h" 31)))
+(allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain 39)
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))
