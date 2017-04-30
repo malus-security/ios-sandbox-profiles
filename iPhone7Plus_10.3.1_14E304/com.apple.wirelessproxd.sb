@@ -1,0 +1,58 @@
+(version 1)
+(deny default)
+(allow file-link)
+(allow file-map-executable)
+(allow file-read*
+	(literal "/dev/dtracehelper")
+	(literal "/dev/null /dev/zero")
+	(literal "/dev/urandom /dev/random")
+	(literal "/usr/usr/sbin/wirelessproxd")
+	(literal "/usr/sbin")
+	(require-all
+		(file-mode #o0004)
+		(require-any
+			(literal "/System/")
+			(literal "/usr/lib/")
+			(literal "/usr/share/")
+			(literal "/private/var/db/dyld/"))))
+(allow file-read-metadata
+	(literal "/etc /tmp /private/etc/localtime /var"))
+(allow file-write*
+	(require-all
+		(require-not (file-mode #o0000))
+		(literal "")))
+(allow file-write-data
+	(literal "/dev/dtracehelper")
+	(literal "/dev/null /dev/zero"))
+(allow iokit-get-properties)
+(allow ipc-posix-shm-read*
+	(ipc-posix-name ""))
+(allow mach-cross-domain-lookup)
+(allow mach-lookup
+	(global-name "com.apple.system.notification_center")
+	(global-name "com.apple.server.bluetooth.le.att.xpc")
+	(global-name "com.apple.cfprefsd.daemon com.apple.cfprefsd.agent logd system.logger")
+	(local-name "com.apple.cfprefsd.agent")
+	(global-name "com.apple.distributed_notifications@1v3")
+	(global-name "com.apple.diagnosticd")
+	(global-name "com.apple.system.DirectoryService.libinfo_v1"))
+(allow network-outbound
+	(require-all
+		(require-not (literal "/private/var/tmp/launchd/sock"))
+		(literal "/private/var/run/asl_input")
+		(require-not (regex #"^/private/tmp/launchd-[0-9]+\.[^/]+/sock$"))))
+(allow nvram*)
+(allow nvram-delete)
+(allow nvram-get)
+(allow nvram-set)
+(allow process-info*)
+(allow process-info-codesignature)
+(allow process-info-dirtycontrol)
+(allow process-info-listpids)
+(allow process-info-rusage)
+(allow process-info-pidinfo)
+(allow process-info-pidfdinfo)
+(allow process-info-pidfileportinfo)
+(allow process-info-setcontrol)
+(allow sysctl-read)
+(allow system-privilege)

@@ -1,0 +1,78 @@
+(version 1)
+(deny default)
+(allow file-link)
+(allow iokit-get-properties)
+(allow mach-cross-domain-lookup)
+(allow mach-lookup
+	(global-name "com.apple.cfprefsd.daemon com.apple.cfprefsd.agent logd system.logger")
+	(global-name "com.apple.tccd com.apple.lsd.advertisingidentifiers com.apple.lsd.openurl")
+	(global-name "com.apple.aggregated")
+	(global-name "com.apple.pfd")
+	(global-name "com.apple.system.libinfo.muser")
+	(global-name "com.apple.ctkd.token-client com.apple.CoreAuthentication.daemon.libxpc com.apple.managedconfiguration.profiled.public")
+	(global-name "com.apple.diagnosticd")
+	(global-name "com.apple.system.notification_center")
+	(local-name "com.apple.cfprefsd.agent")
+	(global-name "com.apple.lsd.mapdb")
+	(global-name "com.apple.distributed_notifications@1v3")
+	(global-name "com.apple.hangtracerd com.apple.ReportCrash.SimulateCrash")
+	(global-name "com.apple.duetknowledged.activity com.apple..lsdlsdicons com.apple..open appsupport.cplogd assertiond.processassertionconnection xpcd coreservices.lsuseractivitymanager.xpc")
+	(global-name "com.apple.containermanagerd com.apple.logd.events")
+	(global-name "com.apple.mobilegestalt.xpc")
+	(require-all
+		(global-name "com.apple.appstored.xpc.jobmanager com.apple.appstored.xpc.request")
+		(require-entitlement "com.apple.appstored.install-apps"))
+	(require-all
+		(global-name "com.apple.appstored.xpc.updates")
+		(require-entitlement "com.apple.appstored.update-apps"))
+	(require-all
+		(global-name "com.apple.appstored.xpc.jobmanager com.apple.appstored.xpc.request")
+		(require-entitlement "com.apple.itunesstored.private"))
+	(require-all
+		(global-name "com.apple.itunesstored.xpc")
+		(require-entitlement "com.apple.itunesstored.private"))
+	(require-all
+		(global-name "com.apple.appstored.xpc.updates")
+		(require-entitlement "com.apple.itunesstored.private"))
+	(require-all
+		(global-name "com.apple.logd.admin")
+		(require-any
+			(require-entitlement "com.apple.private.logging.diagnostic")
+			(require-entitlement "com.apple.diagnosticd.diagnostic")))
+	(require-all
+		(global-name "com.apple.coreduetd.people")
+		(require-entitlement "com.apple.coreduetd.people"))
+	(require-all
+		(global-name "com.apple.bulletinboard.dataproviderconnection")
+		(require-entitlement "com.apple.bulletinboard.dataprovider"))
+	(require-all
+		(global-name "com.apple.symptom_diagnostics")
+		(require-entitlement "com.apple.symptom_diagnostics.report"))
+	(require-all
+		(extension "com.apple.security.exception.mach-lookup.local-name")
+		(local-name ""))
+	(require-all
+		(global-name "com.apple.passd.trusted-device-enrollment-info-provider")
+		(require-entitlement "com.apple.private.passkit.trusted-device-enrollment-info"))
+	(require-all
+		(global-name "com.apple.springboard.statusbarservices")
+		(require-entitlement "com.apple.springboard.statusbarstyleoverrides"))
+	(require-all
+		(extension "com.apple.security.exception.mach-lookup.global-name")
+		(global-name "")))
+(allow nvram*)
+(allow nvram-delete)
+(allow nvram-get)
+(allow nvram-set)
+(allow process-info*)
+(allow process-info-codesignature)
+(allow process-info-dirtycontrol)
+(allow process-info-listpids)
+(allow process-info-rusage)
+(allow process-info-pidinfo)
+(allow process-info-pidfdinfo)
+(allow process-info-pidfileportinfo)
+(allow process-info-setcontrol)
+(allow pseudo-tty)
+(allow system-privilege)
+(allow system-socket)

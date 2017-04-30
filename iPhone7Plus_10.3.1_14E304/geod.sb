@@ -1,0 +1,503 @@
+(version 1)
+(deny default)
+(allow file-issue-extension
+	(regex #"^/private/var/containers/Data/System/[^/]+/")
+	(regex #"^/private/var/containers/Data/System/[^/]+/")
+	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
+	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
+	(require-all
+		(extension-class "com.apple.mediaserverd.read-write")
+		(extension "com.apple.sandbox.system-container")
+		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(extension-class "com.apple.nsurlsessiond.readonly")
+		(extension "com.apple.sandbox.system-container")
+		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(extension-class "com.apple.sharing.airdrop.readonly")
+		(extension "com.apple.sandbox.system-container")
+		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read-write")
+		(extension "com.apple.sandbox.system-container")
+		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read")
+		(extension "com.apple.sandbox.system-container")
+		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(extension-class "com.apple.mediaserverd.read")
+		(extension "com.apple.sandbox.system-container")
+		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read")
+		(extension "com.apple.sandbox.system-container")
+		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(extension-class "com.apple.mediaserverd.read-write")
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
+	(require-all
+		(extension-class "com.apple.nsurlsessiond.readonly")
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
+	(require-all
+		(extension-class "com.apple.sharing.airdrop.readonly")
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read-write")
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read")
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
+	(require-all
+		(extension-class "com.apple.mediaserverd.read")
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read")
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read-write")
+		(require-any
+			(extension "com.apple.security.exception.files.absolute-path.read-write")
+			(extension "com.apple.security.exception.files.home-relative-path.read-write")))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read")
+		(require-any
+			(extension "com.apple.security.exception.files.absolute-path.read-write")
+			(extension "com.apple.security.exception.files.home-relative-path.read-write")))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read")
+		(require-any
+			(extension "com.apple.security.exception.files.absolute-path.read-only")
+			(extension "com.apple.security.exception.files.home-relative-path.read-only")))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read")
+		(extension "com.apple.sandbox.executable"))
+	(require-all
+		(extension-class "com.apple.mediaserverd.read")
+		(literal "/System/Library/"))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read")
+		(literal "/System/Library/"))
+	(require-all
+		(extension "com.apple.sandbox.executable")
+		(extension-class "com.apple.nsurlsessiond.readonly"))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read-write")
+		(literal "${HOME}/Library/Cookies/"))
+	(require-all
+		(extension-class "com.apple.app-sandbox.read")
+		(literal "${HOME}/Library/Cookies/")))
+(allow file-link)
+(allow file-read*
+	(literal "/Developer/")
+	(literal "${HOME}/Library/Cookies/")
+	(literal "")
+	(extension "com.apple.sandbox.executable")
+	(literal "/private/var/Managed Preferences/mobile/.GlobalPreferences.plist")
+	(literal "${HOME}/Library/Preferences/.GlobalPreferences.plist")
+	(literal "/private/var/preferences/Logging/")
+	(literal "/System/Library/")
+	(literal "/usr/lib/")
+	(literal "/usr/share/")
+	(literal "/private/var/db/timezone/")
+	(literal "/private/var/preferences/com.apple.security.plist")
+	(literal "/private/var/preferences/com.apple.NetworkStatistics.plist")
+	(literal "/private/var/preferences/com.apple.networkd.plist")
+	(literal "${HOME}/")
+	(extension "com.apple.security.exception.files.home-relative-path.read-only")
+	(literal "${HOME}/Library/Caches/GeoServices/")
+	(extension "com.apple.security.exception.files.absolute-path.read-only")
+	(extension "com.apple.security.exception.files.home-relative-path.read-write")
+	(literal "/private/var/containers/Data/System/com.apple.geod/")
+	(extension "com.apple.security.exception.files.absolute-path.read-write")
+	(regex #"^/private/var/containers/Data/System/[^/]+/")
+	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
+	(literal "/dev/aes_0")
+	(literal "/dev/urandom /dev/random")
+	(literal "/dev/dtracehelper")
+	(literal "/dev/null /dev/zero")
+	(literal "")
+	(extension "com.apple.logd.read-only")
+	(literal "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.icloud.findmydevice.managed/Library/ /private/var/containers/Shared/SystemGroup/systemgroup.com.apple.icloud.findmydevice.managed/Librarydb/datadetectors/sys/")
+	(literal "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist")
+	(literal "/dev/ptmx")
+	(require-all
+		(literal "/AppleInternal/")
+		(debug-mode))
+	(require-all
+		(literal "/usr/local/lib/")
+		(debug-mode))
+	(require-all
+		(literal "${HOME}/XcodeBuiltProducts/")
+		(debug-mode))
+	(require-all
+		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices$" #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices/" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices/" #"^/private/var/[-0-9A-F]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices$" #"^/private/var/[-0-9A-F]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices/" #"^/private/var/Users/[^/]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices$" #"^/private/var/Users/[^/]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices/")
+		(literal "${HOME}/"))
+	(require-all
+		(literal "/private/etc/master.passwd")
+		(uid 0))
+	(require-all
+		(extension "com.apple.sandbox.system-container")
+		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(extension "com.apple.sandbox.system-container")
+		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
+	(require-all
+		(literal "/private/var/db/diagnostics/")
+		(require-any
+			(require-entitlement "com.apple.private.logging.diagnostic")
+			(require-entitlement "com.apple.diagnosticd.diagnostic")))
+	(require-all
+		(literal "/private/var/db/uuidtext/")
+		(require-any
+			(require-entitlement "com.apple.private.logging.diagnostic")
+			(require-entitlement "com.apple.diagnosticd.diagnostic")))
+	(require-all
+		(regex #"^/dev/ttys[0-9]" #"^/dev/ttys[0-9]+")
+		(extension "com.apple.sandbox.pty"))
+	(require-all
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")))
+	(require-all
+		(vnode-type TTY)
+		(literal ""))
+	(require-all
+		(vnode-type BLOCK-DEVICE)
+		(vnode-type CHARACTER-DEVICE)
+		(require-any
+			(literal "/private/etc/hosts")
+			(literal "/private/etc/group /private/etc/passwd /private/etc/protocols services")
+			(literal "/")
+			(require-all
+				(literal "${HOME}/Library/CoreDuet/People/interactionC.db ${HOME}/Library/CoreDuet/People")
+				(require-entitlement "com.apple.coreduetd.people"))
+			(require-all
+				(literal "${HOME}/Library/CoreDuet/People/interactionC.db-journal ${HOME}/Library/CoreDuet/People/interactionC.db-shm ${HOME}/Library/CoreDuet/People/interactionC.db-wal")
+				(require-entitlement "com.apple.coreduetd.people"))
+			(require-all
+				(literal "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/CloudConfigurationDetails.plist")
+				(process-attribute 4)
+				(require-entitlement "com.apple.private.amfi.can-execute-cdhash"))
+			(require-all
+				(literal "${HOME}/Library/ConfigurationProfiles/CloudConfigurationDetails.plist ${HOME}/Library/UserConfigurationProfiles/CloudConfigurationDetails.plist")
+				(process-attribute 4)
+				(require-entitlement "com.apple.private.amfi.can-execute-cdhash")))))
+(allow file-read-metadata
+	(literal "${HOME}")
+	(literal "${HOME}/Library/Preferences")
+	(literal "/private/var/run/syslog")
+	(literal "${HOME}/Library/Logs/CrashReporter")
+	(literal "${HOME}/Library/Cookies/")
+	(extension "com.apple.security.exception.files.absolute-path.read-write")
+	(extension "com.apple.security.exception.files.home-relative-path.read-write")
+	(regex #"^/private/var/containers/Data/System/[^/]+/")
+	(vnode-type SYMLINK)
+	(literal "${HOME}/Library/Logs/CrashReporter/DiagnosticLogs")
+	(literal "${HOME}/Library/Caches/powerlog.launchd")
+	(require-all
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
+	(require-all
+		(vnode-type DIRECTORY)
+		(literal "${HOME}/Library/DeviceRegistry")
+		(process-attribute 4)
+		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))
+	(require-all
+		(literal "${HOME}/Library/DeviceRegistry")
+		(process-attribute 4)
+		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))
+	(require-all
+		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+$" #"^/private/var/[-0-9A-F]+/Library/DeviceRegistry/[-0-9A-Z]+$" #"^/private/var/Users/[^/]+/Library/DeviceRegistry/[-0-9A-Z]+$")
+		(literal "${HOME}/")
+		(process-attribute 4)
+		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))
+	(require-all
+		(literal "${HOME}")
+		(process-attribute 4)
+		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))
+	(require-all
+		(literal "${HOME}/Library/Preferences")
+		(process-attribute 4)
+		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))
+	(require-all
+		(extension "com.apple.sandbox.system-container")
+		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(vnode-type DIRECTORY)
+		(process-attribute 4)
+		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))
+	(require-all
+		(vnode-type DIRECTORY)
+		(literal "${HOME}/Library/Logs/CrashReporter/DiagnosticLogs"))
+	(require-all
+		(vnode-type DIRECTORY)
+		(literal "${HOME}/Library/Logs/CrashReporter")))
+(allow file-write*
+	(regex #"^/private/var/containers/Data/System/[^/]+/")
+	(literal "${HOME}/Library/Cookies/")
+	(literal "")
+	(extension "com.apple.security.exception.files.absolute-path.read-write")
+	(literal "${HOME}/")
+	(extension "com.apple.security.exception.files.home-relative-path.read-write")
+	(literal "${HOME}/Library/Caches/GeoServices/")
+	(literal "/private/var/containers/Data/System/com.apple.geod/")
+	(require-all
+		(extension "com.apple.sandbox.system-container")
+		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
+	(require-all
+		(vnode-type DIRECTORY)
+		(literal "${HOME}/Library/Caches/MapTiles"))
+	(require-all
+		(vnode-type DIRECTORY)
+		(literal "${HOME}/Library/Caches/Maps/MapTiles"))
+	(require-all
+		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices$" #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices/" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices/" #"^/private/var/[-0-9A-F]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices$" #"^/private/var/[-0-9A-F]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices/" #"^/private/var/Users/[^/]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices$" #"^/private/var/Users/[^/]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices/")
+		(literal "${HOME}/")))
+(allow file-write-create
+	(require-all
+		(vnode-type DIRECTORY)
+		(literal "${HOME}/Library/DeviceRegistry")
+		(process-attribute 4)
+		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))
+	(require-all
+		(require-not (literal ""))
+		(require-any
+			(require-all
+				(vnode-type DIRECTORY)
+				(literal "${HOME}/Library/Logs/CrashReporter/DiagnosticLogs"))
+			(require-all
+				(vnode-type DIRECTORY)
+				(literal "${HOME}/Library/Logs/CrashReporter")))))
+(allow file-write-data
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(require-all
+		(regex #"^/dev/ttys[0-9]" #"^/dev/ttys[0-9]+")
+		(extension "com.apple.sandbox.pty"))
+	(require-all
+		(vnode-type TTY)
+		(literal ""))
+	(require-all
+		(require-not (literal "/dev/urandom /dev/random"))
+		(require-any
+			(literal "/dev/null /dev/zero")
+			(literal "/dev/dtracehelper"))))
+(allow file-write-mode
+	(require-all
+		(extension "com.apple.sandbox.pty")
+		(regex #"^/dev/ttys[0-9]" #"^/dev/ttys[0-9]+")))
+(allow file-write-xattr
+	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
+	(require-all
+		(xattr "com.apple.metadata:com_apple_backup_excludeItem")
+		(extension "com.apple.sandbox.system-container")
+		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(xattr "com.apple.metadata:com_apple_backup_excludeItem")
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$"))))
+(allow iokit-get-properties)
+(allow mach-cross-domain-lookup)
+(allow mach-lookup
+	(global-name "com.apple.mobilegestalt.xpc")
+	(global-name "com.apple.hangtracerd com.apple.ReportCrash.SimulateCrash")
+	(global-name "com.apple.lsd.mapdb")
+	(global-name "com.apple.duetknowledged.activity com.apple..lsdlsdicons com.apple..open appsupport.cplogd assertiond.processassertionconnection xpcd coreservices.lsuseractivitymanager.xpc")
+	(global-name "com.apple.diagnosticd")
+	(global-name "com.apple.containermanagerd com.apple.logd.events")
+	(global-name "com.apple.cfprefsd.daemon com.apple.cfprefsd.agent logd system.logger")
+	(global-name "com.apple.tccd com.apple.lsd.advertisingidentifiers com.apple.lsd.openurl")
+	(global-name "com.apple.aggregated")
+	(global-name "com.apple.nano.nanoregistry.paireddeviceregistry com.apple.pairedsyncd.syncstate")
+	(local-name "com.apple.cfprefsd.agent")
+	(global-name "com.apple.nehelper")
+	(global-name "com.apple.GSSCred com.apple.cookied com.apple.nsurlstorage-cache")
+	(global-name "com.apple.accountsd.accountmanager")
+	(global-name "com.apple.cfnetwork.AuthBrokerAgent com.apple.cfnetwork.cfnetworkagent")
+	(global-name "com.apple.nsurlsessiond")
+	(global-name "com.apple.networkd")
+	(global-name "com.apple.usymptomsd")
+	(global-name "com.apple.symptomsd")
+	(global-name "com.apple.securityd")
+	(global-name "com.apple.trustd")
+	(global-name "com.apple.commcenter.xpc")
+	(global-name "com.apple.commcenter.cupolicy.xpc")
+	(global-name "com.apple.SystemConfiguration.configd")
+	(global-name "com.apple.SystemConfiguration.helper com.apple.SystemConfiguration.PPPController")
+	(global-name "com.apple.SystemConfiguration.SCNetworkReachability com.apple.SystemConfiguration.DNSConfiguration com.apple.SystemConfiguration.NetworkInformation")
+	(global-name "com.apple.nesessionmanager")
+	(global-name "com.apple.PowerManagement.control")
+	(global-name "com.apple.gmmd.cookie")
+	(global-name "com.apple.marco")
+	(global-name "com.apple.powerlog.plxpclogger.xpc")
+	(global-name "com.apple.springboard.backgroundappservices")
+	(global-name "com.apple.system.libinfo.muser")
+	(global-name "com.apple.ctkd.token-client com.apple.CoreAuthentication.daemon.libxpc com.apple.managedconfiguration.profiled.public")
+	(global-name "com.apple.system.notification_center")
+	(global-name "com.apple.distributed_notifications@1v3")
+	(require-all
+		(extension "com.apple.security.exception.mach-lookup.global-name")
+		(global-name ""))
+	(require-all
+		(extension "com.apple.security.exception.mach-lookup.local-name")
+		(local-name ""))
+	(require-all
+		(global-name "com.apple.passd.trusted-device-enrollment-info-provider")
+		(require-entitlement "com.apple.private.passkit.trusted-device-enrollment-info"))
+	(require-all
+		(global-name "com.apple.appstored.xpc.updates")
+		(require-entitlement "com.apple.appstored.update-apps"))
+	(require-all
+		(global-name "com.apple.appstored.xpc.jobmanager com.apple.appstored.xpc.request")
+		(require-entitlement "com.apple.itunesstored.private"))
+	(require-all
+		(global-name "com.apple.itunesstored.xpc")
+		(require-entitlement "com.apple.itunesstored.private"))
+	(require-all
+		(global-name "com.apple.appstored.xpc.updates")
+		(require-entitlement "com.apple.itunesstored.private"))
+	(require-all
+		(global-name "com.apple.networkd_privileged")
+		(require-any
+			(require-entitlement "com.apple.networkd.advisory_socket")
+			(require-entitlement "com.apple.networkd.disable_opportunistic")
+			(require-entitlement "com.apple.networkd.modify_settings")
+			(require-entitlement "com.apple.networkd.persistent_interface")
+			(require-entitlement "com.apple.networkd_privileged")))
+	(require-all
+		(global-name "com.apple.appstored.xpc.jobmanager com.apple.appstored.xpc.request")
+		(require-entitlement "com.apple.appstored.install-apps"))
+	(require-all
+		(global-name "com.apple.coreduetd.people")
+		(require-entitlement "com.apple.coreduetd.people"))
+	(require-all
+		(global-name "com.apple.springboard.statusbarservices")
+		(require-entitlement "com.apple.springboard.statusbarstyleoverrides"))
+	(require-all
+		(global-name "com.apple.symptom_diagnostics")
+		(require-entitlement "com.apple.symptom_diagnostics.report"))
+	(require-all
+		(global-name "com.apple.logd.admin")
+		(require-any
+			(require-entitlement "com.apple.private.logging.diagnostic")
+			(require-entitlement "com.apple.diagnosticd.diagnostic")))
+	(require-all
+		(global-name "com.apple.ak.anisette.xpc")
+		(require-any
+			(require-entitlement "com.apple.authkit.client")
+			(require-entitlement "com.apple.authkit.client.private")
+			(require-entitlement "com.apple.authkit.client.internal")
+			(require-all
+				(process-attribute 4)
+				(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))))
+	(require-all
+		(global-name "com.apple.ak.auth.xpc")
+		(require-any
+			(require-entitlement "com.apple.authkit.client")
+			(require-entitlement "com.apple.authkit.client.private")
+			(require-entitlement "com.apple.authkit.client.internal")
+			(require-all
+				(process-attribute 4)
+				(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))))
+	(require-all
+		(global-name "com.apple.bulletinboard.dataproviderconnection")
+		(require-entitlement "com.apple.bulletinboard.dataprovider")))
+(allow nvram*)
+(allow nvram-delete)
+(allow nvram-get)
+(allow nvram-set)
+(allow user-preference-read
+	(preference-domain "com.apple.iokit.IOMobileGraphicsFamily")
+	(preference-domain "com.apple.AppSupport")
+	(preference-domain "com.apple.ConfigServer")
+	(preference-domain "com.apple.GMM")
+	(extension "com.apple.security.exception.shared-preference.read-write")
+	(extension "com.apple.security.exception.shared-preference.read-only")
+	(preference-domain "com.apple.GEO")
+	(preference-domain "com.apple.WebFoundation")
+	(preference-domain "kCFPreferencesAnyApplication")
+	(preference-domain "com.apple.demo-settings com.apple.pairedsync com.apple.NanoRegistry")
+	(preference-domain "com.apple.logging")
+	(require-all
+		(preference-domain "com.apple.demo-settings")
+		(process-attribute 4)
+		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))
+	(require-all
+		(preference-domain "com.apple.bulletinboard")
+		(require-entitlement "com.apple.bulletinboard.dataprovider")))
+(allow user-preference-write
+	(preference-domain "com.apple.GEO")
+	(preference-domain "com.apple.GMM")
+	(preference-domain "kCFPreferencesAnyApplication"))
+(allow process-info*)
+(allow process-info-codesignature)
+(allow process-info-dirtycontrol)
+(allow process-info-listpids)
+(allow process-info-rusage)
+(allow process-info-pidinfo)
+(allow process-info-pidfdinfo)
+(allow process-info-pidfileportinfo)
+(allow process-info-setcontrol)
+(allow pseudo-tty)
+(allow system-privilege)
