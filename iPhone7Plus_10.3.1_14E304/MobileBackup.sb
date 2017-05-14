@@ -1,7 +1,8 @@
 (version 1)
 (allow default)
 (deny file-read*
-	(literal "/private/var/run/mobile_image_mounter/"))
+	(literal "/private/var/run/mobile_image_mounter/")
+(literal "/private/var/run/mobile_image_mounter"))
 (deny file-write-unlink
 	(literal "/private")
 	(literal "/private/var")

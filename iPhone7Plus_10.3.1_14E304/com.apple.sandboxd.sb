@@ -9,21 +9,23 @@
 (allow file-read-metadata)
 (allow file-read-xattr)
 (allow file-write*
-	(literal "${HOME}/")
+	(literal "${PROCESS_TEMP_DIR}/")
+(literal "${PROCESS_TEMP_DIR}")
 	(extension "com.apple.sandbox.system-group")
 	(regex #"^/private/var/mobile/Library/Logs/CrashReporter/Sandbox-.+\.ips" #"^/private/var/mobile/Library/Logs/CrashReporter/\.Sandbox-.+\.ips")
 	(regex #"^/private/var/logs/CrashReporter/Sandbox-.+\.ips" #"^/private/var/logs/CrashReporter/\.Sandbox-.+\.ips")
 	(require-all
-		(literal "")
+		(literal "/cores/")
 		(require-not (file-mode #o0000))))
 (allow file-write-data
 	(literal "/dev/dtracehelper")
-	(literal "/dev/null /dev/zero"))
+	(literal "/dev/null")
+(literal "/dev/zero"))
 (allow iokit-get-properties)
 (allow ipc-posix-shm*
 	(ipc-posix-name "apple.shm.notification_center"))
 (allow ipc-posix-shm-read*
-	(ipc-posix-name ""))
+	(ipc-posix-name "apple.cfprefs."))
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
 	(global-name "com.apple.system.notification_center")
@@ -32,13 +34,17 @@
 	(global-name "com.apple.system.libinfo.muser")
 	(global-name "com.apple.mobilegestalt.xpc")
 	(global-name "com.apple.coresymbolicationd")
-	(global-name "com.apple.cfprefsd.daemon com.apple.cfprefsd.agent logd system.logger")
-	(global-name "com.apple.containermanagerd com.apple.logd.events")
+	(global-name "com.apple.cfprefsd.daemon")
+(global-name "com.apple.cfprefsd.agent")
+(global-name "com.apple.logd")
+(global-name "com.apple.system.logger")
+	(global-name "com.apple.containermanagerd")
+(global-name "com.apple.logd.events")
 	(global-name "com.apple.system.DirectoryService.libinfo_v1")
 	(global-name "com.apple.diagnosticd")
 	(local-name "com.apple.cfprefsd.agent"))
 (allow network*
-	(literal ""))
+	(literal "${PROCESS_TEMP_DIR}/sandbox."))
 (allow network-outbound
 	(require-all
 		(require-not (literal "/private/var/tmp/launchd/sock"))
