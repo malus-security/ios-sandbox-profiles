@@ -798,10 +798,10 @@
 				(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(require-not (global-name "com.apple.pluginkit.pkd"))
 		(require-any

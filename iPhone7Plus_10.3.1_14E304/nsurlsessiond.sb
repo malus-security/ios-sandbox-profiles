@@ -655,10 +655,10 @@
 				(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name "")))
+		(local-name-regex #".+")))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)

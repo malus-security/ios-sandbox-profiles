@@ -598,7 +598,7 @@
 	(global-name "com.apple.commcenter.cupolicy.xpc")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.ak.anisette.xpc")
 		(require-any
@@ -661,7 +661,7 @@
 		(require-entitlement "com.apple.private.passkit.trusted-device-enrollment-info"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.symptom_diagnostics")
 		(require-entitlement "com.apple.symptom_diagnostics.report")))

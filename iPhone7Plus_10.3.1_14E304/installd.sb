@@ -294,7 +294,7 @@
 	(global-name "com.apple.online-auth-agent.xpc")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.appstored.xpc.jobmanager")
 (global-name "com.apple.appstored.xpc.request")
@@ -316,7 +316,7 @@
 		(require-entitlement "com.apple.springboard.statusbarstyleoverrides"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.passd.trusted-device-enrollment-info-provider")
 		(require-entitlement "com.apple.private.passkit.trusted-device-enrollment-info"))

@@ -365,7 +365,7 @@
 	(global-name "com.apple.nehelper")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.networkd_privileged")
 		(require-any
@@ -431,7 +431,7 @@
 		(require-entitlement "com.apple.private.passkit.trusted-device-enrollment-info"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name "")))
+		(local-name-regex #".+")))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)

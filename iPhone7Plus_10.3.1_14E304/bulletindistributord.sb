@@ -530,7 +530,7 @@
 	(global-name "com.apple.lsd.xpc")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.coreduetd.people")
 		(require-entitlement "com.apple.coreduetd.people"))
@@ -564,7 +564,7 @@
 		(require-entitlement "com.apple.symptom_diagnostics.report"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.springboard.statusbarservices")
 		(require-entitlement "com.apple.springboard.statusbarstyleoverrides"))

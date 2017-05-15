@@ -463,7 +463,7 @@
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.bulletinboard.dataproviderconnection")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
@@ -475,7 +475,7 @@
 		(require-entitlement "com.apple.symptom_diagnostics.report"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.passd.trusted-device-enrollment-info-provider")
 		(require-entitlement "com.apple.private.passkit.trusted-device-enrollment-info"))

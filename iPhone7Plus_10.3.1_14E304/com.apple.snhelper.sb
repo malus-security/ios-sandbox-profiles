@@ -167,10 +167,10 @@
 	(global-name "com.apple.snhelper")
 	(require-all
 		(extension "com.apple.security.exception.mach-register.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
-		(global-name "")))
+		(global-name-regex #".+")))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)

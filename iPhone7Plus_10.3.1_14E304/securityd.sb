@@ -284,7 +284,7 @@
 	(global-name "com.apple.distributed_notifications@1v3")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.networkd_privileged")
 		(require-any
@@ -344,7 +344,7 @@
 		(require-entitlement "com.apple.springboard.statusbarstyleoverrides"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.coreduetd.people")
 		(require-entitlement "com.apple.coreduetd.people"))

@@ -1560,10 +1560,10 @@
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.appstored.xpc.jobmanager")
 (global-name "com.apple.appstored.xpc.request")
@@ -1658,10 +1658,10 @@
 	(local-name "com.apple.accessibility.gax.client")
 	(require-all
 		(extension "com.apple.security.exception.mach-register.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
-		(global-name "")))
+		(global-name-regex #".+")))
 (allow network-inbound
 	(require-all
 		(literal "${FRONTEND_HOME}/Library/Mobile Documents/")

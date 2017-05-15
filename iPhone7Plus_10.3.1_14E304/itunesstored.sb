@@ -586,7 +586,7 @@
 	(global-name "com.apple.system.notification_center")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.appstored.xpc.jobmanager")
 (global-name "com.apple.appstored.xpc.request")
@@ -615,7 +615,7 @@
 		(require-entitlement "com.apple.springboard.statusbarstyleoverrides"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.appstored.xpc.updates")
 		(require-entitlement "com.apple.appstored.update-apps"))

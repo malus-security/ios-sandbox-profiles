@@ -247,7 +247,7 @@
 		(require-entitlement "com.apple.appstored.install-apps"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.logd.admin")
 		(require-any
@@ -258,7 +258,7 @@
 		(require-entitlement "com.apple.appstored.update-apps"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name "")))
+		(global-name-regex #".+")))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)

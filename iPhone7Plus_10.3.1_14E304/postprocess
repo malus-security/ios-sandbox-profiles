@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for i in *.sb; do
+    sed -i 's/local-name ""/local-name-regex #".+"/g' "$i"
+    sed -i 's/global-name ""/global-name-regex #".+"/g' "$i"
+done

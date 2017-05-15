@@ -268,7 +268,7 @@
 	(global-name "com.apple.lsd.mapdb")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.springboard.statusbarservices")
 		(require-entitlement "com.apple.springboard.statusbarstyleoverrides"))
@@ -288,7 +288,7 @@
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.symptom_diagnostics")
 		(require-entitlement "com.apple.symptom_diagnostics.report"))

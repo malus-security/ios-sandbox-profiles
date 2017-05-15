@@ -656,7 +656,7 @@
 			(require-entitlement "com.apple.diagnosticd.diagnostic")))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.springboard.statusbarservices")
 		(require-entitlement "com.apple.springboard.statusbarstyleoverrides"))
@@ -672,7 +672,7 @@
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.appstored.xpc.jobmanager")
 (global-name "com.apple.appstored.xpc.request")

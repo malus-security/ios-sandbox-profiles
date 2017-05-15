@@ -832,7 +832,7 @@
 (global-name "com.apple.ExternalAccessory.distributednotification.server")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.coreduetd.people")
 		(require-entitlement "com.apple.coreduetd.people"))
@@ -898,16 +898,16 @@
 		(require-entitlement "com.apple.appstored.update-apps"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name "")))
+		(local-name-regex #".+")))
 (allow mach-register
 	(global-name "com.apple.coremedia.")
 	(global-name "com.apple.midiserver.io")
 	(require-all
 		(extension "com.apple.security.exception.mach-register.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
-		(global-name "")))
+		(global-name-regex #".+")))
 (allow network-inbound
 	(local tcp "*:*"))
 (allow network-outbound

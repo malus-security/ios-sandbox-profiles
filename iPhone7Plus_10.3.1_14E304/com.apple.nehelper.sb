@@ -505,10 +505,10 @@
 	(global-name "com.apple.diagnosticd")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.passd.trusted-device-enrollment-info-provider")
 		(require-entitlement "com.apple.private.passkit.trusted-device-enrollment-info"))
@@ -577,10 +577,10 @@
 	(global-name "com.apple.networkd_privileged")
 	(require-all
 		(extension "com.apple.security.exception.mach-register.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
-		(global-name "")))
+		(global-name-regex #".+")))
 (allow network*
 	(literal "/private/var/run/racoon.sock")
 	(local udp "*:500")

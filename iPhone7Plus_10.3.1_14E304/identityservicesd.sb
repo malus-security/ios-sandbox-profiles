@@ -515,7 +515,7 @@
 (global-name "com.apple.managedconfiguration.profiled.public")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.logd.admin")
 		(require-any
@@ -532,7 +532,7 @@
 		(debug-mode))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.symptom_diagnostics")
 		(require-entitlement "com.apple.symptom_diagnostics.report"))

@@ -492,10 +492,10 @@
 	(global-name "com.f5.f5_sslvpn_plugin")
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-register.local-name")
-		(local-name "")))
+		(local-name-regex #".+")))
 (allow network*)
 (allow network-inbound)
 (allow network-bind)

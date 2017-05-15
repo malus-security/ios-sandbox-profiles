@@ -423,10 +423,10 @@
 	(global-name "com.apple.iohideventsystem")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(require-not (global-name "com.apple.system.notification_center"))
 		(require-any
@@ -489,10 +489,10 @@
 	(local-name "com.apple.iphone.axserver")
 	(require-all
 		(extension "com.apple.security.exception.mach-register.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
-		(global-name "")))
+		(global-name-regex #".+")))
 (allow network-inbound
 	(require-all
 		(extension "com.apple.sandbox.container")

@@ -473,10 +473,10 @@
 	(global-name-regex #"^com\.apple\.CoreTelephony\.LogChannel\.$" #"^com\.apple\.CoreTelephony\.LogChannel\.[-0-9A-F]+$")
 	(require-all
 		(extension "com.apple.security.exception.mach-register.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
-		(global-name "")))
+		(global-name-regex #".+")))
 (allow network-inbound
 	(local ip "*:*")
 	(require-all

@@ -627,7 +627,7 @@
 	(global-name "com.apple.identityservicesd.embedded.auth")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.coreduetd.people")
 		(require-entitlement "com.apple.coreduetd.people"))
@@ -677,7 +677,7 @@
 		(require-entitlement "com.apple.appstored.install-apps"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.passd.trusted-device-enrollment-info-provider")
 		(require-entitlement "com.apple.private.passkit.trusted-device-enrollment-info"))

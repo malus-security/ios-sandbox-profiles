@@ -390,7 +390,7 @@
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.bulletinboard.dataproviderconnection")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
@@ -405,7 +405,7 @@
 		(require-entitlement "com.apple.springboard.statusbarstyleoverrides"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(global-name ""))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.appstored.xpc.jobmanager")
 (global-name "com.apple.appstored.xpc.request")

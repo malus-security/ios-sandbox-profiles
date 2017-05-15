@@ -593,10 +593,10 @@
 (global-name "com.apple.ExternalAccessory.distributednotification.server")
 	(require-all
 		(extension "com.apple.security.exception.mach-register.local-name")
-		(local-name ""))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
-		(global-name "")))
+		(global-name-regex #".+")))
 (allow network-bind
 	(require-all
 		(literal "${HOME}/")
