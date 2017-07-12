@@ -1,0 +1,54 @@
+(version 1)
+(deny default)
+(allow file-issue-extension
+	(require-all
+		(require-not (subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+		(extension-class-regex #"^com\.apple\.tcc\.")))
+(allow file-read*)
+(allow file-read-data)
+(allow file-read-metadata)
+(allow file-read-xattr)
+(allow file-write*
+	(require-all
+		(require-not (subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+		(require-any
+			(regex #"^/private/var/mobile/Library/Logs/CrashReporter/TCCService-[^/]" #"^/private/var/mobile/Library/Logs/CrashReporter/Retired/TCCService-[^/]" #"^/private/var/mobile/Library/Logs/CrashReporter/TCCService-[^/]+" #"^/private/var/mobile/Library/Logs/CrashReporter/Retired/TCCService-[^/]+")
+			(subpath "/private/var/tmp/com.apple.tccd")
+			(literal "/private/var/mobile/Library/Logs/TCCService.log")
+			(subpath "/private/var/mobile/Library/TCC"))))
+(allow iokit-open
+	(iokit-user-client-class "AppleMobileFileIntegrityUserClient"))
+(allow iokit-get-properties)
+(allow ipc-posix-shm*
+	(ipc-posix-name "apple.shm.notification_center"))
+(allow mach-bootstrap)
+(allow mach-lookup
+	(global-name "com.apple.backboard.systemservices")
+	(global-name "com.apple.librariand")
+	(global-name "com.apple.mobile.installd")
+	(global-name "com.apple.mobilegestalt.xpc")
+	(global-name "com.apple.springboard.backgroundappservices")
+	(global-name "com.apple.springboard.services")
+	(global-name "com.apple.system.logger")
+	(global-name "com.apple.system.notification_center")
+	(global-name "com.apple.SBUserNotification"))
+(allow network-outbound
+	(require-all
+		(require-not (subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+		(require-not (regex #"^/private/tmp/launchd-[0-9]+\.[^/]+/sock$"))
+		(require-not (literal "/private/var/tmp/launchd/sock"))
+		(regex #"^/private/tmp/\.webdavUDS\.[^/]+$")))
+(allow priv*)
+(allow priv-adjtime)
+(allow priv-netinet*)
+(allow priv-netinet-reservedport)
+(allow process-info*)
+(allow process-info-listpids)
+(allow process-info-pidinfo)
+(allow process-info-pidfdinfo)
+(allow process-info-pidfileportinfo)
+(allow process-info-setcontrol)
+(allow process-info-dirtycontrol)
+(allow process-info-rusage)
+(allow signal)
+(allow sysctl-read)

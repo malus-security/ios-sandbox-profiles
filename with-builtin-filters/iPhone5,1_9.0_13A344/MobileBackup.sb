@@ -1,0 +1,20 @@
+(version 1)
+(allow default)
+(deny file-read*
+	(subpath "/private/var/run/mobile_image_mounter"))
+(deny file-write*
+	(regex #"/com\.apple\.sandbox$" #"/com\.apple\.sandbox/" #".+/com\.apple\.sandbox$" #".+/com\.apple\.sandbox/"))
+(deny file-write-create
+	(regex #"/com\.apple\.sandbox$" #"/com\.apple\.sandbox/" #".+/com\.apple\.sandbox$" #".+/com\.apple\.sandbox/"))
+(deny file-write-unlink
+	(regex #"/com\.apple\.sandbox$" #"/com\.apple\.sandbox/" #".+/com\.apple\.sandbox$" #".+/com\.apple\.sandbox/")
+	(literal "/private")
+	(literal "/private/var")
+	(literal "/private/var/run"))
+(deny job-creation)
+(deny network-bind
+	(regex #"/com\.apple\.sandbox$" #"/com\.apple\.sandbox/" #".+/com\.apple\.sandbox$" #".+/com\.apple\.sandbox/"))
+(deny network-outbound
+	(literal "/private/var/tmp/launchd/sock")
+	(regex #"^/private/tmp/launchd-[0-9]+\.[^/]+/sock$")
+	(regex #"/com\.apple\.sandbox$" #"/com\.apple\.sandbox/" #".+/com\.apple\.sandbox$" #".+/com\.apple\.sandbox/"))

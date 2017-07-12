@@ -1,0 +1,154 @@
+(version 1)
+(deny default)
+(allow file*
+	(require-all
+		(require-not (subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+		(require-any
+			(literal "/private/var/log/racoon.log")
+			(literal "/Library/Keychains/System.keychain")
+			(literal "/private/var/db/mds/system/mdsDirectory.db")
+			(literal "/private/var/db/mds/system/mds.lock")
+			(literal "/private/var/db/mds/system/mdsObject.db")
+			(literal "/var/log/racoon.log"))))
+(allow file-ioctl
+	(require-all
+		(require-not (subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+		(require-any
+			(subpath "/private/etc/master.passwd")
+			(subpath "/private/etc/racoon")
+			(literal "/private/var/preferences/SystemConfiguration/com.apple.ipsec.plist")
+			(subpath "/private/var/run/racoon")
+			(literal "/dev/aes_0")
+			(literal "/dev/dtracehelper")
+			(literal "/dev/sha1_0")
+			(literal "/dev/dtracehelper"))))
+(allow file-read*
+	(literal "/dev/random")
+	(literal "/dev/urandom")
+	(literal "/dev/null")
+	(literal "/dev/zero")
+	(literal "/dev/dtracehelper")
+	(subpath "/private/etc/master.passwd")
+	(subpath "/private/etc/racoon")
+	(literal "/private/var/preferences/SystemConfiguration/com.apple.ipsec.plist")
+	(subpath "/private/var/run/racoon")
+	(subpath "/Library/Managed Preferences")
+	(literal "/private/var/db/mds/messages/se_SecurityMessages")
+	(literal "/private/var/mobile/Library/Caches/com.apple.MobileGestalt.plist")
+	(subpath "/private/var/root")
+	(subpath "/Library/Preferences")
+	(subpath "/usr/share")
+	(literal "/dev/urandom")
+	(literal "/dev/random")
+	(subpath "/private/var/db/timezone")
+	(literal "/dev/null")
+	(literal "/dev/zero")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper")
+	(literal "/dev/sha1_0")
+	(require-all
+		(file-mode #o0004)
+		(require-any
+			(subpath "/usr/sbin")
+			(subpath "/usr/lib")
+			(subpath "/System")
+			(subpath "/usr/share")))
+	(require-all
+		(file-mode #o0004)
+		(require-any
+			(subpath "/System")
+			(subpath "/private/var/db/dyld")
+			(subpath "/usr/share")
+			(subpath "/usr/lib"))))
+(allow file-read-metadata
+	(literal "/etc")
+	(literal "/tmp")
+	(literal "/var")
+	(literal "/private/etc/localtime")
+	(literal "/etc")
+	(literal "/var")
+	(literal "/tmp"))
+(allow file-write*
+	(require-all
+		(require-not (subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+		(require-any
+			(literal "/private/var/run/racoon.sock")
+			(literal "/private/var/run/racoon.pid")
+			(require-all
+				(regex #"^/cores/")
+				(require-not (file-mode #o0000))))))
+(allow file-write-data
+	(require-all
+		(require-not (subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+		(require-any
+			(literal "/dev/zero")
+			(literal "/dev/dtracehelper")
+			(literal "/dev/null")
+			(literal "/dev/zero")
+			(literal "/dev/aes_0")
+			(literal "/dev/dtracehelper")
+			(literal "/dev/sha1_0")
+			(literal "/dev/null"))))
+(allow iokit-open
+	(iokit-user-client-class "RootDomainUserClient")
+	(iokit-user-client-class "AppleMobileFileIntegrityUserClient"))
+(allow iokit-get-properties)
+(allow ipc-posix*
+	(ipc-posix-name "com.apple.securityd"))
+(allow ipc-posix-shm*
+	(ipc-posix-name "com.apple.AppleDatabaseChanged")
+	(ipc-posix-name "apple.shm.notification_center"))
+(allow mach-bootstrap)
+(allow mach-lookup
+	(global-name "com.apple.system.logger")
+	(global-name "com.apple.system.notification_center")
+	(global-name "com.apple.SecurityServer")
+	(global-name "com.apple.aggregated")
+	(global-name "com.apple.commcenter.xpc")
+	(global-name "com.apple.ocspd")
+	(global-name "com.apple.SystemConfiguration.configd")
+	(global-name "com.apple.securityd")
+	(global-name "com.apple.system.notification_center")
+	(global-name "com.apple.system.logger")
+	(global-name "com.apple.bsd.dirhelper")
+	(global-name "com.apple.system.DirectoryService.libinfo_v1"))
+(allow network*
+	(require-all
+		(require-not (subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+		(require-any
+			(local udp "*:500")
+			(remote udp "*:*")
+			(literal "/private/var/run/racoon.sock")
+			(local udp "*:4500"))))
+(allow network-outbound
+	(require-all
+		(require-not (subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
+		(require-not (regex #"^/private/tmp/launchd-[0-9]+\.[^/]+/sock$"))
+		(require-not (literal "/private/var/tmp/launchd/sock"))
+		(require-any
+			(literal "/private/var/run/asl_input")
+			(subpath "/private/var/tmp/launchd")
+			(literal "/private/var/run/asl_input")
+			(literal "/private/var/run/syslog")
+			(control-name "com.apple.net.ipsec_control"))))
+(allow priv*)
+(allow priv-adjtime)
+(allow priv-netinet*)
+(allow priv-netinet-reservedport)
+(allow process-info*)
+(allow process-info-listpids)
+(allow process-info-pidinfo)
+(allow process-info-pidfdinfo)
+(allow process-info-pidfileportinfo)
+(allow process-info-setcontrol)
+(allow process-info-dirtycontrol)
+(allow process-info-rusage)
+(allow signal
+	(target self)
+	(target self))
+(allow sysctl*)
+(allow sysctl-read)
+(allow sysctl-write)
+(allow system-info
+	(info-type "net.link.addr"))
+(allow system-socket)

@@ -1,0 +1,71 @@
+(version 1)
+(deny default)
+(allow file-ioctl
+	(require-all
+		(require-not (regex #"/com\.apple\.sandbox$" #"/com\.apple\.sandbox/" #".+/com\.apple\.sandbox$" #".+/com\.apple\.sandbox/"))
+		(require-any
+			(literal "/dev/ptmx")
+			(literal "/dev/dtracehelper")
+			(literal "/dev/aes_0"))))
+(allow file-read*
+	(literal "/dev/dtracehelper")
+	(literal "/private/var/preferences/SystemConfiguration/com.apple.wifi.plist")
+	(subpath "/usr/share/zoneinfo.default")
+	(subpath "/AppleInternal")
+	(subpath "/usr/share/firmware/wifi")
+	(literal "/private/var/logs/wifiFirmwareLoader.log")
+	(literal "/dev/null")
+	(literal "/dev/zero")
+	(literal "/dev/random")
+	(literal "/dev/urandom")
+	(literal "/dev/aes_0")
+	(literal "/dev/ptmx")
+	(require-all
+		(regex #"^/dev/ttys[0-9]" #"^/dev/ttys[0-9]+")
+		(extension "com.apple.sandbox.pty"))
+	(require-all
+		(vnode-type TTY)
+		(regex #"^/dev/ttyp[0-9a-f]$" #"^/dev/ptyp[0-9a-f]$")))
+(allow file-read-metadata)
+(allow file-write*
+	(require-all
+		(require-not (regex #"/com\.apple\.sandbox$" #"/com\.apple\.sandbox/" #".+/com\.apple\.sandbox$" #".+/com\.apple\.sandbox/"))
+		(require-any
+			(literal "/dev/ptmx")
+			(literal "/dev/dtracehelper")
+			(literal "/private/var/logs/wifiFirmwareLoader.log")
+			(literal "/dev/aes_0")
+			(require-all
+				(vnode-type TTY)
+				(regex #"^/dev/ttyp[0-9a-f]$" #"^/dev/ptyp[0-9a-f]$"))
+			(require-all
+				(regex #"^/dev/ttys[0-9]" #"^/dev/ttys[0-9]+")
+				(extension "com.apple.sandbox.pty"))
+			(require-all
+				(require-not (literal "/dev/urandom"))
+				(require-not (literal "/dev/random"))
+				(require-any
+					(literal "/dev/null")
+					(literal "/dev/zero"))))))
+(allow iokit-open
+	(iokit-user-client-class "AppleBCMWLANUserClient"))
+(allow iokit-get-properties)
+(allow ipc-posix-shm-read-data
+	(ipc-posix-name "apple.shm.notification_center"))
+(allow mach-bootstrap)
+(allow mach-lookup
+	(global-name "com.apple.system.logger")
+	(global-name "com.apple.system.notification_center"))
+(allow process-info*)
+(allow process-info-listpids)
+(allow process-info-pidinfo)
+(allow process-info-pidfdinfo)
+(allow process-info-pidfileportinfo)
+(allow process-info-setcontrol)
+(allow process-info-dirtycontrol)
+(allow process-info-rusage)
+(allow pseudo-tty)
+(allow signal
+	(target self))
+(allow sysctl-read)
+(allow system-privilege)
