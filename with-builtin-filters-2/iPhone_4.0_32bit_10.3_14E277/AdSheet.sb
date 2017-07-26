@@ -1,9 +1,5 @@
 (version 1)
 (deny default)
-(allow file-ioctl
-	(literal "/dev/ptmx")
-	(literal "/dev/aes_0")
-	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -316,22 +312,6 @@
 			(require-all
 				(process-attribute 4)
 				(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))))
-(allow file-map-executable
-	(require-any (subpath "/System/Library/Frameworks")
-(subpath "/System/Library/PrivateFrameworks"))
-	(extension "com.apple.sandbox.executable")
-	(subpath "/System/Library")
-	(subpath "/usr/lib")
-	(subpath "/Developer")
-	(require-all
-		(subpath "/AppleInternal")
-		(debug-mode))
-	(require-all
-		(subpath "/usr/local/lib")
-		(debug-mode))
-	(require-all
-		(subpath-prefix "${FRONT_USER_HOME}/XcodeBuiltProducts")
-		(debug-mode)))
 (allow file-read*
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
@@ -1082,22 +1062,13 @@
 (iokit-user-client-class "IOAccelSubmitter2"))
 	(iokit-user-client-class "IOHIDLibUserClient"))
 (allow iokit-get-properties)
-(allow ipc-posix-sem-open
-	(ipc-posix-name "containermanagerd.fb_check"))
-(allow ipc-posix-shm*
-	(require-any (ipc-posix-name "stack-logs")
-(ipc-posix-name "OA-")
-(ipc-posix-name "/FSM-")))
 (allow ipc-posix-shm-read*
 	(require-any (ipc-posix-name "apple.shm.notification_center")
 (ipc-posix-name "apple.cfprefs."))
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
+	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$"))
 (allow ipc-posix-shm-write-data
 	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$"))
-(allow ipc-posix-shm-write-unlink
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
 	(global-name "com.apple.springboard.services")
@@ -1452,8 +1423,6 @@
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
 		(global-name-regex #".+")))
-(allow mach-task-name
-	(target self))
 (allow network-inbound
 	(require-all
 		(subpath-prefix "${HOME}/Library/Mobile Documents")
@@ -1609,8 +1578,6 @@
 (allow process-info-pidfileportinfo)
 (allow process-info-setcontrol)
 (allow pseudo-tty)
-(allow sysctl*
-	(extension "com.apple.security.exception.sysctl.read-write"))
 (allow sysctl-read
 	(sysctl-name "net.statistics")
 	(extension "com.apple.security.exception.sysctl.read-only")
@@ -1635,8 +1602,6 @@
 (allow system-info
 	(info-type "net.link.addr"))
 (allow system-privilege)
-(allow system-sched
-	(require-entitlement "com.apple.private.kernel.override-cpumon"))
 (allow system-socket
 	(socket-domain AF_ROUTE)
 	(require-all
