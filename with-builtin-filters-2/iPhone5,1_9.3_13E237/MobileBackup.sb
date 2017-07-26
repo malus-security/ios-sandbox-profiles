@@ -1,0 +1,9 @@
+(version 1)
+(allow default)
+(deny file-read*
+	(subpath "/private/var/run/mobile_image_mounter"))
+(deny file-write-unlink
+	(literal "/private/var/run")
+	(literal "/private")
+	(literal "/private/var"))
+(deny job-creation)

@@ -1,0 +1,13 @@
+(version 1)
+(allow default)
+(deny network*
+	(regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")
+	(local ip "*:*"))
+(deny network-inbound
+	(regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
+(deny network-bind
+	(regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
+(deny network-outbound
+	(regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")
+	(literal "/private/var/tmp/launchd/sock")
+	(regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$"))
