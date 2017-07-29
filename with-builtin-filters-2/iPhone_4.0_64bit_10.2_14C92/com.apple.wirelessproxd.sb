@@ -1,5 +1,7 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/dtracehelper"))
 (allow file-link)
 (allow file-map-executable)
 (allow file-read*
@@ -64,5 +66,7 @@
 (allow process-info-pidfdinfo)
 (allow process-info-pidfileportinfo)
 (allow process-info-setcontrol)
+(allow signal
+	(target self))
 (allow sysctl-read)
 (allow system-privilege)

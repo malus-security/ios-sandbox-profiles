@@ -448,8 +448,8 @@
 (allow mach-lookup)
 (allow mach-register
 	(local-name "com.apple.iphone.axserver")
-	(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
-	(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(global-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
 	(local-name "com.apple.accessibility.gax.client"))
 (allow network*
 	(require-all

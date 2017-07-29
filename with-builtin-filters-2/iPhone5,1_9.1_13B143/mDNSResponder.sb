@@ -1,5 +1,11 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(require-all
+		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
+		(literal "/dev/dtracehelper")))
+(allow file-link
+	(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")))
 (allow file-read*
 	(regex #"^/private/var/tmp/mds/[0-9]+/" #"^/private/var/tmp/mds/[0-9]+$")
 	(regex #"^/private/var/db/mds/[0-9]+/" #"^/private/var/db/mds/[0-9]+$")
@@ -67,6 +73,7 @@
 			(literal "/dev/zero"))))
 (allow iokit-open
 	(iokit-user-client-class "RootDomainUserClient")
+	(iokit-user-client-class "AppleMobileFileIntegrityUserClient")
 	(iokit-user-client-class "NVEthernetUserClientMDNS")
 	(iokit-user-client-class "mDNSOffloadUserClient")
 	(iokit-user-client-class "wlDNSOffloadUserClient"))
@@ -131,6 +138,10 @@
 (allow process-info-setcontrol)
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
+(allow signal
+	(target self))
 (allow sysctl-read)
+(allow system-info
+	(info-type "net.link.addr"))
 (allow system-privilege)
 (allow system-socket)

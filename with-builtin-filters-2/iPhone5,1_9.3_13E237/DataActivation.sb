@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(extension-class "com.apple.quicklook.readonly")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -380,7 +384,7 @@
 	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.AOSNotification.public.notbackedup.plist")
 	(subpath "/AppleInternal/Library/Frameworks/RadarCompose.framework")
 	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.DataAccess.BehaviorOptions.plist")
-	(regex-prefix "${HOME}/Library/Preferences/com[.]apple[.]DataActivation.plist")
+	(prefix-regex-prefix "${HOME}/Library/Preferences/com[.]apple[.]DataActivation.plist")
 	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.assistant.plist")
 	(subpath "/private/var/tmp")
 	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.camera.plist")
@@ -542,8 +546,8 @@
 				(vnode-type TTY)
 				(regex #"^/dev/ttyp[0-9a-f]$" #"^/dev/ptyp[0-9a-f]$"))
 			(require-all
-				(vnode-type BLOCK-DEVICE)
-				(vnode-type CHARACTER-DEVICE)
+				(require-not (vnode-type BLOCK-DEVICE))
+				(require-not (vnode-type CHARACTER-DEVICE))
 				(require-any
 					(literal "/private/etc/protocols")
 					(literal "/private/etc/services")
@@ -596,7 +600,7 @@
 		(require-not (prefix-prefix "${HOME}/Library/Caches/DateFormats.plist"))
 		(require-any
 			(prefix-prefix "${HOME}/Library/Preferences/com.apple.dataaccess.launchd")
-			(regex-prefix "${HOME}/Library/Preferences/com[.]apple[.]DataActivation.plist")
+			(prefix-regex-prefix "${HOME}/Library/Preferences/com[.]apple[.]DataActivation.plist")
 			(subpath "/private/var/tmp")
 			(prefix-prefix "${HOME}/Media/com.apple.itunes.lock_sync")
 			(prefix-prefix "${HOME}/Media/Photos")
@@ -655,8 +659,8 @@
 							(require-entitlement "com.apple.security.system-groups")
 							(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
 					(require-all
-						(vnode-type BLOCK-DEVICE)
-						(vnode-type CHARACTER-DEVICE)
+						(require-not (vnode-type BLOCK-DEVICE))
+						(require-not (vnode-type CHARACTER-DEVICE))
 						(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 						(require-entitlement "com.apple.coreduetd.people"))
 					(require-all
@@ -753,9 +757,33 @@
 	(iokit-user-client-class "IOSurfaceRootUserClient")
 	(iokit-user-client-class "AppleMobileFileIntegrityUserClient"))
 (allow iokit-get-properties)
+(allow ipc-posix-shm*
+	(ipc-posix-name-regex #"^stack-logs")
+	(ipc-posix-name-regex #"^OA-")
+	(ipc-posix-name-regex #"^/FSM-"))
+(allow ipc-posix-shm-read*
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]")
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name "apple.shm.notification_center"))
+(allow ipc-posix-shm-write-data
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$"))
+(allow ipc-posix-shm-write-unlink
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-bootstrap)
 (allow mach-cross-domain-lookup)
 (allow mach-lookup)
+(allow mach-register
+	(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(local-name "com.apple.iphone.axserver")
+	(local-name "com.apple.accessibility.gax.client")
+	(require-all
+		(extension "com.apple.security.exception.mach-register.local-name")
+		(local-name-regex #".+"))
+	(require-all
+		(extension "com.apple.security.exception.mach-register.global-name")
+		(global-name-regex #".+")))
 (allow network-outbound
 	(require-all
 		(require-not (literal "/private/var/tmp/launchd/sock"))
@@ -857,5 +885,17 @@
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
 (allow pseudo-tty)
+(allow signal
+	(target self))
 (allow sysctl-read)
+(allow system-fsctl
+	(fsctl-command (_IO "h" 31))
+	(fsctl-command (_IO "h" 32)))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

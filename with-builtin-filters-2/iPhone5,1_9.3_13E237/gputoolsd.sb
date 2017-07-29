@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -188,8 +192,8 @@
 		(vnode-type TTY)
 		(regex #"^/dev/ttyp[0-9a-f]$" #"^/dev/ptyp[0-9a-f]$"))
 	(require-all
-		(vnode-type BLOCK-DEVICE)
-		(vnode-type CHARACTER-DEVICE))
+		(require-not (vnode-type BLOCK-DEVICE))
+		(require-not (vnode-type CHARACTER-DEVICE)))
 	(require-all
 		(prefix-prefix "${HOME}/XcodeBuiltProducts")
 		(debug-mode))
@@ -237,8 +241,8 @@
 			(require-entitlement "com.apple.security.system-group-containers")
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
 	(require-all
-		(vnode-type BLOCK-DEVICE)
-		(vnode-type CHARACTER-DEVICE)
+		(require-not (vnode-type BLOCK-DEVICE))
+		(require-not (vnode-type CHARACTER-DEVICE))
 		(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
@@ -296,7 +300,8 @@
 	(iokit-user-client-class "IOAccelSubmitter2")
 	(iokit-user-client-class "IOAccelContext2")
 	(iokit-user-client-class "IOAccelDevice2")
-	(iokit-user-client-class "IOAccelSharedUserClient2"))
+	(iokit-user-client-class "IOAccelSharedUserClient2")
+	(iokit-user-client-class "AppleMobileFileIntegrityUserClient"))
 (allow iokit-get-properties)
 (allow ipc-posix-shm*)
 (allow ipc-posix-shm-read*)
@@ -361,11 +366,18 @@
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(regex #"." #".+"))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(regex #"." #".+")))
+		(global-name-regex #".+")))
 (allow mach-priv-task-port)
+(allow mach-register
+	(require-all
+		(extension "com.apple.security.exception.mach-register.global-name")
+		(global-name-regex #".+"))
+	(require-all
+		(extension "com.apple.security.exception.mach-register.local-name")
+		(local-name-regex #".+")))
 (allow network-outbound
 	(require-all
 		(require-not (literal "/private/var/tmp/launchd/sock"))
@@ -379,6 +391,15 @@
 (allow nvram-delete)
 (allow nvram-get)
 (allow nvram-set)
+(allow user-preference-read
+	(preference-domain "kCFPreferencesAnyApplication")
+	(extension "com.apple.security.exception.shared-preference.read-write")
+	(extension "com.apple.security.exception.shared-preference.read-only")
+	(require-all
+		(preference-domain "com.apple.bulletinboard")
+		(require-entitlement "com.apple.bulletinboard.dataprovider")))
+(allow user-preference-write
+	(extension "com.apple.security.exception.shared-preference.read-write"))
 (allow process-exec*
 	(literal "/Developer/usr/libexec/gputoolsd"))
 (allow process-info*)
@@ -393,3 +414,5 @@
 (allow signal)
 (allow sysctl-read)
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))

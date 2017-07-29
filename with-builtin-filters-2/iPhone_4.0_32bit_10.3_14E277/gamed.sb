@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -137,6 +141,24 @@
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
 		(extension "com.apple.sandbox.executable")))
+(allow file-link
+	(require-not (subpath-prefix "${HOME}/Library/AddressBook")))
+(allow file-map-executable
+	(require-any (subpath "/System/Library/Frameworks")
+(subpath "/System/Library/PrivateFrameworks"))
+	(extension "com.apple.sandbox.executable")
+	(subpath "/System/Library")
+	(subpath "/usr/lib")
+	(subpath "/Developer")
+	(require-all
+		(subpath "/AppleInternal")
+		(debug-mode))
+	(require-all
+		(subpath "/usr/local/lib")
+		(debug-mode))
+	(require-all
+		(subpath-prefix "${FRONT_USER_HOME}/XcodeBuiltProducts")
+		(debug-mode)))
 (allow file-read*
 	(literal "/private/var/preferences/com.apple.security.plist")
 	(subpath "/Developer")
@@ -272,8 +294,8 @@
 		(require-any (regex #"/dev/ttyp[a-f0-9]")
 (regex #"/dev/ptyp[a-f0-9]")))
 	(require-all
-		(vnode-type BLOCK-DEVICE)
-		(vnode-type CHARACTER-DEVICE)
+		(require-not (vnode-type BLOCK-DEVICE))
+		(require-not (vnode-type CHARACTER-DEVICE))
 		(require-any
 			(literal "/private/etc/hosts")
 			(require-any (literal "/private/etc/group")
@@ -293,12 +315,12 @@
 			(require-all
 				(literal "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/CloudConfigurationDetails.plist")
 				(process-attribute 4)
-				(require-entitlement "com.apple.private.amfi.can-execute-cdhash"))
+				(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))
 			(require-all
 				(require-any (literal-prefix "${FRONT_USER_HOME}/Library/ConfigurationProfiles/CloudConfigurationDetails.plist")
 (literal-prefix "${FRONT_USER_HOME}/Library/UserConfigurationProfiles/CloudConfigurationDetails.plist"))
 				(process-attribute 4)
-				(require-entitlement "com.apple.private.amfi.can-execute-cdhash")))))
+				(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))))
 (allow file-read-metadata
 	(vnode-type SYMLINK)
 	(require-any (literal-prefix "${FRONT_USER_HOME}/Library/Logs/PersistentConnection")
@@ -412,7 +434,26 @@
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")
 			(require-entitlement "com.apple.security.system-group-containers")
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$"))))
+(allow iokit-open
+	(require-any (iokit-user-client-class "AppleJPEGDriverUserClient")
+(iokit-user-client-class "IOSurfaceAcceleratorClient"))
+	(iokit-user-client-class "AppleKeyStoreUserClient")
+	(extension "com.apple.security.exception.iokit-user-client-class")
+	(iokit-user-client-class "IOSurfaceRootUserClient")
+	(iokit-user-client-class "IOMobileFramebufferUserClient"))
 (allow iokit-get-properties)
+(allow ipc-posix-sem-open
+	(ipc-posix-name "containermanagerd.fb_check"))
+(allow ipc-posix-shm*
+	(require-any (ipc-posix-name "stack-logs")
+(ipc-posix-name "OA-")
+(ipc-posix-name "/FSM-")))
+(allow ipc-posix-shm-read*
+	(require-any (ipc-posix-name "apple.shm.notification_center")
+(ipc-posix-name "apple.cfprefs."))
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
+(allow ipc-posix-shm-write-data
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
 	(global-name "com.apple.springboard.backgroundappservices")
@@ -596,6 +637,17 @@
 	(require-all
 		(global-name "com.apple.passd.trusted-device-enrollment-info-provider")
 		(require-entitlement "com.apple.private.passkit.trusted-device-enrollment-info")))
+(allow mach-register
+	(require-all
+		(extension "com.apple.security.exception.mach-register.global-name")
+		(global-name-regex #".+"))
+	(require-all
+		(extension "com.apple.security.exception.mach-register.local-name")
+		(local-name-regex #".+")))
+(allow mach-task-name
+	(target self))
+(allow network-inbound
+	(local udp "*:*"))
 (allow network-outbound
 	(require-all
 		(require-not (literal "/private/var/tmp/launchd/sock"))
@@ -660,6 +712,7 @@
 		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))
 (allow user-preference-write
 	(preference-domain "com.apple.logging")
+	(extension "com.apple.security.exception.shared-preference.read-write")
 	(preference-domain "com.apple.conference")
 	(preference-domain "com.apple.gamed")
 	(preference-domain "com.apple.gamecenter"))
@@ -675,4 +728,32 @@
 (allow process-info-pidfileportinfo)
 (allow process-info-setcontrol)
 (allow pseudo-tty)
+(allow sysctl*
+	(extension "com.apple.security.exception.sysctl.read-write"))
+(allow sysctl-read
+	(require-not (sysctl-name "sysctl.proc_native"))
+	(sysctl-name "net.statistics")
+	(require-any (sysctl-name "kern.ipc.maxsockbuf")
+(sysctl-name "kern.nisdomainname"))
+	(sysctl-name "net.routetable.")
+	(extension "com.apple.security.exception.sysctl.read-only")
+	(extension "com.apple.security.exception.sysctl.read-write")
+	(require-all
+		(require-any (sysctl-name "kern.proc.")
+(sysctl-name "kern.procargs2."))
+		(require-entitlement "com.apple.security.exception.process-info"))
+	(require-all
+		(require-any (sysctl-name "kern.argmax")
+(sysctl-name "kern.proc.pid."))
+		(process-attribute 4)
+		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))
+(allow system-info
+	(info-type "net.link.addr"))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

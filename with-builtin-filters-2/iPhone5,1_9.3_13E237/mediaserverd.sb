@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -334,8 +338,8 @@
 				(vnode-type TTY)
 				(regex #"^/dev/ttyp[0-9a-f]$" #"^/dev/ptyp[0-9a-f]$"))
 			(require-all
-				(vnode-type BLOCK-DEVICE)
-				(vnode-type CHARACTER-DEVICE)
+				(require-not (vnode-type BLOCK-DEVICE))
+				(require-not (vnode-type CHARACTER-DEVICE))
 				(require-any
 					(literal "/private/etc/protocols")
 					(literal "/private/etc/services")
@@ -424,8 +428,8 @@
 				(extension "com.apple.sandbox.system-container")
 				(require-entitlement "com.apple.security.system-container"))
 			(require-all
-				(vnode-type BLOCK-DEVICE)
-				(vnode-type CHARACTER-DEVICE)
+				(require-not (vnode-type BLOCK-DEVICE))
+				(require-not (vnode-type CHARACTER-DEVICE))
 				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
@@ -539,6 +543,7 @@
 	(iokit-user-client-class "IOAccelContext2")
 	(iokit-user-client-class "IOAccelDevice2")
 	(iokit-user-client-class "IOAccelSharedUserClient2")
+	(iokit-user-client-class "AppleMobileFileIntegrityUserClient")
 	(extension "com.apple.security.exception.iokit-user-client-class")
 	(iokit-user-client-class "AppleKeyStoreUserClient")
 	(iokit-user-client-class "com_apple_audio_IOBorealisOwlUserClient")
@@ -556,18 +561,18 @@
 	(ipc-posix-name "shm_pcm_audio_acl")
 	(ipc-posix-name "shm_pcm_audio_sco_read")
 	(ipc-posix-name "shm_pcm_audio_sco_write")
-	(regex #"^AppleABL[.]." #"^AppleABL[.].+")
-	(regex #"^AppleAURemoteIO[.]." #"^AppleAURemoteIO[.].+")
-	(regex #"^AppleAudioQueue[.]." #"^AppleAudioQueue[.].+")
-	(regex #"^com[.]apple[.]audio[.]abl[.]")
-	(regex #"^shm_notif[.][^.]+[.][RW]$")
-	(regex #"^[0-9A-F][0-9A-F]:+[0-9A-F][0-9A-F]-tacl$"))
+	(ipc-posix-name-regex #"^AppleABL[.]." #"^AppleABL[.].+")
+	(ipc-posix-name-regex #"^AppleAURemoteIO[.]." #"^AppleAURemoteIO[.].+")
+	(ipc-posix-name-regex #"^AppleAudioQueue[.]." #"^AppleAudioQueue[.].+")
+	(ipc-posix-name-regex #"^com[.]apple[.]audio[.]abl[.]")
+	(ipc-posix-name-regex #"^shm_notif[.][^.]+[.][RW]$")
+	(ipc-posix-name-regex #"^[0-9A-F][0-9A-F]:+[0-9A-F][0-9A-F]-tacl$"))
 (allow ipc-posix-shm-read*
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 	(ipc-posix-name "apple.shm.notification_center")
-	(regex #"^apple[.]shm[.]cfprefsd[.]"))
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]"))
 (allow ipc-posix-shm-write-data
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-bootstrap)
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
@@ -697,10 +702,10 @@
 	(global-name "com.apple.xpcd")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(regex #"." #".+"))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(regex #"." #".+"))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.ak.auth.xpc")
 		(require-any
@@ -728,16 +733,17 @@
 		(global-name "com.apple.coreduetd.people")
 		(require-entitlement "com.apple.coreduetd.people")))
 (allow mach-register
-	(regex #"^com[.]apple[.]coremedia[.]")
+	(global-name-regex #"^com[.]apple[.]coremedia[.]")
 	(global-name "com.apple.midiserver.io")
 	(require-all
 		(extension "com.apple.security.exception.mach-register.local-name")
-		(regex #"." #".+"))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
-		(regex #"." #".+")))
+		(global-name-regex #".+")))
 (allow network-inbound
-	(local tcp "*:*"))
+	(local tcp "*:*")
+	(local udp "*:*"))
 (allow network-outbound
 	(require-all
 		(require-not (literal "/private/var/tmp/launchd/sock"))
@@ -848,6 +854,17 @@
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
 (allow pseudo-tty)
+(allow signal
+	(target self))
 (allow sysctl-read)
+(allow system-info
+	(info-type "net.link.addr"))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))
 (allow system-suspend-resume)

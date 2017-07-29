@@ -1,5 +1,12 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(require-all
+		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
+		(require-any
+			(literal "/dev/ptmx")
+			(literal "/dev/aes_0")
+			(literal "/dev/dtracehelper"))))
 (allow file-issue-extension
 	(require-all
 		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
@@ -31,6 +38,8 @@
 			(require-all
 				(extension-class "com.apple.StreamingUnzipService")
 				(subpath "/private/var/mobile/Media")))))
+(allow file-link
+	(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")))
 (allow file-read*
 	(literal "/dev/aes_0")
 	(literal "/dev/random")
@@ -59,8 +68,8 @@
 	(literal "/private/var/mobile/Library/Caches/com.apple.MobileGestalt.plist")
 	(literal "/dev/ptmx")
 	(require-all
-		(vnode-type BLOCK-DEVICE)
-		(vnode-type CHARACTER-DEVICE)
+		(require-not (vnode-type BLOCK-DEVICE))
+		(require-not (vnode-type CHARACTER-DEVICE))
 		(require-any
 			(literal "/private/etc/hosts")
 			(literal "/private/etc/group")
@@ -135,6 +144,17 @@
 	(require-all
 		(literal "/private/var/mobile")
 		(require-entitlement "com.apple.bulletinboard.dataprovider")))
+(allow file-write*
+	(require-all
+		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
+		(require-any
+			(extension "com.apple.security.exception.files.absolute-path.read-write")
+			(extension "com.apple.security.exception.files.home-relative-path.read-write")
+			(require-all
+				(require-not (vnode-type BLOCK-DEVICE))
+				(require-not (vnode-type CHARACTER-DEVICE))
+				(literal "/private/var/mobile/Library/CoreDuet/People/interactionC.db-journal")
+				(require-entitlement "com.apple.coreduetd.people")))))
 (allow file-write-create
 	(require-all
 		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
@@ -155,8 +175,8 @@
 			(literal "/dev/ptmx")
 			(literal "/dev/aes_0")
 			(require-all
-				(literal "/dev/random")
-				(literal "/dev/urandom")
+				(require-not (literal "/dev/random"))
+				(require-not (literal "/dev/urandom"))
 				(require-any
 					(literal "/dev/dtracehelper")
 					(literal "/dev/null")
@@ -179,6 +199,11 @@
 			(require-all
 				(vnode-type TTY)
 				(regex #"^/dev/ttyp[0-9a-f]$" #"^/dev/ptyp[0-9a-f]$")))))
+(allow file-write-mode
+	(require-all
+		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
+		(regex #"^/dev/ttys[0-9]" #"^/dev/ttys[0-9]+")
+		(extension "com.apple.sandbox.pty")))
 (allow file-write-unlink
 	(require-all
 		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
@@ -195,7 +220,45 @@
 			(require-all
 				(vnode-type REGULAR-FILE)
 				(extension "com.apple.private.safe-move.receive")))))
+(allow iokit-open
+	(extension "com.apple.security.exception.iokit-user-client-class")
+	(iokit-user-client-class "AppleMobileFileIntegrityUserClient"))
 (allow iokit-get-properties)
+(allow ipc-posix-shm*
+	(require-all
+		(ipc-posix-name-regex #"^/FSM-")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application"))))
+	(require-all
+		(ipc-posix-name-regex #"^OA-")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application"))))
+	(require-all
+		(ipc-posix-name-regex #"^stack-logs")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application")))))
+(allow ipc-posix-shm-read*
+	(ipc-posix-name "apple.shm.notification_center")
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]")
+	(require-all
+		(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application")))))
+(allow ipc-posix-shm-write-data
+	(require-all
+		(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application")))))
 (allow mach-bootstrap)
 (allow mach-lookup
 	(global-name "com.apple.springboard.services")
@@ -235,7 +298,7 @@
 	(global-name "com.apple.hangtracerd")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(regex #"." #".+"))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.bulletinboard.dataproviderconnection")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
@@ -247,11 +310,29 @@
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(regex #"." #".+")))
+		(local-name-regex #".+")))
+(allow network-outbound
+	(require-all
+		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
+		(require-not (literal "/private/var/tmp/launchd/sock"))
+		(require-not (regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$"))
+		(require-any
+			(regex #"^/private/var/run/lockdown/checkin")
+			(literal "/private/var/run/syslog"))))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)
 (allow nvram-set)
+(allow user-preference-read
+	(extension "com.apple.security.exception.shared-preference.read-write")
+	(extension "com.apple.security.exception.shared-preference.read-only")
+	(preference-domain "kCFPreferencesAnyApplication")
+	(preference-domain "com.apple.StreamingUnzipService")
+	(require-all
+		(preference-domain "com.apple.bulletinboard")
+		(require-entitlement "com.apple.bulletinboard.dataprovider")))
+(allow user-preference-write
+	(extension "com.apple.security.exception.shared-preference.read-write"))
 (allow process-info*)
 (allow process-info-listpids)
 (allow process-info-pidinfo)
@@ -261,5 +342,9 @@
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
 (allow pseudo-tty)
+(allow signal
+	(target self))
 (allow sysctl-read)
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))

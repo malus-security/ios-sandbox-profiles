@@ -260,8 +260,8 @@
 				(vnode-type TTY)
 				(regex #"^/dev/ttyp[0-9a-f]$" #"^/dev/ptyp[0-9a-f]$"))
 			(require-all
-				(vnode-type BLOCK-DEVICE)
-				(vnode-type CHARACTER-DEVICE)
+				(require-not (vnode-type BLOCK-DEVICE))
+				(require-not (vnode-type CHARACTER-DEVICE))
 				(require-any
 					(literal "/private/etc/protocols")
 					(literal "/private/etc/services")
@@ -376,8 +376,8 @@
 					(require-entitlement "com.apple.security.system-group-containers")
 					(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
 			(require-all
-				(vnode-type BLOCK-DEVICE)
-				(vnode-type CHARACTER-DEVICE)
+				(require-not (vnode-type BLOCK-DEVICE))
+				(require-not (vnode-type CHARACTER-DEVICE))
 				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
@@ -456,11 +456,11 @@
 	(ipc-posix-name "shm_notif.tsco.W")
 	(ipc-posix-name "shm_pcm_audio_sco_read"))
 (allow ipc-posix-shm-read*
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 	(ipc-posix-name "apple.shm.notification_center")
-	(regex #"^apple[.]shm[.]cfprefsd[.]"))
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]"))
 (allow ipc-posix-shm-write-data
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-bootstrap)
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
@@ -568,10 +568,10 @@
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(regex #"." #".+"))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(regex #"." #".+"))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.ak.auth.xpc")
 		(require-any
@@ -589,6 +589,13 @@
 	(require-all
 		(global-name "com.apple.networkd_privileged")
 		(require-entitlement "com.apple.networkd_privileged")))
+(allow mach-register
+	(require-all
+		(extension "com.apple.security.exception.mach-register.global-name")
+		(global-name-regex #".+"))
+	(require-all
+		(extension "com.apple.security.exception.mach-register.local-name")
+		(local-name-regex #".+")))
 (allow network-inbound)
 (allow network-bind)
 (allow network-outbound
@@ -652,5 +659,14 @@
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
 (allow pseudo-tty)
+(allow signal
+	(target self))
 (allow sysctl-read)
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

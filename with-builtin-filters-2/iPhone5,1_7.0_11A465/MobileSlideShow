@@ -419,22 +419,22 @@
 (allow iokit-get-properties)
 (allow ipc-posix-shm*
 	(require-all
-		(regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(ipc-posix-name-regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 		(require-any
 			(debug-mode)
 			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
 			(require-not (require-entitlement "platform-application")))))
 (allow ipc-posix-shm-read*
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
 	(ipc-posix-name "apple.shm.notification_center"))
 (allow ipc-posix-shm-write-data
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
 	(ipc-posix-name "apple.shm.notification_center"))
 (allow mach-bootstrap)
 (allow mach-lookup)
 (allow mach-register
 	(local-name "com.apple.iphone.axserver")
-	(regex #"^com[.]apple[.]accessibility[.]gax[.]client-" #"^com[.]apple[.]assistant[.]contextprovider[.]"))
+	(global-name-regex #"^com[.]apple[.]accessibility[.]gax[.]client-" #"^com[.]apple[.]assistant[.]contextprovider[.]"))
 (allow network-outbound
 	(require-all
 		(require-not (subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))

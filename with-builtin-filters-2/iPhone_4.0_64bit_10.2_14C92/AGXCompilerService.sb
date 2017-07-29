@@ -334,11 +334,11 @@
 (ipc-posix-name "OA-")
 (ipc-posix-name "/FSM-")))
 (allow ipc-posix-shm-read*
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 	(require-any (ipc-posix-name "apple.shm.notification_center")
 (ipc-posix-name "apple.cfprefs.")))
 (allow ipc-posix-shm-write-data
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
 	(require-any (global-name "com.apple.ReportCrash.SimulateCrash")

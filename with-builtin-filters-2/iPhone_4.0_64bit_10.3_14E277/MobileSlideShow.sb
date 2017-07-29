@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(extension-class "com.apple.quicklook.readonly")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -326,6 +330,30 @@
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")
 			(require-entitlement "com.apple.security.system-group-containers")
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$"))))
+(allow file-link
+	(require-all
+		(require-not (subpath-prefix "${HOME}/Library/AddressBook"))
+		(require-any
+			(require-not (subpath-prefix "${HOME}/Media"))
+			(require-all
+				(process-attribute 4)
+				(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))))
+(allow file-map-executable
+	(require-any (subpath "/System/Library/Frameworks")
+(subpath "/System/Library/PrivateFrameworks"))
+	(extension "com.apple.sandbox.executable")
+	(subpath "/System/Library")
+	(subpath "/usr/lib")
+	(subpath "/Developer")
+	(require-all
+		(subpath "/AppleInternal")
+		(debug-mode))
+	(require-all
+		(subpath "/usr/local/lib")
+		(debug-mode))
+	(require-all
+		(subpath-prefix "${FRONT_USER_HOME}/XcodeBuiltProducts")
+		(debug-mode)))
 (allow file-read*
 	(subpath-prefix "${HOME}/Library/Fonts")
 	(subpath "/Developer")
@@ -582,7 +610,7 @@
 						(regex #"^/private/var/mobile/Library/SyncedPreferences/com.apple.camera-.+[.]plist" #"^/private/var/euser[0-9]+/Library/SyncedPreferences/com.apple.camera-.+[.]plist" #"^/private/var/[-0-9A-F]+/Library/SyncedPreferences/com.apple.camera-.+[.]plist" #"^/private/var/Users/[^/]+/Library/SyncedPreferences/com.apple.camera-.+[.]plist")
 						(subpath-prefix "${HOME}"))
 					(require-all
-						(require-all (require-not (literal "${HOME}/Library/FairPlay/^^^"))
+						(require-all (require-not (subpath-prefix "${HOME}/Library/FairPlay"))
 (require-not (literal "/usr/sbin/fairplayd")))
 						(require-not (subpath-prefix "${HOME}/Media"))
 						(require-any
@@ -1018,7 +1046,7 @@
 							(extension "com.apple.librarian.ubiquity-container")
 							(require-entitlement "com.apple.private.librarian.container-proxy")))
 					(require-all
-						(subpath-prefix "${HOME}/Media")
+						(require-not (subpath-prefix "${HOME}/Media"))
 						(require-any
 							(require-all
 								(extension "com.apple.sandbox.system-container")
@@ -1058,8 +1086,8 @@
 				(vnode-type DIRECTORY)
 				(literal-prefix "${HOME}/Library/Caches/com.apple.DictionaryServices"))
 			(require-all
-				(require-all (require-not (literal "${HOME}/Library/Preferences/com.apple.Accessibility.plist"))
-(require-not (literal "${HOME}/Library/Preferences/com.apple.UIKit.plist")))
+				(require-all (require-not (literal-prefix "${HOME}/Library/Preferences/com.apple.Accessibility.plist"))
+(require-not (literal-prefix "${HOME}/Library/Preferences/com.apple.UIKit.plist")))
 				(require-not (literal-prefix "${HOME}/Library/Logs/CrashReporter/CFNetwork_"))
 				(require-any
 					(require-all
@@ -1121,8 +1149,49 @@
 (allow iokit-open)
 (allow iokit-set-properties)
 (allow iokit-get-properties)
+(allow ipc-posix-sem-open
+	(ipc-posix-name "containermanagerd.fb_check"))
+(allow ipc-posix-shm*
+	(require-any (ipc-posix-name "stack-logs")
+(ipc-posix-name "OA-")
+(ipc-posix-name "/FSM-")))
+(allow ipc-posix-shm-read*
+	(require-any (ipc-posix-name "apple.shm.notification_center")
+(ipc-posix-name "apple.cfprefs."))
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
+(allow ipc-posix-shm-write-data
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$"))
+(allow ipc-posix-shm-write-unlink
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-cross-domain-lookup)
 (allow mach-lookup)
+(allow mach-register
+	(local-name "com.apple.assistant.contextprovider.")
+	(local-name "com.apple.iphone.axserver")
+	(local-name "com.apple.accessibility.gax.client")
+	(require-all
+		(extension "com.apple.security.exception.mach-register.local-name")
+		(local-name-regex #".+"))
+	(require-all
+		(extension "com.apple.security.exception.mach-register.global-name")
+		(global-name-regex #".+")))
+(allow mach-task-name
+	(target self))
+(allow network-inbound
+	(require-all
+		(subpath-prefix "${HOME}/Library/Mobile Documents")
+		(require-any
+			(extension "com.apple.librarian.ubiquity-container")
+			(require-entitlement "com.apple.private.librarian.container-proxy")))
+	(require-all
+		(extension "com.apple.app-sandbox.read-write")
+		(subpath-prefix "${HOME}/Library/Mobile Documents")))
+(allow network-outbound
+	(require-all
+		(require-not (literal "/private/var/tmp/launchd/sock"))
+		(require-not (regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$"))))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)
@@ -1265,4 +1334,34 @@
 (allow process-info-pidfileportinfo)
 (allow process-info-setcontrol)
 (allow pseudo-tty)
+(allow sysctl*
+	(extension "com.apple.security.exception.sysctl.read-write"))
+(allow sysctl-read
+	(sysctl-name "net.statistics")
+	(extension "com.apple.security.exception.sysctl.read-only")
+	(extension "com.apple.security.exception.sysctl.read-write")
+	(require-not (sysctl-name "sysctl.proc_native"))
+	(sysctl-name "kern.bootsessionuuid")
+	(require-any (sysctl-name "kern.ipc.maxsockbuf")
+(sysctl-name "kern.nisdomainname"))
+	(sysctl-name "net.routetable.")
+	(require-all
+		(require-any (sysctl-name "kern.argmax")
+(sysctl-name "kern.proc.pid."))
+		(process-attribute 4)
+		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))
+	(require-all
+		(require-any (sysctl-name "kern.proc.")
+(sysctl-name "kern.procargs2."))
+		(require-entitlement "com.apple.security.exception.process-info")))
+(allow system-fsctl
+	(fsctl-command (_IO "h" 31))
+	(fsctl-command (_IO "h" 32)))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

@@ -7,3 +7,6 @@
 	(literal "/private")
 	(literal "/private/var"))
 (deny job-creation)
+(deny network-outbound
+	(literal "/private/var/tmp/launchd/sock")
+	(regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$"))

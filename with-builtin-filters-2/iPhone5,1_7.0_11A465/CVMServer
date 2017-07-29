@@ -126,7 +126,7 @@
 (allow iokit-get-properties)
 (allow ipc-posix-shm*
 	(require-all
-		(regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(ipc-posix-name-regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 		(require-any
 			(debug-mode)
 			(require-not (require-entitlement "platform-application"))
@@ -145,7 +145,7 @@
 	(global-name "com.apple.distributed_notifications@1v3")
 	(global-name "com.apple.managedconfiguration.profiled.public")
 	(global-name "com.apple.securityd")
-	(regex #"^com[.]apple[.]cvmsCompAgent")
+	(global-name-regex #"^com[.]apple[.]cvmsCompAgent")
 	(global-name "com.apple.hangtracerd")
 	(global-name "com.apple.ReportCrash.SimulateCrash")
 	(global-name "com.apple.aggregated")

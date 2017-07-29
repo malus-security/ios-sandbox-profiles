@@ -1,5 +1,9 @@
 (version 1)
 (allow default)
+(deny file*
+	(regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
+(deny file-chroot
+	(regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
 (deny file-read*
 	(subpath "/private/var/run/mobile_image_mounter"))
 (deny file-write*

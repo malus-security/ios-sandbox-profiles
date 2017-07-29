@@ -1,5 +1,12 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(require-all
+		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
+		(require-any
+			(literal "/dev/ptmx")
+			(literal "/dev/aes_0")
+			(literal "/dev/dtracehelper"))))
 (allow file-issue-extension
 	(require-all
 		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
@@ -196,6 +203,8 @@
 	(require-all
 		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
 		(require-not (subpath "/private/var/mobile/Library/AddressBook"))))
+(allow file-map-executable
+	(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")))
 (allow file-read*
 	(literal "/private/var/mobile/Library/Preferences/com.apple.logging.plist")
 	(literal "/private/var/mobile/Library/Preferences/com.apple.demo-settings.plist")
@@ -472,8 +481,8 @@
 					(require-all
 						(require-not (vnode-type BLOCK-DEVICE))
 						(require-not (vnode-type CHARACTER-DEVICE))
-						(require-not (literal "/private/var/mobile/Library/CoreDuet/People/interactionC.db-journal"))
-						(require-not (require-entitlement "com.apple.coreduetd.people")))
+						(literal "/private/var/mobile/Library/CoreDuet/People/interactionC.db-journal")
+						(require-entitlement "com.apple.coreduetd.people"))
 					(require-all
 						(subpath "/private/var/mobile/Library/Mobile Documents")
 						(require-any
@@ -565,26 +574,26 @@
 			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
 			(require-not (require-entitlement "platform-application")))))
 (allow ipc-posix-shm-read*
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
 	(ipc-posix-name "apple.shm.notification_center")
-	(regex #"^apple[.]shm[.]cfprefsd[.]")
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]")
 	(require-all
-		(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 		(require-any
 			(debug-mode)
 			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
 			(require-not (require-entitlement "platform-application")))))
 (allow ipc-posix-shm-write-data
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
 	(require-all
-		(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 		(require-any
 			(debug-mode)
 			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
 			(require-not (require-entitlement "platform-application")))))
 (allow ipc-posix-shm-write-unlink
 	(require-all
-		(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 		(require-any
 			(debug-mode)
 			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
@@ -593,7 +602,7 @@
 (allow mach-lookup)
 (allow mach-register
 	(extension "com.apple.sandbox.application-group")
-	(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
 	(local-name "com.apple.iphone.axserver")
 	(local-name "com.apple.accessibility.gax.client"))
 (allow network*
@@ -698,5 +707,17 @@
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
 (allow pseudo-tty)
+(allow signal
+	(target self))
 (allow sysctl-read)
+(allow system-fsctl
+	(fsctl-command (_IO "h" 31))
+	(fsctl-command (_IO "h" 32)))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

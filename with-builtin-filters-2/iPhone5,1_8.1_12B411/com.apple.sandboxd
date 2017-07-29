@@ -30,7 +30,7 @@
 (allow ipc-posix-shm*
 	(ipc-posix-name "apple.shm.notification_center"))
 (allow ipc-posix-shm-read*
-	(regex #"^apple[.]shm[.]cfprefsd[.]"))
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]"))
 (allow mach-bootstrap)
 (allow mach-lookup
 	(global-name "com.apple.system.logger")

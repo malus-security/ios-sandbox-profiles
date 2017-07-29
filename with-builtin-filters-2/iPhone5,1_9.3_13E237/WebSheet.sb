@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(extension-class "com.apple.quicklook.readonly")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -239,6 +243,9 @@
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")
 			(require-entitlement "com.apple.security.system-group-containers")
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$"))))
+(allow file-link
+	(require-not (prefix-prefix "${HOME}/Media"))
+	(require-entitlement "platform-application"))
 (allow file-map-executable)
 (allow file-read*
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -403,7 +410,7 @@
 					(subpath "/AppleInternal/Library/Frameworks/RadarCompose.framework")
 					(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.DataAccess.BehaviorOptions.plist")
 					(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.demo-settings.plist")
-					(regex-prefix "${HOME}/Library/Preferences/com[.]apple[.]WebSheet.plist")
+					(prefix-regex-prefix "${HOME}/Library/Preferences/com[.]apple[.]WebSheet.plist")
 					(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.assistant.plist")
 					(subpath "/private/var/tmp")
 					(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.camera.plist")
@@ -467,9 +474,9 @@
 						(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/com[.]apple[.]ToneLibrary$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/com[.]apple[.]ToneLibrary$")
 						(prefix-prefix "${HOME}"))
 					(require-all
-						(prefix-prefix "${HOME}/Library/FairPlay")
-						(literal "/usr/sbin/fairplayd")
-						(prefix-prefix "${HOME}/Media")
+						(require-not (prefix-prefix "${HOME}/Library/FairPlay"))
+						(require-not (literal "/usr/sbin/fairplayd"))
+						(require-not (prefix-prefix "${HOME}/Media"))
 						(require-any
 							(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.icloud.findmydevice.managed/Library")
 							(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/PublicInfo")
@@ -482,8 +489,8 @@
 							(literal "/dev/null")
 							(literal "/dev/zero")
 							(require-all
-								(vnode-type BLOCK-DEVICE)
-								(vnode-type CHARACTER-DEVICE)
+								(require-not (vnode-type BLOCK-DEVICE))
+								(require-not (vnode-type CHARACTER-DEVICE))
 								(require-any
 									(literal "/private/etc/protocols")
 									(literal "/private/etc/services")
@@ -626,11 +633,11 @@
 					(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.WebFoundation.plist")
 					(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.youtubeframework.plist")
 					(prefix-prefix "${HOME}/Library/Cookies")
-					(regex-prefix "${HOME}/Library/Preferences/com[.]apple[.]WebSheet.plist")
+					(prefix-regex-prefix "${HOME}/Library/Preferences/com[.]apple[.]WebSheet.plist")
 					(subpath "/private/var/tmp")
 					(prefix-prefix "${HOME}/Media/com.apple.itunes.lock_sync")
 					(require-all
-						(prefix-prefix "${HOME}/Media")
+						(require-not (prefix-prefix "${HOME}/Media"))
 						(require-any
 							(require-all
 								(extension "com.apple.sandbox.system-group")
@@ -640,8 +647,8 @@
 									(require-entitlement "com.apple.security.system-group-containers")
 									(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
 							(require-all
-								(vnode-type BLOCK-DEVICE)
-								(vnode-type CHARACTER-DEVICE)
+								(require-not (vnode-type BLOCK-DEVICE))
+								(require-not (vnode-type CHARACTER-DEVICE))
 								(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 								(require-entitlement "com.apple.coreduetd.people"))
 							(require-all
@@ -771,6 +778,20 @@
 	(iokit-user-client-class "IOSurfaceRootUserClient")
 	(iokit-user-client-class "AppleMobileFileIntegrityUserClient"))
 (allow iokit-get-properties)
+(allow ipc-posix-shm*
+	(ipc-posix-name-regex #"^stack-logs")
+	(ipc-posix-name-regex #"^OA-")
+	(ipc-posix-name-regex #"^/FSM-"))
+(allow ipc-posix-shm-read*
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]")
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name "apple.shm.notification_center"))
+(allow ipc-posix-shm-write-data
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$"))
+(allow ipc-posix-shm-write-unlink
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-bootstrap)
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
@@ -854,7 +875,7 @@
 	(global-name "com.apple.coremedia.sandboxserver")
 	(global-name "com.apple.coremedia.videocompositor")
 	(global-name "com.apple.pegasus")
-	(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
 	(global-name "com.apple.audio.AudioQueueServer")
 	(global-name "com.apple.voiceservices.keepalive")
 	(global-name "com.apple.voiceservices.tts")
@@ -875,7 +896,7 @@
 	(global-name "com.apple.bird.token")
 	(global-name "com.apple.librariand")
 	(global-name "com.apple.revisiond")
-	(regex #"^com[.]apple[.]uikit[.]viewservice[.].+")
+	(global-name-regex #"^com[.]apple[.]uikit[.]viewservice[.].+")
 	(global-name "com.apple.nehelper")
 	(global-name "com.apple.GSSCred")
 	(global-name "com.apple.accountsd.accountmanager")
@@ -929,10 +950,10 @@
 	(global-name "com.apple.xpcd")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(regex #"." #".+"))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(regex #"." #".+"))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.springboard.statusbarservices")
 		(require-entitlement "com.apple.springboard.statusbarstyleoverrides"))
@@ -1013,6 +1034,28 @@
 	(require-all
 		(global-name "com.apple.coreduetd.people")
 		(require-entitlement "com.apple.coreduetd.people")))
+(allow mach-register
+	(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(local-name "com.apple.iphone.axserver")
+	(local-name "com.apple.accessibility.gax.client")
+	(require-all
+		(extension "com.apple.security.exception.mach-register.local-name")
+		(local-name-regex #".+"))
+	(require-all
+		(extension "com.apple.security.exception.mach-register.global-name")
+		(global-name-regex #".+")))
+(allow network-outbound
+	(require-all
+		(require-not (literal "/private/var/tmp/launchd/sock"))
+		(require-not (regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$"))
+		(require-any
+			(literal "/private/var/run/mDNSResponder")
+			(control-name "com.apple.network.statistics")
+			(control-name "com.apple.netsrc")
+			(literal "/private/var/run/printd")
+			(literal "/private/var/run/lockdown.sock")
+			(remote tcp "*:*")
+			(literal "/private/var/run/syslog"))))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)
@@ -1114,5 +1157,17 @@
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
 (allow pseudo-tty)
+(allow signal
+	(target self))
 (allow sysctl-read)
+(allow system-fsctl
+	(fsctl-command (_IO "h" 31))
+	(fsctl-command (_IO "h" 32)))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

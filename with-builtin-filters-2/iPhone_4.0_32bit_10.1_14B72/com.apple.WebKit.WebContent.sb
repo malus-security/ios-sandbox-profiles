@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -205,7 +209,16 @@
 (subpath "/System/Library/PrivateFrameworks"))
 	(require-not (extension "com.apple.sandbox.executable"))
 	(require-not (regex #"/[^/]+/SC_Info/" #".+/[^/]+/SC_Info/"))
-	(subpath "/Developer"))
+	(subpath "/Developer")
+	(require-all
+		(subpath "/AppleInternal")
+		(debug-mode))
+	(require-all
+		(subpath "/usr/local/lib")
+		(debug-mode))
+	(require-all
+		(subpath-prefix "${FRONT_USER_HOME}/XcodeBuiltProducts")
+		(debug-mode)))
 (allow file-read*
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
@@ -392,8 +405,8 @@
 		(literal "/private/var/Managed Preferences/mobile/com.apple.bulletinboard.plist")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
-		(vnode-type BLOCK-DEVICE)
-		(vnode-type CHARACTER-DEVICE)
+		(require-not (vnode-type BLOCK-DEVICE))
+		(require-not (vnode-type CHARACTER-DEVICE))
 		(require-any
 			(literal "/private/etc/hosts")
 			(require-any (literal "/private/etc/group")
@@ -543,8 +556,8 @@
 						(vnode-type DIRECTORY)
 						(literal-prefix "${HOME}/Library/Caches/com.apple.DictionaryServices"))
 					(require-all
-						(require-all (require-not (literal "${HOME}/Library/Preferences/com.apple.Accessibility.plist"))
-(require-not (literal "${HOME}/Library/Preferences/com.apple.UIKit.plist")))
+						(require-all (require-not (literal-prefix "${HOME}/Library/Preferences/com.apple.Accessibility.plist"))
+(require-not (literal-prefix "${HOME}/Library/Preferences/com.apple.UIKit.plist")))
 						(vnode-type REGULAR-FILE)
 						(extension "com.apple.private.safe-move.send")))))))
 (allow file-write-data
@@ -592,7 +605,37 @@
 				(xattr "com.apple.metadata:com_apple_backup_excludeItem")
 				(extension "com.apple.sandbox.system-container")
 				(require-entitlement "com.apple.security.system-container")))))
+(allow iokit-open
+	(iokit-user-client-class "IOSurfaceRootUserClient")
+	(iokit-user-client-class "AppleKeyStoreUserClient")
+	(require-any (iokit-user-client-class "IOAccelContext")
+(iokit-user-client-class "IOAccelContext2")
+(iokit-user-client-class "IOAccelDevice")
+(iokit-user-client-class "IOAccelDevice2")
+(iokit-user-client-class "IOAccelSharedUserClient")
+(iokit-user-client-class "IOAccelSharedUserClient2")
+(iokit-user-client-class "IOAccelSubmitter2"))
+	(extension "com.apple.security.exception.iokit-user-client-class")
+	(iokit-user-client-class "IOSurfaceSendRight")
+	(require-any (iokit-user-client-class "AppleJPEGDriverUserClient")
+(iokit-user-client-class "IOSurfaceAcceleratorClient"))
+	(iokit-user-client-class "IOMobileFramebufferUserClient")
+	(iokit-user-client-class "IOHIDLibUserClient"))
 (allow iokit-get-properties)
+(allow ipc-posix-shm*
+	(require-any (ipc-posix-name "stack-logs")
+(ipc-posix-name "OA-")
+(ipc-posix-name "/FSM-")))
+(allow ipc-posix-shm-read*
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(require-any (ipc-posix-name "apple.shm.notification_center")
+(ipc-posix-name "apple.cfprefs.")))
+(allow ipc-posix-shm-write-data
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$"))
+(allow ipc-posix-shm-write-unlink
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
 	(global-name "com.apple.quicklook.ThumbnailsAgent")
@@ -742,7 +785,7 @@
 	(global-name "com.apple.backboard.hid.services")
 	(global-name "com.apple.iohideventsystem")
 	(global-name "com.apple.FileCoordination")
-	(regex #"^com[.]apple[.]uikit[.]viewservice[.].+")
+	(global-name-regex #"^com[.]apple[.]uikit[.]viewservice[.].+")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
 		(local-name-regex #".+"))
@@ -791,6 +834,27 @@
 	(require-all
 		(global-name "com.apple.coreduetd.people")
 		(require-entitlement "com.apple.coreduetd.people")))
+(allow mach-register
+	(local-name "com.apple.assistant.contextprovider.")
+	(local-name "com.apple.iphone.axserver")
+	(local-name "com.apple.accessibility.gax.client")
+	(require-all
+		(extension "com.apple.security.exception.mach-register.local-name")
+		(local-name-regex #".+"))
+	(require-all
+		(extension "com.apple.security.exception.mach-register.global-name")
+		(global-name-regex #".+")))
+(allow mach-task-name
+	(target self))
+(allow network-inbound
+	(require-all
+		(subpath-prefix "${HOME}/Library/Mobile Documents")
+		(require-any
+			(extension "com.apple.librarian.ubiquity-container")
+			(require-entitlement "com.apple.private.librarian.container-proxy")))
+	(require-all
+		(extension "com.apple.app-sandbox.read-write")
+		(subpath-prefix "${HOME}/Library/Mobile Documents")))
 (allow network-outbound
 	(require-all
 		(require-not (literal "/private/var/tmp/launchd/sock"))
@@ -874,7 +938,8 @@
 (allow user-preference-write
 	(preference-domain "com.apple.mediaaccessibility.public")
 	(require-any (preference-domain "com.apple.Preferences")
-(preference-domain "com.apple.EmojiPreferences")))
+(preference-domain "com.apple.EmojiPreferences"))
+	(extension "com.apple.security.exception.shared-preference.read-write"))
 (allow process-info*)
 (allow process-info-codesignature)
 (allow process-info-dirtycontrol)
@@ -885,6 +950,8 @@
 (allow process-info-pidfileportinfo)
 (allow process-info-setcontrol)
 (allow pseudo-tty)
+(allow sysctl*
+	(extension "com.apple.security.exception.sysctl.read-write"))
 (allow sysctl-read
 	(sysctl-name "kern.bootsessionuuid")
 	(require-any (sysctl-name "kern.ipc.maxsockbuf")
@@ -894,7 +961,7 @@
 	(extension "com.apple.security.exception.sysctl.read-only")
 	(extension "com.apple.security.exception.sysctl.read-write")
 	(require-all
-		(sysctl-name "sysctl.proc_native")
+		(require-not (sysctl-name "sysctl.proc_native"))
 		(require-any
 			(sysctl-name "kern.hostname")
 			(sysctl-name "hw.machine")
@@ -965,4 +1032,14 @@
 		(process-attribute 4)
 		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))
 (allow system-audit)
+(allow system-fsctl
+	(fsctl-command (_IO "h" 31))
+	(fsctl-command (_IO "h" 32)))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

@@ -116,8 +116,12 @@
 (allow process-info-pidfdinfo)
 (allow process-info-pidfileportinfo)
 (allow process-info-setcontrol)
+(allow signal
+	(target self))
 (allow sysctl*)
 (allow sysctl-read)
 (allow sysctl-write)
+(allow system-info
+	(info-type "net.link.addr"))
 (allow system-privilege)
 (allow system-socket)

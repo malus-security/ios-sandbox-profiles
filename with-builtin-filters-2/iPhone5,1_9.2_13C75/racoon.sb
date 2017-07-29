@@ -11,6 +11,8 @@
 			(subpath "/private/var/run/racoon")
 			(literal "/private/var/preferences/SystemConfiguration/com.apple.ipsec.plist")
 			(subpath "/private/etc/racoon"))))
+(allow file-link
+	(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")))
 (allow file-read*
 	(literal "/dev/aes_0")
 	(literal "/dev/sha1_0")
@@ -78,7 +80,8 @@
 	(iokit-user-client-class "RootDomainUserClient"))
 (allow iokit-get-properties)
 (allow ipc-posix-shm-read*
-	(regex #"^apple[.]shm[.]cfprefsd[.]"))
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]")
+	(ipc-posix-name "apple.shm.notification_center"))
 (allow mach-bootstrap)
 (allow mach-lookup
 	(global-name "com.apple.system.DirectoryService.libinfo_v1")
@@ -123,8 +126,12 @@
 (allow process-info-setcontrol)
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
+(allow signal
+	(target self))
 (allow sysctl*)
 (allow sysctl-read)
 (allow sysctl-write)
+(allow system-info
+	(info-type "net.link.addr"))
 (allow system-privilege)
 (allow system-socket)

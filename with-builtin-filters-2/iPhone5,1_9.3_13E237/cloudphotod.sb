@@ -16,4 +16,6 @@
 (allow process-info-setcontrol)
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
+(allow signal
+	(target self))
 (allow system-privilege)

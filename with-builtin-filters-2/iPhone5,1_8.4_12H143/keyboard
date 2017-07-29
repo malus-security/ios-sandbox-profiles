@@ -240,14 +240,14 @@
 (allow iokit-get-properties)
 (allow ipc-posix-shm*
 	(require-all
-		(regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(ipc-posix-name-regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 		(require-any
 			(debug-mode)
 			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
 			(require-not (require-entitlement "platform-application")))))
 (allow ipc-posix-shm-read*
 	(ipc-posix-name "apple.shm.notification_center")
-	(regex #"^apple[.]shm[.]cfprefsd[.]"))
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]"))
 (allow mach-bootstrap)
 (allow mach-lookup
 	(global-name "com.apple.xpcd")
@@ -297,10 +297,10 @@
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(regex #"." #".+"))
+		(global-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(regex #"." #".+")))
+		(local-name-regex #".+")))
 (allow mach-register
 	(local-name "com.apple.iphone.axserver"))
 (allow network-outbound

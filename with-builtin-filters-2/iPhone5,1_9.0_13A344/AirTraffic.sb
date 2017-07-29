@@ -8,6 +8,8 @@
 	(regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
 (deny file-issue-extension
 	(regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
+(deny file-map-executable
+	(regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
 (deny file-mount)
 (deny file-read*
 	(require-all
@@ -39,8 +41,8 @@
 				(require-not (literal "/dev/null"))
 				(require-not (literal "/dev/zero"))
 				(require-any
-					(require-not (vnode-type BLOCK-DEVICE))
-					(require-not (vnode-type CHARACTER-DEVICE)))))))
+					(vnode-type BLOCK-DEVICE)
+					(vnode-type CHARACTER-DEVICE))))))
 (deny file-unmount)
 (deny file-write*
 	(regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")

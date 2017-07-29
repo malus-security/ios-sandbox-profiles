@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(extension-class "com.apple.quicklook.readonly")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -239,6 +243,12 @@
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")
 			(require-entitlement "com.apple.security.system-group-containers")
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$"))))
+(allow file-link
+	(require-all
+		(require-not (prefix-prefix "${HOME}/Library/AddressBook"))
+		(require-any
+			(require-not (prefix-prefix "${HOME}/Media"))
+			(require-entitlement "platform-application"))))
 (allow file-map-executable)
 (allow file-read*
 	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
@@ -377,7 +387,7 @@
 					(subpath "/AppleInternal/Library/Frameworks/RadarCompose.framework")
 					(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.DataAccess.BehaviorOptions.plist")
 					(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.demo-settings.plist")
-					(regex-prefix "${HOME}/Library/Preferences/com[.]apple[.]quicklook[.]quicklookd.plist")
+					(prefix-regex-prefix "${HOME}/Library/Preferences/com[.]apple[.]quicklook[.]quicklookd.plist")
 					(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.assistant.plist")
 					(subpath "/private/var/tmp")
 					(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.icloud.findmydevice.managed/Library")
@@ -488,8 +498,8 @@
 						(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]quicklook[.]quicklookd/" #"^/private/var/mobile/Library/Caches/com[.]apple[.]quicklook[.]quicklookd$" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]quicklook[.]quicklookd/" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]quicklook[.]quicklookd$")
 						(prefix-prefix "${HOME}"))
 					(require-all
-						(vnode-type BLOCK-DEVICE)
-						(vnode-type CHARACTER-DEVICE)
+						(require-not (vnode-type BLOCK-DEVICE))
+						(require-not (vnode-type CHARACTER-DEVICE))
 						(require-any
 							(literal "/private/etc/protocols")
 							(literal "/private/etc/services")
@@ -653,7 +663,7 @@
 					(prefix-prefix "${HOME}/Library/Keyboard/LocalDictionary")
 					(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.mediaaccessibility.public.plist")
 					(prefix-prefix "${HOME}/Library/Preferences/com.apple.dataaccess.launchd")
-					(regex-prefix "${HOME}/Library/Preferences/com[.]apple[.]quicklook[.]quicklookd.plist")
+					(prefix-regex-prefix "${HOME}/Library/Preferences/com[.]apple[.]quicklook[.]quicklookd.plist")
 					(subpath "/private/var/tmp")
 					(require-all
 						(prefix-prefix "${HOME}/Library/Mobile Documents")
@@ -696,8 +706,8 @@
 						(extension "com.apple.sandbox.system-container")
 						(require-entitlement "com.apple.security.system-container"))
 					(require-all
-						(vnode-type BLOCK-DEVICE)
-						(vnode-type CHARACTER-DEVICE)
+						(require-not (vnode-type BLOCK-DEVICE))
+						(require-not (vnode-type CHARACTER-DEVICE))
 						(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 						(require-entitlement "com.apple.coreduetd.people"))
 					(require-all
@@ -788,8 +798,23 @@
 	(iokit-user-client-class "IOMobileFramebufferUserClient")
 	(iokit-user-client-class "AppleJPEGDriverUserClient")
 	(iokit-user-client-class "IOSurfaceAcceleratorClient")
-	(iokit-user-client-class "IOSurfaceSendRight"))
+	(iokit-user-client-class "IOSurfaceSendRight")
+	(iokit-user-client-class "AppleMobileFileIntegrityUserClient"))
 (allow iokit-get-properties)
+(allow ipc-posix-shm*
+	(ipc-posix-name-regex #"^stack-logs")
+	(ipc-posix-name-regex #"^OA-")
+	(ipc-posix-name-regex #"^/FSM-"))
+(allow ipc-posix-shm-read*
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]")
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name "apple.shm.notification_center"))
+(allow ipc-posix-shm-write-data
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$"))
+(allow ipc-posix-shm-write-unlink
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-bootstrap)
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
@@ -914,7 +939,7 @@
 			(global-name "com.apple.airplaydiagnostics.server")
 			(global-name "com.apple.ondemandd.client")
 			(global-name "com.apple.mobileassetd")
-			(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+			(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
 			(global-name "com.apple.audio.AudioQueueServer")
 			(global-name "com.apple.voiceservices.keepalive")
 			(global-name "com.apple.voiceservices.tts")
@@ -934,7 +959,7 @@
 			(global-name "com.apple.bird.token")
 			(global-name "com.apple.librariand")
 			(global-name "com.apple.revisiond")
-			(regex #"^com[.]apple[.]uikit[.]viewservice[.].+")
+			(global-name-regex #"^com[.]apple[.]uikit[.]viewservice[.].+")
 			(global-name "com.apple.assistant.settings")
 			(global-name "com.apple.system.libinfo.muser")
 			(global-name "com.apple.ctkd.token-client")
@@ -1027,10 +1052,20 @@
 				(require-entitlement "com.apple.coreduetd.people"))))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(regex #"." #".+"))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(regex #"." #".+")))
+		(global-name-regex #".+")))
+(allow mach-register
+	(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(local-name "com.apple.iphone.axserver")
+	(local-name "com.apple.accessibility.gax.client")
+	(require-all
+		(extension "com.apple.security.exception.mach-register.local-name")
+		(local-name-regex #".+"))
+	(require-all
+		(extension "com.apple.security.exception.mach-register.global-name")
+		(global-name-regex #".+")))
 (allow network-outbound
 	(require-all
 		(require-not (literal "/private/var/tmp/launchd/sock"))
@@ -1148,5 +1183,17 @@
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
 (allow pseudo-tty)
+(allow signal
+	(target self))
 (allow sysctl-read)
+(allow system-fsctl
+	(fsctl-command (_IO "h" 31))
+	(fsctl-command (_IO "h" 32)))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

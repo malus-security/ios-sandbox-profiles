@@ -180,6 +180,8 @@
 			(require-all
 				(extension-class "com.apple.app-sandbox.read")
 				(subpath "/private/var/mobile/Media/PhotoStreamsData")))))
+(allow file-map-executable
+	(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")))
 (allow file-read*
 	(literal "/private/var/mobile/Library/Preferences/com.apple.logging.plist")
 	(literal "/private/var/mobile/Library/Preferences/com.apple.demo-settings.plist")
@@ -391,8 +393,8 @@
 			(literal "/dev/null")
 			(literal "/dev/zero")
 			(require-all
-				(vnode-type BLOCK-DEVICE)
-				(vnode-type CHARACTER-DEVICE)
+				(require-not (vnode-type BLOCK-DEVICE))
+				(require-not (vnode-type CHARACTER-DEVICE))
 				(require-any
 					(literal "/private/etc/protocols")
 					(literal "/private/etc/services")
@@ -531,9 +533,9 @@
 						(vnode-type DIRECTORY)
 						(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]lowtide/" #"^/private/var/mobile/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]lowtide$"))
 					(require-all
-						(subpath "/private/var/mobile/Media")
-						(vnode-type BLOCK-DEVICE)
-						(vnode-type CHARACTER-DEVICE)
+						(require-not (subpath "/private/var/mobile/Media"))
+						(require-not (vnode-type BLOCK-DEVICE))
+						(require-not (vnode-type CHARACTER-DEVICE))
 						(literal "/private/var/mobile/Library/CoreDuet/People/interactionC.db-journal")
 						(require-entitlement "com.apple.coreduetd.people")))))))
 (allow file-write-create
@@ -675,6 +677,50 @@
 	(iokit-user-client-class "AppleMobileFileIntegrityUserClient"))
 (allow iokit-set-properties)
 (allow iokit-get-properties)
+(allow ipc-posix-shm*
+	(require-all
+		(ipc-posix-name-regex #"^/FSM-")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application"))))
+	(require-all
+		(ipc-posix-name-regex #"^OA-")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application"))))
+	(require-all
+		(ipc-posix-name-regex #"^stack-logs")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application")))))
+(allow ipc-posix-shm-read*
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name "apple.shm.notification_center")
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]")
+	(require-all
+		(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application")))))
+(allow ipc-posix-shm-write-data
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(require-all
+		(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application")))))
+(allow ipc-posix-shm-write-unlink
+	(require-all
+		(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(require-any
+			(debug-mode)
+			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
+			(require-not (require-entitlement "platform-application")))))
 (allow mach-bootstrap)
 (allow mach-lookup
 	(global-name "com.apple.cfprefsd.daemon")
@@ -816,7 +862,7 @@
 	(global-name "com.apple.airplaydiagnostics.server")
 	(global-name "com.apple.ondemandd.client")
 	(global-name "com.apple.mobileassetd")
-	(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
 	(global-name "com.apple.audio.AudioQueueServer")
 	(global-name "com.apple.accessibility.AXBackBoardServer")
 	(global-name "UIASTNotificationCenter")
@@ -835,7 +881,7 @@
 	(global-name "com.apple.bird.token")
 	(global-name "com.apple.librariand")
 	(global-name "com.apple.revisiond")
-	(regex #"^com[.]apple[.]uikit[.]viewservice[.].+")
+	(global-name-regex #"^com[.]apple[.]uikit[.]viewservice[.].+")
 	(global-name "com.apple.apsd")
 	(global-name "com.apple.PersistentURLTranslator.Gatekeeper")
 	(global-name "com.apple.assetsd.changehub")
@@ -862,10 +908,10 @@
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(regex #"." #".+"))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(regex #"." #".+"))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.ak.auth.xpc")
 		(require-any
@@ -895,10 +941,10 @@
 (allow mach-register
 	(global-name "PurpleSystemAppPort")
 	(global-name "com.apple.airplay.xpc")
-	(regex #"^com[.]apple[.]appletv$" #"^com[.]apple[.]appletv[.]" #"^com[.]apple[.]lowtide$" #"^com[.]apple[.]lowtide[.]")
+	(global-name-regex #"^com[.]apple[.]appletv$" #"^com[.]apple[.]appletv[.]" #"^com[.]apple[.]lowtide$" #"^com[.]apple[.]lowtide[.]")
 	(global-name "com.apple.frontboard.watchdogserver")
 	(global-name "com.apple.SBUserNotification")
-	(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
 	(local-name "com.apple.iphone.axserver")
 	(local-name "com.apple.accessibility.gax.client"))
 (allow mach-task-name)
@@ -1030,8 +1076,18 @@
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
 (allow pseudo-tty)
+(allow signal
+	(target self))
 (allow sysctl-read)
 (allow system-fsctl)
 (allow system-info
-	(info-type "hw.uuid"))
+	(info-type "hw.uuid")
+	(info-type "net.link.addr"))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

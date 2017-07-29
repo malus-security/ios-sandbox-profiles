@@ -1712,7 +1712,7 @@
 	(iokit-property "gyro-interrupt-calibration")
 	(iokit-property-regex #"^BackCamera")
 	(iokit-property "compass-calibration")
-	(require-not (regex #"-mac-address" #"mac-address-" #".+-mac-address" #".+mac-address-"))
+	(require-not (iokit-property-regex #"-mac-address" #"mac-address-" #".+-mac-address" #".+mac-address-"))
 	(require-entitlement "com.apple.wifi.manager-access")
 	(require-entitlement "fairplay-client")
 	(require-not (require-entitlement "com.apple.private.MobileGestalt.AllowedProtectedKeys"))
@@ -1723,27 +1723,27 @@
 (allow ipc-posix-shm*
 	(extension "com.apple.sandbox.application-group")
 	(require-all
-		(regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(ipc-posix-name-regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilesafari")))
 	(require-all
-		(regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(ipc-posix-name-regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 		(require-any
 			(debug-mode)
 			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
 			(require-not (require-entitlement "platform-application")))))
 (allow ipc-posix-shm-read*
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$" #"^apple[.]shm[.]cfprefsd[.]")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$" #"^apple[.]shm[.]cfprefsd[.]")
 	(ipc-posix-name "apple.shm.notification_center")
 	(require-all
-		(regex #"^AppleABL[.]." #"^AppleABL[.].+")
+		(ipc-posix-name-regex #"^AppleABL[.]." #"^AppleABL[.].+")
 		(require-entitlement "inter-app-audio")))
 (allow ipc-posix-shm-write-create
-	(regex #"^/mono[.][0-9]+$"))
+	(ipc-posix-name-regex #"^/mono[.][0-9]+$"))
 (allow ipc-posix-shm-write-data
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
 	(require-all
-		(regex #"^AppleABL[.]." #"^AppleABL[.].+")
+		(ipc-posix-name-regex #"^AppleABL[.]." #"^AppleABL[.].+")
 		(require-entitlement "inter-app-audio")))
 (allow mach-bootstrap)
 (allow mach-lookup
@@ -1774,7 +1774,7 @@
 	(global-name "com.apple.MediaRemote.daemon")
 	(global-name "com.apple.frontboard.systemappservices")
 	(global-name "com.apple.revisiond")
-	(regex #"^com.apple.uikit.viewservice..+")
+	(global-name-regex #"^com.apple.uikit.viewservice..+")
 	(global-name "com.apple.bird")
 	(global-name "com.apple.librariand")
 	(global-name "com.apple.bird.token")
@@ -1808,8 +1808,8 @@
 	(global-name "com.apple.audio.AudioQueueServer")
 	(global-name "com.apple.voiceservices.tts")
 	(global-name "com.apple.voiceservices.keepalive")
-	(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
-	(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(global-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
 	(global-name "com.apple.mobileassetd")
 	(global-name "com.apple.airplaydiagnostics.server")
 	(global-name "com.apple.pluginkit.pkd")
@@ -2293,20 +2293,20 @@
 		(require-entitlement "com.apple.managedconfiguration.profiled-access"))
 	(require-all
 		(global-name "com.apple.absinthed")
-		(require-entitlement "absinthe-client")
-		(regex #"." #".+"))
+		(require-entitlement "absinthe-client"
+			(entitlement-value-regex #".+")))
 	(require-all
 		(global-name "com.apple.absd")
-		(require-entitlement "absinthe-client")
-		(regex #"." #".+"))
+		(require-entitlement "absinthe-client"
+			(entitlement-value-regex #".+")))
 	(require-all
 		(global-name "com.apple.absd")
-		(require-entitlement "abs-client")
-		(regex #"." #".+"))
+		(require-entitlement "abs-client"
+			(entitlement-value-regex #".+")))
 	(require-all
 		(global-name "com.apple.adid")
-		(require-entitlement "adi-client")
-		(regex #"." #".+"))
+		(require-entitlement "adi-client"
+			(entitlement-value-regex #".+")))
 	(require-all
 		(global-name "com.apple.icfcallserver")
 		(require-entitlement "com.apple.private.icfcallserver"))
@@ -2330,18 +2330,18 @@
 		(require-entitlement "com.apple.private.bmk.allow"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(regex #"." #".+"))
+		(global-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(regex #"." #".+")))
+		(local-name-regex #".+")))
 (allow mach-register
 	(require-all
-		(require-not (regex #"-idswake$" #".+-idswake$"))
+		(require-not (global-name-regex #"-idswake$" #".+-idswake$"))
 		(require-any
 			(local-name "com.apple.accessibility.gax.client")
 			(local-name "com.apple.iphone.axserver")
-			(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
-			(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+			(global-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+			(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
 			(extension "com.apple.sandbox.application-group"))))
 (allow network-inbound
 	(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")))

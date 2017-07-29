@@ -3,7 +3,7 @@
 (allow file-issue-extension
 	(require-all
 		(require-not (subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))
-		(regex #"^com[.]apple[.]tcc[.]")))
+		(extension-class-regex #"^com[.]apple[.]tcc[.]")))
 (allow file-read*)
 (allow file-read-data)
 (allow file-read-metadata)

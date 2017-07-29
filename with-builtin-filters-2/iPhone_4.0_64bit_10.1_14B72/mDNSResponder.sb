@@ -1,5 +1,7 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/dtracehelper"))
 (allow file-link)
 (allow file-map-executable)
 (allow file-read*
@@ -118,6 +120,10 @@
 (allow network*)
 (allow network-inbound)
 (allow network-bind)
+(allow network-outbound
+	(require-all
+		(require-not (literal "/private/var/tmp/launchd/sock"))
+		(require-not (regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$"))))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)
@@ -131,6 +137,10 @@
 (allow process-info-pidfdinfo)
 (allow process-info-pidfileportinfo)
 (allow process-info-setcontrol)
+(allow signal
+	(target self))
 (allow sysctl-read)
+(allow system-info
+	(info-type "net.link.addr"))
 (allow system-privilege)
 (allow system-socket)

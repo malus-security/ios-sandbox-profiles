@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -183,7 +187,16 @@
 	(require-all
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[^/]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[^/]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[^/]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[^/]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[^/]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[^/]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[^/]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[^/]+/((tmp|Library)|Documents)$" #"^/private/var/[-0-9A-F]+/Containers/Data/[^/]+/[^/]+/((tmp|Library)|Documents)/" #"^/private/var/[-0-9A-F]+/Containers/Data/[^/]+/[^/]+/((tmp|Library)|Documents)$" #"^/private/var/Users/[^/]+/Containers/Data/[^/]+/[^/]+/((tmp|Library)|Documents)/" #"^/private/var/Users/[^/]+/Containers/Data/[^/]+/[^/]+/((tmp|Library)|Documents)$")
-		(subpath-prefix "${HOME}")))
+		(subpath-prefix "${HOME}"))
+	(require-all
+		(subpath "/AppleInternal")
+		(debug-mode))
+	(require-all
+		(subpath "/usr/local/lib")
+		(debug-mode))
+	(require-all
+		(subpath-prefix "${FRONT_USER_HOME}/XcodeBuiltProducts")
+		(debug-mode)))
 (allow file-read*
 	(subpath "/System/Library")
 	(subpath "/usr/share")
@@ -398,6 +411,10 @@
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")
 			(require-entitlement "com.apple.security.system-group-containers")
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$"))))
+(allow iokit-open
+	(iokit-user-client-class "AppleKeyStoreUserClient")
+	(iokit-user-client-class "RootDomainUserClient")
+	(extension "com.apple.security.exception.iokit-user-client-class"))
 (allow iokit-get-properties)
 (allow ipc-posix-sem)
 (allow ipc-posix-shm*)
@@ -418,13 +435,28 @@
 	(require-all
 		(extension "com.apple.security.exception.mach-register.local-name")
 		(local-name-regex #".+")))
+(allow mach-task-name
+	(target self))
 (allow network*)
 (allow network-inbound)
 (allow network-bind)
+(allow network-outbound
+	(require-all
+		(require-not (literal "/private/var/tmp/launchd/sock"))
+		(require-not (regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$"))))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)
 (allow nvram-set)
+(allow user-preference-read
+	(preference-domain "kCFPreferencesAnyApplication")
+	(extension "com.apple.security.exception.shared-preference.read-write")
+	(extension "com.apple.security.exception.shared-preference.read-only")
+	(require-all
+		(preference-domain "com.apple.bulletinboard")
+		(require-entitlement "com.apple.bulletinboard.dataprovider")))
+(allow user-preference-write
+	(extension "com.apple.security.exception.shared-preference.read-write"))
 (allow process-info*)
 (allow process-info-codesignature)
 (allow process-info-dirtycontrol)
@@ -435,4 +467,29 @@
 (allow process-info-pidfileportinfo)
 (allow process-info-setcontrol)
 (allow pseudo-tty)
+(allow sysctl*
+	(extension "com.apple.security.exception.sysctl.read-write"))
+(allow sysctl-read
+	(sysctl-name "net.statistics")
+	(require-any (sysctl-name "kern.ipc.maxsockbuf")
+(sysctl-name "kern.nisdomainname"))
+	(sysctl-name "net.routetable.")
+	(extension "com.apple.security.exception.sysctl.read-only")
+	(extension "com.apple.security.exception.sysctl.read-write")
+	(require-not (sysctl-name "sysctl.proc_native"))
+	(require-all
+		(require-any (sysctl-name "kern.proc.")
+(sysctl-name "kern.procargs2."))
+		(require-entitlement "com.apple.security.exception.process-info"))
+	(require-all
+		(sysctl-name "kern.proc.pid.")
+		(process-attribute 4)
+		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

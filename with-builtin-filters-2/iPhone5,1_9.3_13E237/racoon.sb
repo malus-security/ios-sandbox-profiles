@@ -71,7 +71,8 @@
 	(iokit-user-client-class "RootDomainUserClient"))
 (allow iokit-get-properties)
 (allow ipc-posix-shm-read*
-	(regex #"^apple[.]shm[.]cfprefsd[.]"))
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]")
+	(ipc-posix-name "apple.shm.notification_center"))
 (allow mach-bootstrap)
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
@@ -114,8 +115,12 @@
 (allow process-info-setcontrol)
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
+(allow signal
+	(target self))
 (allow sysctl*)
 (allow sysctl-read)
 (allow sysctl-write)
+(allow system-info
+	(info-type "net.link.addr"))
 (allow system-privilege)
 (allow system-socket)

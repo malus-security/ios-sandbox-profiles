@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -79,6 +83,14 @@
 		(extension-class "com.apple.app-sandbox.read")
 		(subpath "/System/Library"))
 	(require-all
+		(extension-class "com.apple.mediaserverd.read")
+		(extension "com.apple.sandbox.system-group")
+		(require-any
+			(require-entitlement "com.apple.security.system-groups")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")
+			(require-entitlement "com.apple.security.system-group-containers")
+			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")))
+	(require-all
 		(extension-class "com.apple.app-sandbox.read-write")
 		(subpath-prefix "${HOME}/Library/Caches/com.apple.gputoolsd"))
 	(require-all
@@ -112,17 +124,25 @@
 		(extension-class "com.apple.app-sandbox.read")
 		(extension "com.apple.sandbox.executable"))
 	(require-all
-		(extension-class "com.apple.mediaserverd.read")
-		(extension "com.apple.sandbox.system-group")
-		(require-any
-			(require-entitlement "com.apple.security.system-groups")
-			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")
-			(require-entitlement "com.apple.security.system-group-containers")
-			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")))
-	(require-all
 		(extension-class "com.apple.nsurlstorage.extension-cache")
 		(subpath-prefix "${HOME}/Library/Caches/com.apple.gputoolsd")))
 (allow file-link)
+(allow file-map-executable
+	(require-any (subpath "/System/Library/Frameworks")
+(subpath "/System/Library/PrivateFrameworks"))
+	(extension "com.apple.sandbox.executable")
+	(subpath "/System/Library")
+	(subpath "/usr/lib")
+	(subpath "/Developer")
+	(require-all
+		(subpath "/AppleInternal")
+		(debug-mode))
+	(require-all
+		(subpath "/usr/local/lib")
+		(debug-mode))
+	(require-all
+		(subpath-prefix "${FRONT_USER_HOME}/XcodeBuiltProducts")
+		(debug-mode)))
 (allow file-read*
 	(require-any (literal "/dev/urandom")
 (literal "/dev/random"))
@@ -149,7 +169,7 @@
 (subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/PublicInfo"))
 	(require-any (literal "/dev/null")
 (literal "/dev/zero"))
-	(vnode-type CHARACTER-DEVICE)
+	(require-not (vnode-type CHARACTER-DEVICE))
 	(literal "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist")
 	(literal "/dev/ptmx")
 	(literal "/dev/aes_0")
@@ -321,8 +341,11 @@
 (iokit-user-client-class "IOAccelSharedUserClient")
 (iokit-user-client-class "IOAccelSharedUserClient2")
 (iokit-user-client-class "IOAccelSubmitter2"))
-	(iokit-user-client-class "IOSurfaceRootUserClient"))
+	(iokit-user-client-class "IOSurfaceRootUserClient")
+	(extension "com.apple.security.exception.iokit-user-client-class"))
 (allow iokit-get-properties)
+(allow ipc-posix-sem-open
+	(ipc-posix-name "containermanagerd.fb_check"))
 (allow ipc-posix-shm*)
 (allow ipc-posix-shm-read*)
 (allow ipc-posix-shm-read-data)
@@ -419,6 +442,15 @@
 (global-name "com.apple.appstored.xpc.request"))
 		(require-entitlement "com.apple.appstored.install-apps")))
 (allow mach-priv-task-port)
+(allow mach-register
+	(require-all
+		(extension "com.apple.security.exception.mach-register.global-name")
+		(global-name-regex #".+"))
+	(require-all
+		(extension "com.apple.security.exception.mach-register.local-name")
+		(local-name-regex #".+")))
+(allow mach-task-name
+	(target self))
 (allow network-outbound
 	(require-all
 		(require-not (literal "/private/var/tmp/launchd/sock"))
@@ -452,6 +484,8 @@
 		(preference-domain "com.apple.demo-settings")
 		(process-attribute 4)
 		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))
+(allow user-preference-write
+	(extension "com.apple.security.exception.shared-preference.read-write"))
 (allow process-exec*
 	(literal "/Developer/usr/libexec/gputoolsd"))
 (allow process-info*)
@@ -465,8 +499,10 @@
 (allow process-info-setcontrol)
 (allow pseudo-tty)
 (allow signal)
+(allow sysctl*
+	(extension "com.apple.security.exception.sysctl.read-write"))
 (allow sysctl-read
-	(sysctl-name "sysctl.proc_native")
+	(require-not (sysctl-name "sysctl.proc_native"))
 	(sysctl-name "kern.bootsessionuuid")
 	(extension "com.apple.security.exception.sysctl.read-write")
 	(extension "com.apple.security.exception.sysctl.read-only")
@@ -480,3 +516,5 @@
 		(process-attribute 4)
 		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))

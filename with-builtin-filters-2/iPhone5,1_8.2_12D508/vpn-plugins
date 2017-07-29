@@ -226,7 +226,7 @@
 (allow mach-bootstrap)
 (allow mach-lookup)
 (allow mach-register
-	(regex #"^com[.]f5[.]f5_sslvpn_plugin"))
+	(global-name-regex #"^com[.]f5[.]f5_sslvpn_plugin"))
 (allow network*
 	(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")))
 (allow network-outbound

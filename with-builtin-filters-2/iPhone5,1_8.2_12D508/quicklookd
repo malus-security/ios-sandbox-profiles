@@ -492,16 +492,16 @@
 (allow iokit-get-properties)
 (allow ipc-posix-shm*
 	(require-all
-		(regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(ipc-posix-name-regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 		(require-any
 			(debug-mode)
 			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
 			(require-not (require-entitlement "platform-application")))))
 (allow ipc-posix-shm-read*
 	(ipc-posix-name "apple.shm.notification_center")
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$" #"^apple[.]shm[.]cfprefsd[.]"))
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$" #"^apple[.]shm[.]cfprefsd[.]"))
 (allow ipc-posix-shm-write-data
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$"))
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$"))
 (allow mach-bootstrap)
 (allow mach-lookup
 	(global-name "com.apple.xpcd")
@@ -573,7 +573,7 @@
 	(global-name "com.apple.GSSCred")
 	(global-name "com.apple.frontboard.systemappservices")
 	(global-name "com.apple.revisiond")
-	(regex #"^com.apple.uikit.viewservice..+")
+	(global-name-regex #"^com.apple.uikit.viewservice..+")
 	(global-name "com.apple.bird")
 	(global-name "com.apple.librariand")
 	(global-name "com.apple.bird.token")
@@ -590,9 +590,9 @@
 	(global-name "com.apple.audio.AudioQueueServer")
 	(global-name "com.apple.voiceservices.tts")
 	(global-name "com.apple.voiceservices.keepalive")
-	(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(global-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
 	(local-name "com.apple.iphone.axserver")
-	(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
 	(global-name "com.apple.mobileassetd")
 	(global-name "com.apple.airplaydiagnostics.server")
 	(global-name "com.apple.pluginkit.pkd")
@@ -686,15 +686,15 @@
 		(extension "com.apple.tcc.kTCCServicePhotos"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(regex #"." #".+"))
+		(global-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(regex #"." #".+")))
+		(local-name-regex #".+")))
 (allow mach-register
-	(regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(local-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]")
 	(local-name "com.apple.accessibility.gax.client")
 	(local-name "com.apple.iphone.axserver")
-	(regex #"^com[.]apple[.]assistant[.]contextprovider[.]"))
+	(global-name-regex #"^com[.]apple[.]assistant[.]contextprovider[.]"))
 (allow network-outbound
 	(require-all
 		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/" #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$"))

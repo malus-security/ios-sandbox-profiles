@@ -375,23 +375,37 @@
 (allow iokit-open)
 (allow iokit-set-properties)
 (allow iokit-get-properties)
+(allow ipc-posix-shm*
+	(ipc-posix-name-regex #"^stack-logs")
+	(ipc-posix-name-regex #"^OA-")
+	(ipc-posix-name-regex #"^/FSM-"))
+(allow ipc-posix-shm-read*
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name "apple.shm.notification_center")
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]"))
+(allow ipc-posix-shm-write-data
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-bootstrap)
 (allow mach-cross-domain-lookup)
 (allow mach-lookup)
 (allow mach-register
 	(global-name "com.apple.CommCenter.lasd")
-	(regex #"^com[.]apple[.]CoreTelephony[.]LogChannel[.]$" #"^com[.]apple[.]CoreTelephony[.]LogChannel[.][-0-9A-F]+$")
+	(global-name-regex #"^com[.]apple[.]CoreTelephony[.]LogChannel[.]$" #"^com[.]apple[.]CoreTelephony[.]LogChannel[.][-0-9A-F]+$")
 	(require-all
 		(extension "com.apple.security.exception.mach-register.local-name")
-		(regex #"." #".+"))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
-		(regex #"." #".+")))
+		(global-name-regex #".+")))
 (allow network-inbound
 	(local ip "*:*")
 	(require-all
 		(socket-domain AF_SYSTEM)
 		(socket-protocol 1)))
+(allow network-outbound
+	(require-all
+		(require-not (literal "/private/var/tmp/launchd/sock"))
+		(require-not (regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$"))))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)
@@ -415,6 +429,8 @@
 	(require-all
 		(preference-domain "com.apple.bulletinboard")
 		(require-entitlement "com.apple.bulletinboard.dataprovider")))
+(allow user-preference-write
+	(extension "com.apple.security.exception.shared-preference.read-write"))
 (allow process-info*)
 (allow process-info-listpids)
 (allow process-info-pidinfo)
@@ -424,8 +440,14 @@
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
 (allow pseudo-tty)
+(allow signal
+	(target self))
 (allow sysctl-read)
+(allow system-info
+	(info-type "net.link.addr"))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
 (allow system-socket
 	(socket-domain AF_ROUTE)
 	(require-all

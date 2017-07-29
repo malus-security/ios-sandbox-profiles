@@ -1,5 +1,7 @@
 (version 1)
 (deny default)
+(allow file-map-executable
+	(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")))
 (allow iokit-get-properties)
 (allow nvram*)
 (allow nvram-delete)
@@ -13,4 +15,6 @@
 (allow process-info-setcontrol)
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
+(allow signal
+	(target self))
 (allow system-privilege)

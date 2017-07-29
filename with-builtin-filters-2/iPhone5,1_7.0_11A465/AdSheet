@@ -473,16 +473,16 @@
 (allow iokit-get-properties)
 (allow ipc-posix-shm*
 	(require-all
-		(regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(ipc-posix-name-regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 		(require-any
 			(debug-mode)
 			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
 			(require-not (require-entitlement "platform-application")))))
 (allow ipc-posix-shm-read*
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
 	(ipc-posix-name "apple.shm.notification_center"))
 (allow ipc-posix-shm-write-data
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
 	(ipc-posix-name "apple.shm.notification_center"))
 (allow mach-bootstrap)
 (allow mach-lookup
@@ -547,13 +547,13 @@
 	(global-name "com.apple.cfnetwork.cfnetworkagent")
 	(global-name "com.apple.backboard.systemservices")
 	(global-name "com.apple.librariand")
-	(regex #"^com.apple.uikit.viewservice..+")
+	(global-name-regex #"^com.apple.uikit.viewservice..+")
 	(global-name "ScripterServer")
 	(global-name "com.apple.TextInput")
 	(global-name "com.apple.TextInput.rdt")
 	(global-name "com.apple.accessibility.gax.backboard")
 	(global-name "UIASTNotificationCenter")
-	(regex #"^com[.]apple[.]accessibility[.]gax[.]client-" #"^com[.]apple[.]assistant[.]contextprovider[.]")
+	(global-name-regex #"^com[.]apple[.]accessibility[.]gax[.]client-" #"^com[.]apple[.]assistant[.]contextprovider[.]")
 	(global-name "com.apple.accessibility.AXBackBoardServer")
 	(global-name "com.apple.audio.AudioQueueServer")
 	(global-name "com.apple.voiceservices.tts")
@@ -591,7 +591,7 @@
 	(global-name "com.apple.mobile.installd")
 	(global-name "com.apple.medialibraryd.xpc")
 	(global-name "com.apple.managedconfiguration.profiled")
-	(regex #"^com[.]apple[.]iad[.]")
+	(global-name-regex #"^com[.]apple[.]iad[.]")
 	(global-name "com.apple.fairplayd.versioned")
 	(global-name "com.apple.gmmd.cookie")
 	(global-name "com.apple.eventpump")
@@ -614,7 +614,7 @@
 		(require-entitlement "com.apple.itunesstored.private")))
 (allow mach-register
 	(local-name "com.apple.iphone.axserver")
-	(regex #"^com[.]apple[.]accessibility[.]gax[.]client-" #"^com[.]apple[.]assistant[.]contextprovider[.]"))
+	(global-name-regex #"^com[.]apple[.]accessibility[.]gax[.]client-" #"^com[.]apple[.]assistant[.]contextprovider[.]"))
 (allow network-outbound
 	(require-all
 		(require-not (subpath "/private/var/tmp/zz/zyxvpxvq6csfxvn_n0000000000000/C/com.apple.sandbox"))

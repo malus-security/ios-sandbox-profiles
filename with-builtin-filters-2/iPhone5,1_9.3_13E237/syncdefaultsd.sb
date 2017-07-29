@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -329,8 +333,8 @@
 		(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]syncdefaultsd/" #"^/private/var/mobile/Library/Caches/com[.]apple[.]syncdefaultsd$" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]syncdefaultsd/" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]syncdefaultsd$")
 		(prefix-prefix "${HOME}"))
 	(require-all
-		(vnode-type BLOCK-DEVICE)
-		(vnode-type CHARACTER-DEVICE)
+		(require-not (vnode-type BLOCK-DEVICE))
+		(require-not (vnode-type CHARACTER-DEVICE))
 		(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
@@ -384,9 +388,37 @@
 (allow iokit-open)
 (allow iokit-set-properties)
 (allow iokit-get-properties)
+(allow ipc-posix-shm*
+	(ipc-posix-name-regex #"^stack-logs")
+	(ipc-posix-name-regex #"^OA-")
+	(ipc-posix-name-regex #"^/FSM-"))
+(allow ipc-posix-shm-read*
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name "apple.shm.notification_center")
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]"))
+(allow ipc-posix-shm-write-data
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-bootstrap)
 (allow mach-cross-domain-lookup)
 (allow mach-lookup)
+(allow mach-register
+	(require-all
+		(extension "com.apple.security.exception.mach-register.global-name")
+		(global-name-regex #".+"))
+	(require-all
+		(extension "com.apple.security.exception.mach-register.local-name")
+		(local-name-regex #".+")))
+(allow network-outbound
+	(require-all
+		(require-not (literal "/private/var/tmp/launchd/sock"))
+		(require-not (regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$"))
+		(require-any
+			(literal "/private/var/run/lockdown.sock")
+			(remote tcp "*:*")
+			(literal "/private/var/run/mDNSResponder")
+			(control-name "com.apple.network.statistics")
+			(control-name "com.apple.netsrc")
+			(literal "/private/var/run/syslog"))))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)
@@ -402,6 +434,8 @@
 	(require-all
 		(preference-domain "com.apple.bulletinboard")
 		(require-entitlement "com.apple.bulletinboard.dataprovider")))
+(allow user-preference-write
+	(extension "com.apple.security.exception.shared-preference.read-write"))
 (allow process-info*)
 (allow process-info-listpids)
 (allow process-info-pidinfo)
@@ -414,3 +448,10 @@
 (allow signal)
 (allow sysctl-read)
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -323,17 +327,17 @@
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)$")
 		(prefix-prefix "${HOME}"))
 	(require-all
+		(require-not (vnode-type BLOCK-DEVICE))
+		(require-not (vnode-type CHARACTER-DEVICE))
+		(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
+		(require-entitlement "com.apple.coreduetd.people"))
+	(require-all
 		(extension "com.apple.sandbox.system-group")
 		(require-any
 			(require-entitlement "com.apple.security.system-groups")
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")
 			(require-entitlement "com.apple.security.system-group-containers")
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
-	(require-all
-		(vnode-type BLOCK-DEVICE)
-		(vnode-type CHARACTER-DEVICE)
-		(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
-		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
 		(extension "com.apple.sandbox.system-container")
 		(require-entitlement "com.apple.security.system-container")))
@@ -376,6 +380,10 @@
 	(require-all
 		(vnode-type REGULAR-FILE)
 		(extension "com.apple.private.safe-move.receive")))
+(allow iokit-open
+	(extension "com.apple.security.exception.iokit-user-client-class")
+	(iokit-user-client-class "AppleKeyStoreUserClient")
+	(iokit-user-client-class "AppleMobileFileIntegrityUserClient"))
 (allow iokit-get-properties)
 (allow ipc-posix-sem)
 (allow ipc-posix-shm*)
@@ -390,20 +398,33 @@
 (allow mach-cross-domain-lookup)
 (allow mach-lookup)
 (allow mach-register
-	(regex #"^com[.]f5[.]f5_sslvpn_plugin")
+	(global-name-regex #"^com[.]f5[.]f5_sslvpn_plugin")
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
-		(regex #"." #".+"))
+		(global-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-register.local-name")
-		(regex #"." #".+")))
+		(local-name-regex #".+")))
 (allow network*)
 (allow network-inbound)
 (allow network-bind)
+(allow network-outbound
+	(require-all
+		(require-not (literal "/private/var/tmp/launchd/sock"))
+		(require-not (regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$"))))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)
 (allow nvram-set)
+(allow user-preference-read
+	(preference-domain "kCFPreferencesAnyApplication")
+	(extension "com.apple.security.exception.shared-preference.read-write")
+	(extension "com.apple.security.exception.shared-preference.read-only")
+	(require-all
+		(preference-domain "com.apple.bulletinboard")
+		(require-entitlement "com.apple.bulletinboard.dataprovider")))
+(allow user-preference-write
+	(extension "com.apple.security.exception.shared-preference.read-write"))
 (allow process-info*)
 (allow process-info-listpids)
 (allow process-info-pidinfo)
@@ -413,5 +434,14 @@
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
 (allow pseudo-tty)
+(allow signal
+	(target self))
 (allow sysctl-read)
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

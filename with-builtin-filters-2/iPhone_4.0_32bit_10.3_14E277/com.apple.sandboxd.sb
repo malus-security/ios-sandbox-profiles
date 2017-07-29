@@ -62,6 +62,8 @@
 (allow process-info-pidfdinfo)
 (allow process-info-pidfileportinfo)
 (allow process-info-setcontrol)
+(allow signal
+	(target self))
 (allow sysctl-read)
 (allow system-info
 	(info-type "net.link.addr"))

@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -138,6 +142,22 @@
 		(extension-class "com.apple.app-sandbox.read")
 		(extension "com.apple.sandbox.executable")))
 (allow file-link)
+(allow file-map-executable
+	(require-any (subpath "/System/Library/Frameworks")
+(subpath "/System/Library/PrivateFrameworks"))
+	(extension "com.apple.sandbox.executable")
+	(subpath "/System/Library")
+	(subpath "/usr/lib")
+	(subpath "/Developer")
+	(require-all
+		(subpath "/AppleInternal")
+		(debug-mode))
+	(require-all
+		(subpath "/usr/local/lib")
+		(debug-mode))
+	(require-all
+		(subpath-prefix "${FRONT_USER_HOME}/XcodeBuiltProducts")
+		(debug-mode)))
 (allow file-read*
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
@@ -246,8 +266,8 @@
 		(literal "/private/var/Managed Preferences/mobile/com.apple.bulletinboard.plist")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
-		(vnode-type BLOCK-DEVICE)
-		(vnode-type CHARACTER-DEVICE)
+		(require-not (vnode-type BLOCK-DEVICE))
+		(require-not (vnode-type CHARACTER-DEVICE))
 		(require-any
 			(literal "/private/etc/hosts")
 			(require-any (literal "/private/etc/group")
@@ -427,8 +447,19 @@
 (allow iokit-open
 	(iokit-user-client-class "AppleKeyStoreUserClient")
 	(iokit-user-client-class "IOMobileFramebufferUserClient")
+	(extension "com.apple.security.exception.iokit-user-client-class")
 	(iokit-user-client-class "com_apple_driver_FairPlayIOKitUserClient"))
 (allow iokit-get-properties)
+(allow ipc-posix-shm*
+	(require-any (ipc-posix-name "stack-logs")
+(ipc-posix-name "OA-")
+(ipc-posix-name "/FSM-")))
+(allow ipc-posix-shm-read*
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(require-any (ipc-posix-name "apple.shm.notification_center")
+(ipc-posix-name "apple.cfprefs.")))
+(allow ipc-posix-shm-write-data
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
 	(global-name "com.apple.fairplayd.versioned")
@@ -558,6 +589,32 @@
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
 		(global-name-regex #".+")))
+(allow mach-register
+	(require-all
+		(extension "com.apple.security.exception.mach-register.global-name")
+		(global-name-regex #".+"))
+	(require-all
+		(extension "com.apple.security.exception.mach-register.local-name")
+		(local-name-regex #".+")))
+(allow mach-task-name
+	(target self))
+(allow network-outbound
+	(require-all
+		(require-not (literal "/private/var/tmp/launchd/sock"))
+		(require-any
+			(require-all
+				(remote tcp "*:*")
+				(require-not (regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$")))
+			(require-all
+				(literal "/private/var/run/mDNSResponder")
+				(require-not (regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$")))
+			(require-all
+				(require-any (control-name "com.apple.network.statistics")
+(control-name "com.apple.netsrc"))
+				(require-not (regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$")))
+			(require-all
+				(literal "/private/var/run/syslog")
+				(require-not (regex #"^/private/tmp/launchd-[0-9]+[.][^/]+/sock$"))))))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)
@@ -576,7 +633,8 @@
 		(preference-domain "com.apple.bulletinboard")
 		(require-entitlement "com.apple.bulletinboard.dataprovider")))
 (allow user-preference-write
-	(preference-domain "com.apple.itunesstored"))
+	(preference-domain "com.apple.itunesstored")
+	(extension "com.apple.security.exception.shared-preference.read-write"))
 (allow process-info*)
 (allow process-info-codesignature)
 (allow process-info-dirtycontrol)
@@ -587,4 +645,93 @@
 (allow process-info-pidfileportinfo)
 (allow process-info-setcontrol)
 (allow pseudo-tty)
+(allow sysctl*
+	(extension "com.apple.security.exception.sysctl.read-write"))
+(allow sysctl-read
+	(sysctl-name "net.statistics")
+	(require-any (sysctl-name "kern.ipc.maxsockbuf")
+(sysctl-name "kern.nisdomainname"))
+	(sysctl-name "net.routetable.")
+	(extension "com.apple.security.exception.sysctl.read-only")
+	(extension "com.apple.security.exception.sysctl.read-write")
+	(require-all
+		(require-not (sysctl-name "sysctl.proc_native"))
+		(require-any
+			(sysctl-name "kern.hostname")
+			(sysctl-name "hw.machine")
+			(require-any (sysctl-name "vm.loadavg")
+(sysctl-name "hw.busfrequency")
+(sysctl-name "hw.busfrequency_compat")
+(sysctl-name "hw.byteorder")
+(sysctl-name "hw.activecpu")
+(sysctl-name "hw.cachelinesize")
+(sysctl-name "hw.cachelinesize_compat")
+(sysctl-name "hw.cputype")
+(sysctl-name "hw.cpusubtype")
+(sysctl-name "hw.cpufrequency_max")
+(sysctl-name "hw.cpufrequency_compat")
+(sysctl-name "hw.cpufrequency")
+(sysctl-name "hw.cpufamily")
+(sysctl-name "hw.cpu64bit_capable")
+(sysctl-name "hw.vectorunit")
+(sysctl-name "hw.usermem")
+(sysctl-name "hw.tbfrequency_compat")
+(sysctl-name "hw.tbfrequency")
+(sysctl-name "hw.physmem")
+(sysctl-name "hw.physicalcpu_max")
+(sysctl-name "hw.physicalcpu")
+(sysctl-name "hw.pagesize_compat")
+(sysctl-name "hw.pagesize")
+(sysctl-name "hw.ncpu")
+(sysctl-name "hw.model")
+(sysctl-name "hw.memsize")
+(sysctl-name "hw.logicalcpu_max")
+(sysctl-name "hw.logicalcpu")
+(sysctl-name "hw.l3cachesize_compat")
+(sysctl-name "hw.l3cachesize")
+(sysctl-name "hw.l2cachesize_compat")
+(sysctl-name "hw.l2cachesize")
+(sysctl-name "hw.l1icachesize_compat")
+(sysctl-name "hw.l1icachesize")
+(sysctl-name "hw.l1dcachesize_compat")
+(sysctl-name "hw.l1dcachesize")
+(sysctl-name "sysctl.name2oid")
+(sysctl-name "security.mac.sandbox.sentinel")
+(sysctl-name "kern.waketime")
+(sysctl-name "kern.version")
+(sysctl-name "kern.usrstack")
+(sysctl-name "kern.secure_kernel")
+(sysctl-name "kern.saved_ids")
+(sysctl-name "kern.osversion")
+(sysctl-name "kern.ostype")
+(sysctl-name "kern.osrelease")
+(sysctl-name "kern.ngroups")
+(sysctl-name "kern.monotoniclock_offset_usecs")
+(sysctl-name "kern.monotonicclock")
+(sysctl-name "kern.memorystatus_level")
+(sysctl-name "kern.maxfilesperproc")
+(sysctl-name "kern.hostid")
+(sysctl-name "kern.development")
+(sysctl-name "kern.clockrate")
+(sysctl-name "kern.boottime")
+(sysctl-name "kern.bootargs"))
+			(sysctl-name "kern.usrstack64")
+			(sysctl-name "kern.maxvnodes")))
+	(require-all
+		(require-any (sysctl-name "kern.proc.")
+(sysctl-name "kern.procargs2."))
+		(require-entitlement "com.apple.security.exception.process-info"))
+	(require-all
+		(sysctl-name "kern.proc.pid.")
+		(process-attribute 4)
+		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))
+(allow system-info
+	(info-type "net.link.addr"))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

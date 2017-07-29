@@ -70,9 +70,9 @@
 						(extension "com.apple.sandbox.system-group")
 						(require-any
 							(require-entitlement "com.apple.security.system-groups")
-							(require-not (regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/[.]com[.]apple[.]"))
+							(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/[.]com[.]apple[.]")
 							(require-entitlement "com.apple.security.system-group-containers")
-							(require-not (regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/[.]com[.]apple[.]"))))
+							(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/[.]com[.]apple[.]")))
 					(require-all
 						(require-not (subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.icloud.findmydevice.managed/Library"))
 						(require-not (subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/PublicInfo"))
@@ -85,8 +85,8 @@
 						(require-not (literal "/dev/null"))
 						(require-not (literal "/dev/zero"))
 						(require-any
-							(require-not (vnode-type BLOCK-DEVICE))
-							(require-not (vnode-type CHARACTER-DEVICE)))))))))
+							(vnode-type BLOCK-DEVICE)
+							(vnode-type CHARACTER-DEVICE))))))))
 (deny file-unmount)
 (deny file-write*
 	(regex #"^/private/var/containers/Data/System/[^/]+/[.]com[.]apple[.]")

@@ -4,6 +4,8 @@
 	(require-all
 		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
 		(literal "/dev/dtracehelper")))
+(allow file-link
+	(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")))
 (allow file-read*)
 (allow file-read-data)
 (allow file-read-metadata)
@@ -30,7 +32,7 @@
 (allow ipc-posix-shm*
 	(ipc-posix-name "apple.shm.notification_center"))
 (allow ipc-posix-shm-read*
-	(regex #"^apple[.]shm[.]cfprefsd[.]"))
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]"))
 (allow mach-bootstrap)
 (allow mach-lookup
 	(global-name "com.apple.cfprefsd.daemon")
@@ -66,6 +68,8 @@
 (allow process-info-setcontrol)
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
+(allow signal
+	(target self))
 (allow sysctl-read)
 (allow system-info
 	(info-type "net.link.addr"))

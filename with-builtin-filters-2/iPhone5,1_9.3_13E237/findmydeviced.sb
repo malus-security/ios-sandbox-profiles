@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -140,7 +144,6 @@
 	(literal "/dev/random")
 	(literal "/dev/urandom")
 	(literal "/dev/dtracehelper")
-	(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.icloud.findmydevice.managed/Library")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(literal "/dev/zero")
 	(literal "/dev/null")
@@ -205,14 +208,15 @@
 	(prefix-prefix "${HOME}/Library/Caches/com.apple.persistentconnection.intervalcache.plist.lock")
 	(prefix-prefix "${HOME}/Library/Caches/.com.apple.persistentconnection.settings.lock.lock")
 	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.persistentconnection.plist")
+	(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.icloud.findmydevice.managed/Library")
 	(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/PublicInfo")
 	(prefix-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
 	(literal "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/MDM.plist")
 	(literal "/dev/ptmx")
 	(literal "/dev/aes_0")
 	(require-all
-		(vnode-type BLOCK-DEVICE)
-		(vnode-type CHARACTER-DEVICE)
+		(require-not (vnode-type BLOCK-DEVICE))
+		(require-not (vnode-type CHARACTER-DEVICE))
 		(require-any
 			(literal "/private/etc/protocols")
 			(literal "/private/etc/services")
@@ -244,6 +248,9 @@
 	(require-all
 		(extension "com.apple.sandbox.system-container")
 		(require-entitlement "com.apple.security.system-container"))
+	(require-all
+		(regex #"^/private/var/mobile/Library/ConfigurationProfiles/MDM.plist$" #"^/private/var/mobile/Library/UserConfigurationProfiles/MDM.plist$" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/MDM.plist$")
+		(prefix-prefix "${FRONT_USER_HOME}"))
 	(require-all
 		(extension "com.apple.sandbox.system-container")
 		(require-entitlement "com.apple.security.system-container"))
@@ -296,9 +303,6 @@
 	(require-all
 		(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
-	(require-all
-		(regex #"^/private/var/mobile/Library/ConfigurationProfiles/MDM.plist$" #"^/private/var/mobile/Library/UserConfigurationProfiles/MDM.plist$" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/MDM.plist$")
-		(prefix-prefix "${FRONT_USER_HOME}"))
 	(require-all
 		(regex #"^/dev/ttys[0-9]" #"^/dev/ttys[0-9]+")
 		(extension "com.apple.sandbox.pty"))
@@ -374,8 +378,8 @@
 			(require-entitlement "com.apple.security.system-group-containers")
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/")))
 	(require-all
-		(vnode-type BLOCK-DEVICE)
-		(vnode-type CHARACTER-DEVICE)
+		(require-not (vnode-type BLOCK-DEVICE))
+		(require-not (vnode-type CHARACTER-DEVICE))
 		(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
@@ -457,10 +461,21 @@
 	(extension "com.apple.security.exception.iokit-user-client-class")
 	(iokit-user-client-class "ProvInfoIOKitUserClient")
 	(iokit-user-client-class "RootDomainUserClient")
-	(iokit-user-client-class "AppleKeyStoreUserClient"))
+	(iokit-user-client-class "AppleKeyStoreUserClient")
+	(iokit-user-client-class "AppleMobileFileIntegrityUserClient"))
 (allow iokit-get-properties)
 (allow ipc-posix-sem
 	(ipc-posix-name "findmydeviced.boot_check"))
+(allow ipc-posix-shm*
+	(ipc-posix-name-regex #"^stack-logs")
+	(ipc-posix-name-regex #"^OA-")
+	(ipc-posix-name-regex #"^/FSM-"))
+(allow ipc-posix-shm-read*
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name "apple.shm.notification_center")
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]"))
+(allow ipc-posix-shm-write-data
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-bootstrap)
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
@@ -549,10 +564,10 @@
 	(global-name "com.apple.xpcd")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(regex #"." #".+"))
+		(local-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(regex #"." #".+"))
+		(global-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.ak.auth.xpc")
 		(require-any
@@ -579,6 +594,13 @@
 	(require-all
 		(global-name "com.apple.coreduetd.people")
 		(require-entitlement "com.apple.coreduetd.people")))
+(allow mach-register
+	(require-all
+		(extension "com.apple.security.exception.mach-register.global-name")
+		(global-name-regex #".+"))
+	(require-all
+		(extension "com.apple.security.exception.mach-register.local-name")
+		(local-name-regex #".+")))
 (allow network-outbound
 	(require-all
 		(require-not (literal "/private/var/tmp/launchd/sock"))
@@ -651,5 +673,16 @@
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
 (allow pseudo-tty)
+(allow signal
+	(target self))
 (allow sysctl-read)
+(allow system-info
+	(info-type "net.link.addr"))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))

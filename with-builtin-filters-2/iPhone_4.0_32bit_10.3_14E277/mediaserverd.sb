@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
@@ -143,7 +147,16 @@
 	(subpath "/usr/lib")
 	(subpath "/Library/Audio/Plug-Ins")
 	(literal "/usr/local/lib/libAudioDiagnostics.dylib")
-	(subpath "/Developer"))
+	(subpath "/Developer")
+	(require-all
+		(subpath "/AppleInternal")
+		(debug-mode))
+	(require-all
+		(subpath "/usr/local/lib")
+		(debug-mode))
+	(require-all
+		(subpath-prefix "${FRONT_USER_HOME}/XcodeBuiltProducts")
+		(debug-mode)))
 (allow file-read*
 	(literal "/private/var/Managed Preferences/mobile/.GlobalPreferences.plist")
 	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
@@ -293,8 +306,8 @@
 				(require-any (regex #"/dev/ttyp[a-f0-9]")
 (regex #"/dev/ptyp[a-f0-9]")))
 			(require-all
-				(vnode-type BLOCK-DEVICE)
-				(vnode-type CHARACTER-DEVICE)
+				(require-not (vnode-type BLOCK-DEVICE))
+				(require-not (vnode-type CHARACTER-DEVICE))
 				(require-any
 					(literal "/private/etc/hosts")
 					(require-any (literal "/private/etc/group")
@@ -314,12 +327,12 @@
 					(require-all
 						(literal "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/CloudConfigurationDetails.plist")
 						(process-attribute 4)
-						(require-entitlement "com.apple.private.amfi.can-execute-cdhash"))
+						(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))
 					(require-all
 						(require-any (literal-prefix "${FRONT_USER_HOME}/Library/ConfigurationProfiles/CloudConfigurationDetails.plist")
 (literal-prefix "${FRONT_USER_HOME}/Library/UserConfigurationProfiles/CloudConfigurationDetails.plist"))
 						(process-attribute 4)
-						(require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))))
+						(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash")))))))
 	(require-all
 		(subpath "/AppleInternal")
 		(debug-mode))
@@ -580,25 +593,27 @@
 	(iokit-user-client-class "IOMobileFramebufferUserClient"))
 (allow iokit-set-properties)
 (allow iokit-get-properties)
+(allow ipc-posix-sem-open
+	(ipc-posix-name "containermanagerd.fb_check"))
 (allow ipc-posix-shm*
 	(require-any (ipc-posix-name "shm_pcm_audio_sco_write")
 (ipc-posix-name "shm_pcm_audio_sco_read"))
 	(require-any (ipc-posix-name "shm_pcm_audio_acl")
 (ipc-posix-name "com.apple.audio.abl."))
-	(regex #"^AppleAudioQueue[.]." #"^AppleAudioQueue[.].+")
+	(ipc-posix-name-regex #"^AppleAudioQueue[.]." #"^AppleAudioQueue[.].+")
 	(require-any (ipc-posix-name "stack-logs")
 (ipc-posix-name "OA-")
 (ipc-posix-name "/FSM-"))
-	(regex #"^AppleABL[.]." #"^AppleABL[.].+")
-	(regex #"^shm_notif[.][^.]+[.][RW]$")
-	(regex #"^AppleAURemoteIO[.]." #"^AppleAURemoteIO[.].+")
-	(regex #"^[0-9A-F][0-9A-F]:+[0-9A-F][0-9A-F]-tacl$"))
+	(ipc-posix-name-regex #"^AppleABL[.]." #"^AppleABL[.].+")
+	(ipc-posix-name-regex #"^shm_notif[.][^.]+[.][RW]$")
+	(ipc-posix-name-regex #"^AppleAURemoteIO[.]." #"^AppleAURemoteIO[.].+")
+	(ipc-posix-name-regex #"^[0-9A-F][0-9A-F]:+[0-9A-F][0-9A-F]-tacl$"))
 (allow ipc-posix-shm-read*
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 	(require-any (ipc-posix-name "apple.shm.notification_center")
 (ipc-posix-name "apple.cfprefs.")))
 (allow ipc-posix-shm-write-data
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
 	(global-name "com.apple.apsd")
@@ -816,8 +831,11 @@
 	(require-all
 		(extension "com.apple.security.exception.mach-register.global-name")
 		(global-name-regex #".+")))
+(allow mach-task-name
+	(target self))
 (allow network-inbound
-	(local tcp "*:*"))
+	(local tcp "*:*")
+	(local udp "*:*"))
 (allow network-outbound
 	(require-all
 		(require-not (literal "/private/var/tmp/launchd/sock"))
@@ -945,12 +963,13 @@
 (allow process-info-setcontrol)
 (allow pseudo-tty)
 (allow sysctl*
-	(sysctl-name "kern.min_audio_buffer_usec"))
+	(sysctl-name "kern.min_audio_buffer_usec")
+	(extension "com.apple.security.exception.sysctl.read-write"))
 (allow sysctl-read
 	(sysctl-name "net.routetable.")
 	(extension "com.apple.security.exception.sysctl.read-only")
 	(extension "com.apple.security.exception.sysctl.read-write")
-	(sysctl-name "sysctl.proc_native")
+	(require-not (sysctl-name "sysctl.proc_native"))
 	(sysctl-name "kern.bootsessionuuid")
 	(require-any (sysctl-name "kern.ipc.maxsockbuf")
 (sysctl-name "kern.nisdomainname"))
@@ -966,5 +985,14 @@
 (sysctl-name "kern.proc.pid."))
 		(process-attribute 4)
 		(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))
+(allow system-info
+	(info-type "net.link.addr"))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
+(allow system-socket
+	(socket-domain AF_ROUTE)
+	(require-all
+		(socket-domain AF_SYSTEM)
+		(socket-protocol 2)))
 (allow system-suspend-resume)

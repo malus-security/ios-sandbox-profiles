@@ -1,5 +1,11 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(require-all
+		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
+		(literal "/dev/dtracehelper")))
+(allow file-link
+	(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/")))
 (allow file-read*
 	(subpath "/")
 	(literal "/dev/dtracehelper")
@@ -37,7 +43,7 @@
 			(literal "/dev/zero"))))
 (allow iokit-get-properties)
 (allow ipc-posix-shm-read*
-	(regex #"^apple[.]shm[.]cfprefsd[.]"))
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]"))
 (allow mach-bootstrap)
 (allow mach-lookup
 	(global-name "com.apple.cfprefsd.daemon")
@@ -65,5 +71,7 @@
 (allow process-info-setcontrol)
 (allow process-info-dirtycontrol)
 (allow process-info-rusage)
+(allow signal
+	(target self))
 (allow sysctl-read)
 (allow system-privilege)

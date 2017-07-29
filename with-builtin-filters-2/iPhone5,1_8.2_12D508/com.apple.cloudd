@@ -54,7 +54,7 @@
 			(subpath "/private/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs")
 			(literal "/private/var/mobile/Library/Logs/ProtectedCloudStorage.log")
 			(subpath "/private/var/mobile/Library/Logs/Ubiquity")
-			(regex #"^/[.]TemporaryItems$" #"^/[.]TemporaryItems/")
+			(mount-relative-regex #"^/[.]TemporaryItems$" #"^/[.]TemporaryItems/")
 			(literal "/private/var/mobile/Library/Caches")
 			(subpath "/private/var/mobile/Library/Caches/com.apple.nsurlsessiond")
 			(extension "com.apple.security.exception.files.absolute-path.read-write")
@@ -103,7 +103,7 @@
 (allow file-write-xattr
 	(require-all
 		(require-not (regex #"/com[.]apple[.]sandbox$" #"/com[.]apple[.]sandbox/" #".+/com[.]apple[.]sandbox$" #".+/com[.]apple[.]sandbox/"))
-		(regex #"^/[.]DocumentRevisions-V100$" #"^/[.]DocumentRevisions-V100/" #"^/[.]DocumentRevisions-V100-bad-[0-9]+$" #"^/[.]DocumentRevisions-V100-bad-[0-9]+/")))
+		(mount-relative-regex #"^/[.]DocumentRevisions-V100$" #"^/[.]DocumentRevisions-V100/" #"^/[.]DocumentRevisions-V100-bad-[0-9]+$" #"^/[.]DocumentRevisions-V100-bad-[0-9]+/")))
 (allow iokit-open
 	(iokit-user-client-class "AppleMobileFileIntegrityUserClient")
 	(iokit-user-client-class "AppleKeyStoreUserClient")
@@ -112,18 +112,18 @@
 (allow iokit-get-properties)
 (allow ipc-posix-shm*
 	(require-all
-		(regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+		(ipc-posix-name-regex #"^/FSM-" #"^OA-" #"^stack-logs" #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 		(require-any
 			(debug-mode)
 			(require-entitlement "com.apple.private.security.sandbox.debug-mode")
 			(require-not (require-entitlement "platform-application")))))
 (allow ipc-posix-shm-read*
 	(ipc-posix-name "apple.shm.notification_center")
-	(regex #"^apple[.]shm[.]cfprefsd[.]"))
+	(ipc-posix-name-regex #"^apple[.]shm[.]cfprefsd[.]"))
 (allow ipc-posix-shm-read-data
 	(ipc-posix-name "FNetwork.defaultStorageSession")
 	(ipc-posix-name "com.apple.AppleDatabaseChanged")
-	(regex #"^/tmp/com[.]apple[.]csseed[.][0-9]+$"))
+	(ipc-posix-name-regex #"^/tmp/com[.]apple[.]csseed[.][0-9]+$"))
 (allow ipc-posix-shm-write-data
 	(ipc-posix-name "com.apple.AppleDatabaseChanged"))
 (allow mach-bootstrap)
@@ -184,10 +184,10 @@
 	(global-name "com.apple.PowerManagement.control")
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.global-name")
-		(regex #"." #".+"))
+		(global-name-regex #".+"))
 	(require-all
 		(extension "com.apple.security.exception.mach-lookup.local-name")
-		(regex #"." #".+"))
+		(local-name-regex #".+"))
 	(require-all
 		(global-name "com.apple.itunesstored.xpc")
 		(require-entitlement "com.apple.itunesstored.private"))

@@ -1,5 +1,9 @@
 (version 1)
 (deny default)
+(allow file-ioctl
+	(literal "/dev/ptmx")
+	(literal "/dev/aes_0")
+	(literal "/dev/dtracehelper"))
 (allow file-issue-extension
 	(extension-class "com.apple.quicklook.readonly")
 	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
@@ -538,7 +542,16 @@
 	(require-all
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[^/]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[^/]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[^/]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[^/]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[^/]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[^/]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[^/]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[^/]+/((tmp|Library)|Documents)$" #"^/private/var/[-0-9A-F]+/Containers/Data/[^/]+/[^/]+/((tmp|Library)|Documents)/" #"^/private/var/[-0-9A-F]+/Containers/Data/[^/]+/[^/]+/((tmp|Library)|Documents)$" #"^/private/var/Users/[^/]+/Containers/Data/[^/]+/[^/]+/((tmp|Library)|Documents)/" #"^/private/var/Users/[^/]+/Containers/Data/[^/]+/[^/]+/((tmp|Library)|Documents)$")
-		(subpath-prefix "${HOME}")))
+		(subpath-prefix "${HOME}"))
+	(require-all
+		(subpath "/AppleInternal")
+		(debug-mode))
+	(require-all
+		(subpath "/usr/local/lib")
+		(debug-mode))
+	(require-all
+		(subpath-prefix "${FRONT_USER_HOME}/XcodeBuiltProducts")
+		(debug-mode)))
 (allow file-read*
 	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.carrier.plist")
 	(subpath-prefix "${FRONT_USER_HOME}/Library/Carrier Bundles/Overlay")
@@ -1422,7 +1435,7 @@
 								(literal-prefix "${HOME}/Media/PhotoData/Photos.sqlite")
 								(process-attribute 4))
 							(require-all
-								(require-all (require-not (literal "${HOME}/Library/FairPlay/^^^"))
+								(require-all (require-not (subpath-prefix "${HOME}/Library/FairPlay"))
 (require-not (literal "/usr/sbin/fairplayd")))
 								(require-not (subpath-prefix "${HOME}/Media"))
 								(require-any
@@ -1470,8 +1483,8 @@
 										(require-any (regex #"/dev/ttyp[a-f0-9]")
 (regex #"/dev/ptyp[a-f0-9]")))
 									(require-all
-										(vnode-type BLOCK-DEVICE)
-										(vnode-type CHARACTER-DEVICE)
+										(require-not (vnode-type BLOCK-DEVICE))
+										(require-not (vnode-type CHARACTER-DEVICE))
 										(require-any
 											(require-any (literal "/private/etc/group")
 (literal "/private/etc/passwd")
@@ -2604,7 +2617,7 @@
 				(subpath "/private/var/.DocumentRevisions-V100/staging")
 				(extension "com.apple.revisiond.staging"))
 			(require-all
-				(subpath-prefix "${HOME}/Media")
+				(require-not (subpath-prefix "${HOME}/Media"))
 				(require-any
 					(require-all
 						(extension "com.apple.sandbox.system-container")
@@ -2675,8 +2688,8 @@
 				(vnode-type DIRECTORY)
 				(literal-prefix "${HOME}/Library/Caches/com.apple.DictionaryServices"))
 			(require-all
-				(require-all (require-not (literal "${HOME}/Library/Preferences/com.apple.Accessibility.plist"))
-(require-not (literal "${HOME}/Library/Preferences/com.apple.UIKit.plist")))
+				(require-all (require-not (literal-prefix "${HOME}/Library/Preferences/com.apple.Accessibility.plist"))
+(require-not (literal-prefix "${HOME}/Library/Preferences/com.apple.UIKit.plist")))
 				(vnode-type REGULAR-FILE)
 				(extension "com.apple.private.safe-move.send")))))
 (allow file-write-data
@@ -3013,7 +3026,7 @@
 			(require-not (require-entitlement "com.apple.private.MobileGestalt.AllowedProtectedKeys"))
 			(require-entitlement "com.apple.system.get-hardware-identifiers")))
 	(require-all
-		(regex #"die-id$" #"chip-id$" #"board-id$" #".+((die|chip)|board)-id$")
+		(iokit-property-regex #"die-id$" #"chip-id$" #"board-id$" #".+((die|chip)|board)-id$")
 		(require-any
 			(require-entitlement "fairplay-client")
 			(require-not (require-entitlement "com.apple.private.MobileGestalt.AllowedProtectedKeys"))
@@ -3048,25 +3061,25 @@
 			(require-not (require-entitlement "com.apple.private.MobileGestalt.AllowedProtectedKeys"))
 			(require-entitlement "com.apple.system.get-hardware-identifiers")))
 	(require-all
-		(regex #"[Cc]alibration" #".+[Cc]alibration")
+		(iokit-property-regex #"[Cc]alibration" #".+[Cc]alibration")
 		(require-any
 			(require-entitlement "fairplay-client")
 			(require-not (require-entitlement "com.apple.private.MobileGestalt.AllowedProtectedKeys"))
 			(require-entitlement "com.apple.system.get-hardware-identifiers")))
 	(require-all
-		(regex #"UUID" #"-uuid" #".+UUID" #".+-uuid")
+		(iokit-property-regex #"UUID" #"-uuid" #".+UUID" #".+-uuid")
 		(require-any
 			(require-entitlement "fairplay-client")
 			(require-not (require-entitlement "com.apple.private.MobileGestalt.AllowedProtectedKeys"))
 			(require-entitlement "com.apple.system.get-hardware-identifiers")))
 	(require-all
-		(regex #"serial-number" #"SerialNum" #"-snum" #".+serial-number" #".+SerialNum" #".+-snum")
+		(iokit-property-regex #"serial-number" #"SerialNum" #"-snum" #".+serial-number" #".+SerialNum" #".+-snum")
 		(require-any
 			(require-entitlement "fairplay-client")
 			(require-not (require-entitlement "com.apple.private.MobileGestalt.AllowedProtectedKeys"))
 			(require-entitlement "com.apple.system.get-hardware-identifiers")))
 	(require-all
-		(regex #"-mac-address" #"mac-address-" #".+-mac-address" #".+mac-address-")
+		(iokit-property-regex #"-mac-address" #"mac-address-" #".+-mac-address" #".+mac-address-")
 		(require-any
 			(require-entitlement "fairplay-client")
 			(require-not (require-entitlement "com.apple.private.MobileGestalt.AllowedProtectedKeys"))
@@ -3097,21 +3110,21 @@
 (allow ipc-posix-shm-read*
 	(require-any (ipc-posix-name "apple.shm.notification_center")
 (ipc-posix-name "apple.cfprefs."))
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
 	(require-all
-		(regex #"^AppleABL[.]." #"^AppleABL[.].+")
+		(ipc-posix-name-regex #"^AppleABL[.]." #"^AppleABL[.].+")
 		(require-entitlement "inter-app-audio")))
 (allow ipc-posix-shm-write-create
-	(regex #"^/mono[.][0-9]+$"))
+	(ipc-posix-name-regex #"^/mono[.][0-9]+$"))
 (allow ipc-posix-shm-write-data
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
-	(regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$")
+	(ipc-posix-name-regex #"^Apple MIDI in [0-9]+$" #"^Apple MIDI out [0-9]+$")
 	(require-all
-		(regex #"^AppleABL[.]." #"^AppleABL[.].+")
+		(ipc-posix-name-regex #"^AppleABL[.]." #"^AppleABL[.].+")
 		(require-entitlement "inter-app-audio")))
 (allow ipc-posix-shm-write-unlink
-	(regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
+	(ipc-posix-name-regex #"^gdt-[0-9A-Za-z]+-c$" #"^gdt-[0-9A-Za-z]+-s$"))
 (allow mach-cross-domain-lookup)
 (allow mach-lookup
 	(global-name "com.apple.quicklook.ThumbnailsAgent")
@@ -3326,7 +3339,7 @@
 	(require-any (global-name "com.apple.assertiond.extension")
 (global-name "com.apple.webfilterd")
 (global-name "com.apple.WebBookmarks.webbookmarksd"))
-	(regex #"^com[.]apple[.]uikit[.]viewservice[.].+")
+	(global-name-regex #"^com[.]apple[.]uikit[.]viewservice[.].+")
 	(global-name "com.apple.ait.client")
 	(require-any (global-name "com.apple.UIKit.KeyboardManagement.hosted")
 (global-name "com.apple.uikit.GestureServer")
@@ -3908,7 +3921,7 @@
 		(extension "com.apple.security.exception.mach-register.global-name")
 		(global-name-regex #".+"))
 	(require-all
-		(require-not (regex #"-idswake$" #".+-idswake$"))
+		(require-not (global-name-regex #"-idswake$" #".+-idswake$"))
 		(require-any
 			(local-name "com.apple.assistant.contextprovider.")
 			(local-name "com.apple.iphone.axserver")
@@ -3921,6 +3934,8 @@
 			(require-all
 				(extension "com.apple.sandbox.application-group")
 				(require-not (require-entitlement "com.apple.private.amfi.can-execute-cdhash"))))))
+(allow mach-task-name
+	(target self))
 (allow network-inbound
 	(local ip "*:*")
 	(require-all
@@ -4418,6 +4433,8 @@
 		(target others)
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.webbookmarksd"))))
+(allow sysctl*
+	(extension "com.apple.security.exception.sysctl.read-write"))
 (allow sysctl-read
 	(sysctl-name "net.routetable.")
 	(sysctl-name "net.statistics")
@@ -4505,12 +4522,17 @@
 		(sysctl-name "kern.proc.all")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.webbookmarksd"))))
+(allow system-fsctl
+	(fsctl-command (_IO "h" 32))
+	(fsctl-command (_IO "h" 31)))
 (allow system-info
 	(require-all
 		(info-type "net.link.addr")
 		(require-entitlement "fairplay-client")
 		(require-not (require-entitlement "com.apple.private.MobileGestalt.AllowedProtectedKeys"))))
 (allow system-privilege)
+(allow system-sched
+	(require-entitlement "com.apple.private.kernel.override-cpumon"))
 (allow system-socket
 	(socket-domain AF_ROUTE)
 	(require-all
