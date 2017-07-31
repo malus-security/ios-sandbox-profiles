@@ -532,7 +532,7 @@
 				(subpath "/private/var/.DocumentRevisions-V100/PerUID")
 				(extension "com.apple.revisiond.revision"))
 			(require-all
-				(regex #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/.+$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPhone/(?|.+)$" #"^/private/var/euser[0-9]+/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetP(ad|hone)/(?|.+)$")
+				(regex #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/.+$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPhone/.+$" #"^/private/var/euser[0-9]+/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetP(ad|hone)/.+$")
 				(prefix-prefix "${HOME}"))
 			(require-all
 				(regex #"^/private/var/mobile/Library/Carrier Bundles//carrier[.]plist$" #"^/private/var/mobile/Library/Carrier Bundles/.+/carrier[.]plist$" #"^/private/var/euser[0-9]+/Library/Carrier Bundles/.*/carrier[.]plist$")
@@ -919,7 +919,7 @@
 				(subpath "/private/var/.DocumentRevisions-V100/staging")
 				(extension "com.apple.revisiond.staging"))
 			(require-all
-				(regex #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/.+$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPhone/(?|.+)$" #"^/private/var/euser[0-9]+/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetP(ad|hone)/(?|.+)$")
+				(regex #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/.+$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetPhone/.+$" #"^/private/var/euser[0-9]+/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]AdSheetP(ad|hone)/.+$")
 				(prefix-prefix "${HOME}"))
 			(require-all
 				(vnode-type DIRECTORY)

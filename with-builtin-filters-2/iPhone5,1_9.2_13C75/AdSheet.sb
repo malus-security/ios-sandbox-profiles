@@ -359,7 +359,7 @@
 			(literal "/private/var/mobile/Library/Preferences/com.apple.SpeakSelection.plist")
 			(literal "/private/var/mobile/Library/Preferences/com.apple.da.plist")
 			(literal "/private/var/mobile/Library/Caches/com.apple.itunesstored/url-resolution.plist")
-			(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad$" #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/$" #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/.+$" #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPhone/(?|.+)$")
+			(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad$" #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/$" #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/.+$" #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPhone/.+$")
 			(literal "/private/var/mobile/Library/Caches/com.apple.iTunesStore/network-constraints.plist")
 			(literal "/private/var/mobile/Library/Preferences/com.apple.homesharing.plist")
 			(literal "/private/var/mobile/Library/Preferences/com.apple.medialibrary.plist")
@@ -721,7 +721,7 @@
 					(subpath "/private/var/mobile/Library/Caches/com.apple.keyboards")
 					(literal "/private/var/mobile/Library/Keyboard/LocalDictionary")
 					(regex #"^/private/var/mobile/Library/Preferences/com[.]apple[.]mediaaccessibility[.]public[.]plist")
-					(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad$" #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/$" #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/.+$" #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPhone/(?|.+)$")
+					(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad$" #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/$" #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPad/.+$" #"^/private/var/mobile/Library/Caches/com[.]apple[.]iTunesStore/ISURLBag/com[.]apple[.]AdSheetPhone/.+$")
 					(literal "/private/var/mobile/Library/Caches/com.apple.iTunesStore/network-constraints.plist")
 					(require-all
 						(subpath "/private/var/mobile/Library/Mobile Documents")
