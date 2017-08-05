@@ -115,19 +115,19 @@
 		(subpath "/System/Library"))
 	(require-all
 		(extension-class "com.apple.StreamingUnzipService")
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.AppConduit.staging"))
+		(subpath-prefix "${HOME}/Library/Caches/com.apple.AppConduit.staging"))
 	(require-all
 		(extension-class "com.apple.nsurlstorage.extension-cache")
 		(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]gizmoappd/" #"^/private/var/mobile/Library/Caches/com[.]apple[.]gizmoappd$" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]gizmoappd/" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]gizmoappd$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read-write")
 		(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]gizmoappd/" #"^/private/var/mobile/Library/Caches/com[.]apple[.]gizmoappd$" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]gizmoappd/" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]gizmoappd$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
 		(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]gizmoappd/" #"^/private/var/mobile/Library/Caches/com[.]apple[.]gizmoappd$" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]gizmoappd/" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]gizmoappd$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.mediaserverd.read-write")
 		(extension "com.apple.sandbox.system-container")
@@ -142,34 +142,34 @@
 	(extension "com.apple.security.exception.files.home-relative-path.read-only")
 	(extension "com.apple.sandbox.executable")
 	(literal "/private/var/Managed Preferences/mobile/.GlobalPreferences.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
 	(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
 	(subpath "/System/Library")
 	(subpath "/usr/lib")
 	(subpath "/usr/share")
 	(subpath "/private/var/db/timezone")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.pairedsync.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.logging.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.demo-settings.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.NanoRegistry.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.coremedia.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.coreaudio.plist")
-	(prefix-prefix "${HOME}/Library/Caches/com.apple.AppConduit.staging")
-	(prefix-prefix "${HOME}/Library/Caches/com.apple.watchkit.imagecache")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.pairedsync.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.logging.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.demo-settings.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.NanoRegistry.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.coremedia.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.coreaudio.plist")
+	(subpath-prefix "${HOME}/Library/Caches/com.apple.AppConduit.staging")
+	(subpath-prefix "${HOME}/Library/Caches/com.apple.watchkit.imagecache")
 	(subpath "/private/var/tmp")
 	(subpath "/Applications")
 	(subpath "/private/var/containers/Bundle/Application")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.nanoprefsyncd.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.UIKit.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.gizmoappd.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.ids.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.conference.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.marco.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.nanoprefsyncd.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.UIKit.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.gizmoappd.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.ids.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.conference.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.marco.plist")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
 	(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.icloud.findmydevice.managed/Library")
 	(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/PublicInfo")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
 	(literal "/dev/ptmx")
 	(literal "/dev/aes_0")
 	(literal "/dev/random")
@@ -178,11 +178,11 @@
 	(literal "/dev/null")
 	(literal "/dev/zero")
 	(require-all
-		(prefix-prefix "${HOME}/XcodeBuiltProducts")
+		(subpath-prefix "${HOME}/XcodeBuiltProducts")
 		(debug-mode))
 	(require-all
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/Preferences/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/Library/Preferences/")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(debug-mode)
 		(require-any
@@ -190,18 +190,18 @@
 			(subpath "/private/var/mobile/XcodeBuiltProducts")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/com[.]apple[.]nano-complications$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/com[.]apple[.]nano-complications$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(vnode-type REGULAR-FILE)
 		(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd/" #"^/private/var/mobile/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd$" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd/" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(vnode-type DIRECTORY)
 		(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd/" #"^/private/var/mobile/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd$" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd/" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]gizmoappd/" #"^/private/var/mobile/Library/Caches/com[.]apple[.]gizmoappd$" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]gizmoappd/" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]gizmoappd$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension "com.apple.sandbox.system-container")
 		(require-entitlement "com.apple.security.system-container"))
@@ -224,9 +224,9 @@
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/ConfigurationProfiles/PublicInfo$" #"^/private/var/mobile/Library/ConfigurationProfiles/PublicInfo/" #"^/private/var/mobile/Library/UserConfigurationProfiles/PublicInfo$" #"^/private/var/mobile/Library/UserConfigurationProfiles/PublicInfo/" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/PublicInfo$" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/PublicInfo/")
-		(prefix-prefix "${FRONT_USER_HOME}"))
+		(subpath-prefix "${FRONT_USER_HOME}"))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.bulletinboard.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.bulletinboard.plist")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
 		(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
@@ -248,30 +248,30 @@
 			(literal "/private/etc/group")
 			(literal "/private/etc/passwd")
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-wal")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-wal")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-shm")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-shm")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People")
+				(literal-prefix "${HOME}/Library/CoreDuet/People")
 				(require-entitlement "com.apple.coreduetd.people")))))
 (allow file-read-metadata
 	(literal "/private/var/run/syslog")
-	(prefix-prefix "${HOME}/Library/Caches/powerlog.launchd")
-	(prefix-prefix "${HOME}")
-	(prefix-prefix "${HOME}/Library/Preferences")
+	(literal-prefix "${HOME}/Library/Caches/powerlog.launchd")
+	(literal-prefix "${HOME}")
+	(literal-prefix "${HOME}/Library/Preferences")
 	(vnode-type DIRECTORY)
 	(vnode-type SYMLINK)
-	(prefix-prefix "${HOME}/Library/DeviceRegistry")
-	(prefix-prefix "${HOME}/Library/PPTDevice")
-	(prefix-prefix "${HOME}/Library/Caches")
+	(literal-prefix "${HOME}/Library/DeviceRegistry")
+	(literal-prefix "${HOME}/Library/PPTDevice")
+	(literal-prefix "${HOME}/Library/Caches")
 	(require-all
 		(vnode-type REGULAR-FILE)
 		(extension "com.apple.private.safe-move.receive"))
@@ -279,31 +279,31 @@
 		(vnode-type REGULAR-FILE)
 		(extension "com.apple.private.safe-move.send"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
 		(vnode-type DIRECTORY)
 		(require-any
-			(prefix-prefix "${HOME}/Library/DeviceRegistry")
+			(literal-prefix "${HOME}/Library/DeviceRegistry")
 			(require-all
 				(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+$")
-				(prefix-prefix "${HOME}"))))
+				(subpath-prefix "${HOME}"))))
 	(require-all
 		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(vnode-type DIRECTORY)
-		(prefix-prefix "${HOME}/Library/Caches")))
+		(literal-prefix "${HOME}/Library/Caches")))
 (allow file-write*
 	(extension "com.apple.security.exception.files.absolute-path.read-write")
 	(extension "com.apple.security.exception.files.home-relative-path.read-write")
-	(prefix-prefix "${HOME}/Library/Caches/com.apple.AppConduit.staging")
-	(prefix-prefix "${HOME}/Library/Caches/com.apple.watchkit.imagecache")
+	(subpath-prefix "${HOME}/Library/Caches/com.apple.AppConduit.staging")
+	(subpath-prefix "${HOME}/Library/Caches/com.apple.watchkit.imagecache")
 	(subpath "/private/var/tmp")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.gizmoappd.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.gizmoappd.plist")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(require-all
 		(extension "com.apple.sandbox.system-group")
@@ -315,22 +315,22 @@
 	(require-all
 		(require-not (vnode-type BLOCK-DEVICE))
 		(require-not (vnode-type CHARACTER-DEVICE))
-		(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
+		(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/Preferences/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/Library/Preferences/")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(vnode-type REGULAR-FILE)
 		(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd/" #"^/private/var/mobile/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd$" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd/" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(vnode-type DIRECTORY)
 		(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd/" #"^/private/var/mobile/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd$" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd/" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]nsurlsessiond/Downloads/com[.]apple[.]gizmoappd$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(regex #"^/private/var/mobile/Library/Caches/com[.]apple[.]gizmoappd/" #"^/private/var/mobile/Library/Caches/com[.]apple[.]gizmoappd$" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]gizmoappd/" #"^/private/var/euser[0-9]+/Library/Caches/com[.]apple[.]gizmoappd$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension "com.apple.sandbox.system-container")
 		(require-entitlement "com.apple.security.system-container")))
@@ -341,13 +341,13 @@
 	(require-all
 		(vnode-type DIRECTORY)
 		(require-any
-			(prefix-prefix "${HOME}/Library/DeviceRegistry")
+			(literal-prefix "${HOME}/Library/DeviceRegistry")
 			(require-all
 				(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+$")
-				(prefix-prefix "${HOME}"))))
+				(subpath-prefix "${HOME}"))))
 	(require-all
 		(vnode-type DIRECTORY)
-		(prefix-prefix "${HOME}/Library/Caches")))
+		(literal-prefix "${HOME}/Library/Caches")))
 (allow file-write-data
 	(literal "/dev/ptmx")
 	(literal "/dev/aes_0")
@@ -368,7 +368,7 @@
 			(literal "/dev/null")
 			(literal "/dev/zero")
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
 				(require-entitlement "com.apple.coreduetd.people")))))
 (allow file-write-mode
 	(require-all

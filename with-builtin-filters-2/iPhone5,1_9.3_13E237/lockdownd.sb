@@ -124,7 +124,7 @@
 	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
 	(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.icloud.findmydevice.managed/Library")
 	(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/PublicInfo")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
 	(literal "/dev/ptmx")
 	(literal "/dev/aes_0")
 	(literal "/dev/random")
@@ -139,7 +139,7 @@
 	(extension "com.apple.security.exception.files.home-relative-path.read-only")
 	(extension "com.apple.sandbox.executable")
 	(literal "/private/var/Managed Preferences/mobile/.GlobalPreferences.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
 	(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
 	(subpath "/System/Library")
 	(subpath "/usr/lib")
@@ -156,16 +156,16 @@
 	(subpath "/private/var/preferences/SystemConfiguration")
 	(literal "/private/var/db/launchd.db/com.apple.launchd/overrides.plist")
 	(subpath "/private/var/logs")
-	(prefix-prefix "${FRONT_USER_HOME}/Media")
+	(subpath-prefix "${FRONT_USER_HOME}/Media")
 	(subpath "/Applications/Preferences.app")
 	(subpath "/AppleInternal/Lockdown")
 	(literal "/usr/libexec")
 	(literal "/usr/libexec/lockdownd")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.purplebuddy.plist")
-	(prefix-prefix "${HOME}/Library/Caches/Checkpoint.plist")
-	(prefix-prefix "${HOME}/Library/Carrier Bundles/Overlay")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.purplebuddy.plist")
+	(literal-prefix "${HOME}/Library/Caches/Checkpoint.plist")
+	(subpath-prefix "${HOME}/Library/Carrier Bundles/Overlay")
 	(regex #"^/System/Library/Carrier Bundles//carrier[.]plist$" #"^/System/Library/Carrier Bundles/.+/carrier[.]plist$")
-	(prefix-prefix "${HOME}/Library/Preferences/com.apple.carrier.plist")
+	(literal-prefix "${HOME}/Library/Preferences/com.apple.carrier.plist")
 	(regex #"^/System/Library/Carrier Bundles/[.]png$" #"^/System/Library/Carrier Bundles/.+[.]png$")
 	(require-all
 		(extension "com.apple.sandbox.system-container")
@@ -189,9 +189,9 @@
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/ConfigurationProfiles/PublicInfo$" #"^/private/var/mobile/Library/ConfigurationProfiles/PublicInfo/" #"^/private/var/mobile/Library/UserConfigurationProfiles/PublicInfo$" #"^/private/var/mobile/Library/UserConfigurationProfiles/PublicInfo/" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/PublicInfo$" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/PublicInfo/")
-		(prefix-prefix "${FRONT_USER_HOME}"))
+		(subpath-prefix "${FRONT_USER_HOME}"))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.bulletinboard.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.bulletinboard.plist")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
 		(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
@@ -213,22 +213,22 @@
 			(literal "/private/etc/group")
 			(literal "/private/etc/passwd")
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-wal")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-wal")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-shm")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-shm")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People")
+				(literal-prefix "${HOME}/Library/CoreDuet/People")
 				(require-entitlement "com.apple.coreduetd.people"))))
 	(require-all
-		(prefix-prefix "${HOME}/XcodeBuiltProducts")
+		(subpath-prefix "${HOME}/XcodeBuiltProducts")
 		(debug-mode))
 	(require-all
 		(literal "/private/var/run/lockdown_first_run")
@@ -240,35 +240,35 @@
 		(subpath "/private/var/containers")
 		(vnode-type DIRECTORY))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Voicemail")
+		(subpath-prefix "${FRONT_USER_HOME}/Library/Voicemail")
 		(vnode-type DIRECTORY))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Notes")
+		(subpath-prefix "${FRONT_USER_HOME}/Library/Notes")
 		(vnode-type DIRECTORY))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Calendar")
+		(subpath-prefix "${FRONT_USER_HOME}/Library/Calendar")
 		(vnode-type DIRECTORY))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.WebAppCache")
+		(subpath-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.WebAppCache")
 		(vnode-type DIRECTORY))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Media")
+		(subpath-prefix "${FRONT_USER_HOME}/Media")
 		(vnode-type DIRECTORY))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Containers")
+		(subpath-prefix "${FRONT_USER_HOME}/Containers")
 		(vnode-type DIRECTORY))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Applications")
+		(subpath-prefix "${FRONT_USER_HOME}/Applications")
 		(vnode-type DIRECTORY))
 	(require-all
 		(regex #"^/private/var/mobile/Library/Carrier Bundles/[.]bundle$" #"^/private/var/mobile/Library/Carrier Bundles/.+[.]bundle$" #"^/private/var/mobile/Library/Carrier Bundles/[.]bundle/Info[.]plist$" #"^/private/var/mobile/Library/Carrier Bundles/.+[.]bundle/Info[.]plist$" #"^/private/var/mobile/Library/Carrier Bundles/[.]bundle/[.]lproj/" #"^/private/var/mobile/Library/Carrier Bundles/[.]bundle/[.]lproj$" #"^/private/var/mobile/Library/Carrier Bundles/.+[.]bundle/[.]lproj/" #"^/private/var/mobile/Library/Carrier Bundles/.+[.]bundle/[.]lproj$" #"^/private/var/mobile/Library/Carrier Bundles/[.]bundle/[^/]+[.]lproj/" #"^/private/var/mobile/Library/Carrier Bundles/[.]bundle/[^/]+[.]lproj$" #"^/private/var/mobile/Library/Carrier Bundles/.+[.]bundle/[^/]+[.]lproj/" #"^/private/var/mobile/Library/Carrier Bundles/.+[.]bundle/[^/]+[.]lproj$" #"^/private/var/euser[0-9]+/Library/Carrier Bundles/.*[.]bundle$" #"^/private/var/euser[0-9]+/Library/Carrier Bundles/.*[.]bundle/Info[.]plist$" #"^/private/var/euser[0-9]+/Library/Carrier Bundles/((.*[.]bundle/|[.]bundle/[^/]+)|.+[.]bundle/[^/]+)[.]lproj/" #"^/private/var/euser[0-9]+/Library/Carrier Bundles/((.*[.]bundle/|[.]bundle/[^/]+)|.+[.]bundle/[^/]+)[.]lproj$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(regex #"^/private/var/mobile/Library/Carrier Bundles//carrier[.]plist$" #"^/private/var/mobile/Library/Carrier Bundles/.+/carrier[.]plist$" #"^/private/var/euser[0-9]+/Library/Carrier Bundles/.*/carrier[.]plist$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(regex #"^/private/var/mobile/Library/Carrier Bundles/[.]png$" #"^/private/var/mobile/Library/Carrier Bundles/.+[.]png$" #"^/private/var/euser[0-9]+/Library/Carrier Bundles/.*[.]png$")
-		(prefix-prefix "${HOME}")))
+		(subpath-prefix "${HOME}")))
 (allow file-read-metadata)
 (allow file-write*
 	(extension "com.apple.security.exception.files.absolute-path.read-write")
@@ -279,7 +279,7 @@
 	(regex #"^/private/var/root/Library/Preferences/com[.]apple[.]mobile[.]lockdownd[.]plist")
 	(subpath "/private/var/preferences/SystemConfiguration")
 	(subpath "/private/var/logs")
-	(prefix-prefix "${FRONT_USER_HOME}/Media")
+	(subpath-prefix "${FRONT_USER_HOME}/Media")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(require-all
 		(extension "com.apple.sandbox.system-group")
@@ -291,7 +291,7 @@
 	(require-all
 		(require-not (vnode-type BLOCK-DEVICE))
 		(require-not (vnode-type CHARACTER-DEVICE))
-		(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
+		(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
 		(literal "/private/var/run/lockdown_first_run")
@@ -323,7 +323,7 @@
 			(literal "/dev/dtracehelper")
 			(literal "/dev/null")
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
 				(require-entitlement "com.apple.coreduetd.people")))))
 (allow file-write-mode
 	(literal "/private/var/db/timezone")

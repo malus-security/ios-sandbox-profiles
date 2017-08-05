@@ -20,7 +20,7 @@
 	(subpath "/private/var/Managed Preferences/mobile")
 	(subpath "/private/var/preferences")
 	(subpath "/private/var/root")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
 	(literal "/private/var/db/icu")
 	(literal "/private/etc/master.passwd")
 	(subpath "/private/var/run/racoon")

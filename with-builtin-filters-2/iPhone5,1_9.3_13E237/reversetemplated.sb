@@ -127,21 +127,21 @@
 	(extension "com.apple.security.exception.files.home-relative-path.read-only")
 	(extension "com.apple.sandbox.executable")
 	(literal "/private/var/Managed Preferences/mobile/.GlobalPreferences.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
 	(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
 	(subpath "/System/Library")
 	(subpath "/usr/lib")
 	(subpath "/usr/share")
 	(subpath "/private/var/db/timezone")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.MobileAsset.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.suggestions.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.CoreSuggestions.MobileAssets.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.AppSupport.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.MobileAsset.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.suggestions.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.CoreSuggestions.MobileAssets.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.AppSupport.plist")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
 	(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.icloud.findmydevice.managed/Library")
 	(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/PublicInfo")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
 	(literal "/dev/ptmx")
 	(literal "/dev/aes_0")
 	(literal "/dev/random")
@@ -150,10 +150,10 @@
 	(literal "/dev/null")
 	(literal "/dev/zero")
 	(require-all
-		(prefix-prefix "${HOME}/XcodeBuiltProducts")
+		(subpath-prefix "${HOME}/XcodeBuiltProducts")
 		(debug-mode))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Assets")
+		(subpath-prefix "${HOME}/Library/Assets")
 		(extension "com.apple.assets.read"))
 	(require-all
 		(subpath "/private/var/MobileAsset")
@@ -180,9 +180,9 @@
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/ConfigurationProfiles/PublicInfo$" #"^/private/var/mobile/Library/ConfigurationProfiles/PublicInfo/" #"^/private/var/mobile/Library/UserConfigurationProfiles/PublicInfo$" #"^/private/var/mobile/Library/UserConfigurationProfiles/PublicInfo/" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/PublicInfo$" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/PublicInfo/")
-		(prefix-prefix "${FRONT_USER_HOME}"))
+		(subpath-prefix "${FRONT_USER_HOME}"))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.bulletinboard.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.bulletinboard.plist")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
 		(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
@@ -204,32 +204,32 @@
 			(literal "/private/etc/group")
 			(literal "/private/etc/passwd")
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-wal")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-wal")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-shm")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-shm")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People")
+				(literal-prefix "${HOME}/Library/CoreDuet/People")
 				(require-entitlement "com.apple.coreduetd.people")))))
 (allow file-read-metadata
-	(prefix-prefix "${HOME}/Library/Caches/powerlog.launchd")
-	(prefix-prefix "${HOME}")
-	(prefix-prefix "${HOME}/Library/Preferences")
+	(literal-prefix "${HOME}/Library/Caches/powerlog.launchd")
+	(literal-prefix "${HOME}")
+	(literal-prefix "${HOME}/Library/Preferences")
 	(vnode-type DIRECTORY)
 	(vnode-type SYMLINK)
 	(literal "/private/var/run/syslog")
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
 		(vnode-type REGULAR-FILE)
@@ -251,7 +251,7 @@
 	(require-all
 		(require-not (vnode-type BLOCK-DEVICE))
 		(require-not (vnode-type CHARACTER-DEVICE))
-		(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
+		(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
 		(extension "com.apple.sandbox.system-container")
@@ -280,7 +280,7 @@
 			(literal "/dev/null")
 			(literal "/dev/zero")
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
 				(require-entitlement "com.apple.coreduetd.people")))))
 (allow file-write-mode
 	(require-all

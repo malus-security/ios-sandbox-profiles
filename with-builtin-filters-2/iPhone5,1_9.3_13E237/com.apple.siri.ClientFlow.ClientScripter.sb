@@ -129,7 +129,7 @@
 	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
 	(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.icloud.findmydevice.managed/Library")
 	(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/PublicInfo")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
 	(literal "/dev/ptmx")
 	(subpath "/Developer")
 	(extension "com.apple.security.exception.files.absolute-path.read-write")
@@ -138,15 +138,15 @@
 	(extension "com.apple.security.exception.files.home-relative-path.read-only")
 	(extension "com.apple.sandbox.executable")
 	(literal "/private/var/Managed Preferences/mobile/.GlobalPreferences.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
 	(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
 	(subpath "/System/Library")
 	(subpath "/usr/lib")
 	(subpath "/usr/share")
 	(subpath "/private/var/db/timezone")
-	(prefix-prefix "${HOME}/Library/Logs/CrashReporter/Assistant")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.assistant.logging.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.siri.ClientFlow.ClientScripter.plist")
+	(subpath-prefix "${HOME}/Library/Logs/CrashReporter/Assistant")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.assistant.logging.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.siri.ClientFlow.ClientScripter.plist")
 	(literal "/dev/aes_0")
 	(require-all
 		(require-not (vnode-type BLOCK-DEVICE))
@@ -159,19 +159,19 @@
 			(literal "/private/etc/group")
 			(literal "/private/etc/passwd")
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-wal")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-wal")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-shm")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-shm")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
 				(require-entitlement "com.apple.coreduetd.people"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People")
+				(literal-prefix "${HOME}/Library/CoreDuet/People")
 				(require-entitlement "com.apple.coreduetd.people"))))
 	(require-all
 		(extension "com.apple.sandbox.system-container")
@@ -195,9 +195,9 @@
 			(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/ConfigurationProfiles/PublicInfo$" #"^/private/var/mobile/Library/ConfigurationProfiles/PublicInfo/" #"^/private/var/mobile/Library/UserConfigurationProfiles/PublicInfo$" #"^/private/var/mobile/Library/UserConfigurationProfiles/PublicInfo/" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/PublicInfo$" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/PublicInfo/")
-		(prefix-prefix "${FRONT_USER_HOME}"))
+		(subpath-prefix "${FRONT_USER_HOME}"))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.bulletinboard.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.bulletinboard.plist")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
 		(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
@@ -206,22 +206,22 @@
 		(regex #"^/dev/ttys[0-9]" #"^/dev/ttys[0-9]+")
 		(extension "com.apple.sandbox.pty"))
 	(require-all
-		(prefix-prefix "${HOME}/XcodeBuiltProducts")
+		(subpath-prefix "${HOME}/XcodeBuiltProducts")
 		(debug-mode))
 	(require-all
 		(vnode-type TTY)
 		(regex #"^/dev/ttyp[0-9a-f]$" #"^/dev/ptyp[0-9a-f]$")))
 (allow file-read-metadata
-	(prefix-prefix "${HOME}/Library/Caches/powerlog.launchd")
-	(prefix-prefix "${HOME}")
-	(prefix-prefix "${HOME}/Library/Preferences")
+	(literal-prefix "${HOME}/Library/Caches/powerlog.launchd")
+	(literal-prefix "${HOME}")
+	(literal-prefix "${HOME}/Library/Preferences")
 	(vnode-type DIRECTORY)
 	(vnode-type SYMLINK)
-	(prefix-prefix "${HOME}/Library/Logs/CrashReporter")
+	(literal-prefix "${HOME}/Library/Logs/CrashReporter")
 	(literal "/private/var/run/syslog")
 	(require-all
 		(vnode-type DIRECTORY)
-		(prefix-prefix "${HOME}/Library/Logs/CrashReporter"))
+		(literal-prefix "${HOME}/Library/Logs/CrashReporter"))
 	(require-all
 		(vnode-type REGULAR-FILE)
 		(extension "com.apple.private.safe-move.receive"))
@@ -229,16 +229,16 @@
 		(vnode-type REGULAR-FILE)
 		(extension "com.apple.private.safe-move.send"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "com.apple.bulletinboard.dataprovider")))
 (allow file-write*
 	(extension "com.apple.security.exception.files.absolute-path.read-write")
 	(extension "com.apple.security.exception.files.home-relative-path.read-write")
-	(prefix-prefix "${HOME}/Library/Logs/CrashReporter/Assistant")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.siri.ClientFlow.ClientScripter.plist")
+	(subpath-prefix "${HOME}/Library/Logs/CrashReporter/Assistant")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.siri.ClientFlow.ClientScripter.plist")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(require-all
 		(extension "com.apple.sandbox.system-group")
@@ -250,7 +250,7 @@
 	(require-all
 		(require-not (vnode-type BLOCK-DEVICE))
 		(require-not (vnode-type CHARACTER-DEVICE))
-		(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
+		(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 		(require-entitlement "com.apple.coreduetd.people"))
 	(require-all
 		(extension "com.apple.sandbox.system-container")
@@ -258,7 +258,7 @@
 (allow file-write-create
 	(require-all
 		(vnode-type DIRECTORY)
-		(prefix-prefix "${HOME}/Library/Logs/CrashReporter"))
+		(literal-prefix "${HOME}/Library/Logs/CrashReporter"))
 	(require-all
 		(vnode-type REGULAR-FILE)
 		(extension "com.apple.private.safe-move.send")))
@@ -282,7 +282,7 @@
 			(literal "/dev/null")
 			(literal "/dev/zero")
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
 				(require-entitlement "com.apple.coreduetd.people")))))
 (allow file-write-mode
 	(require-all

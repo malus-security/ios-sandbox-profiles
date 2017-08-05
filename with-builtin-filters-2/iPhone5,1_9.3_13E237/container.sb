@@ -11,7 +11,7 @@
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(extension-class "com.apple.quicklook.readonly")
 	(require-all
-		(prefix-prefix "${HOME}/Media")
+		(subpath-prefix "${HOME}/Media")
 		(extension "com.apple.avasset.read-only")
 		(extension-class "com.apple.mediaserverd.read")
 		(extension "com.apple.tcc.kTCCServicePhotos"))
@@ -112,18 +112,18 @@
 			(extension "com.apple.security.exception.files.home-relative-path.read-only")
 			(extension "com.apple.security.exception.files.home-relative-path.read-write")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Mobile Documents")
+		(subpath-prefix "${HOME}/Library/Mobile Documents")
 		(extension "com.apple.librarian.ubiquity-container")
 		(extension-class "com.apple.mediaserverd.read"))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read-write")
-		(prefix-prefix "${HOME}/Library/Mobile Documents")
+		(subpath-prefix "${HOME}/Library/Mobile Documents")
 		(require-any
 			(extension "com.apple.librarian.ubiquity-container")
 			(require-entitlement "com.apple.private.librarian.container-proxy")))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
-		(prefix-prefix "${HOME}/Library/Mobile Documents")
+		(subpath-prefix "${HOME}/Library/Mobile Documents")
 		(require-any
 			(extension "com.apple.librarian.ubiquity-container")
 			(require-entitlement "com.apple.private.librarian.container-proxy")))
@@ -143,37 +143,37 @@
 		(extension-class "com.apple.nsurlstorage.extension-cache")
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/Caches/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/Caches$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/Library/Caches/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/Library/Caches$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.mediaserverd.read")
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.mediaserverd.read-write")
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.sharing.airdrop.readonly")
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.nsurlsessiond.readonly")
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read-write")
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.sharing.airdrop.readonly")
 		(extension "com.apple.sandbox.executable"))
@@ -186,11 +186,11 @@
 			(require-all
 				(extension "com.apple.sandbox.container")
 				(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/StoreKit/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/StoreKit$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/StoreKit/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/StoreKit$")
-				(prefix-prefix "${HOME}"))
+				(subpath-prefix "${HOME}"))
 			(require-all
 				(extension "com.apple.sandbox.container")
 				(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/iTunesArtwork$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/iTunesArtwork$")
-				(prefix-prefix "${HOME}"))))
+				(subpath-prefix "${HOME}"))))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read-write")
 		(require-any
@@ -220,7 +220,7 @@
 		(extension-class "com.apple.nsurlsessiond.readonly"))
 	(require-all
 		(extension-class "com.apple.nsurlstorage.extension-cache")
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.iTunesStore.NSURLCache")
+		(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.iTunesStore.NSURLCache")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -229,7 +229,7 @@
 			(require-entitlement "com.apple.container2")))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read-write")
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.iTunesStore.NSURLCache")
+		(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.iTunesStore.NSURLCache")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -238,7 +238,7 @@
 			(require-entitlement "com.apple.container2")))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.iTunesStore.NSURLCache")
+		(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.iTunesStore.NSURLCache")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -246,7 +246,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Purchases")
+		(subpath-prefix "${HOME}/Media/Purchases")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -254,7 +254,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Podcasts")
+		(subpath-prefix "${HOME}/Media/Podcasts")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -262,7 +262,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Books")
+		(subpath-prefix "${HOME}/Media/Books")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -273,45 +273,45 @@
 		(extension-class "com.apple.nsurlstorage.extension-cache")
 		(require-any
 			(require-all
-				(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioRequestURLCache")
+				(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioRequestURLCache")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.Music")))
 			(require-all
-				(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioImageCache")
+				(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioImageCache")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.Music")))))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read-write")
 		(require-any
 			(require-all
-				(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioRequestURLCache")
+				(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioRequestURLCache")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.Music")))
 			(require-all
-				(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioImageCache")
+				(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioImageCache")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.Music")))))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
 		(require-any
 			(require-all
-				(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioRequestURLCache")
+				(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioRequestURLCache")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.Music")))
 			(require-all
-				(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioImageCache")
+				(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioImageCache")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.Music")))))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
-		(prefix-prefix "${HOME}/Media/DCIM")
+		(subpath-prefix "${HOME}/Media/DCIM")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilesafari")
 				(entitlement-value "com.apple.webapp"))))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read-write")
-		(prefix-prefix "${HOME}/Library/Cookies")
+		(subpath-prefix "${HOME}/Library/Cookies")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilesafari")
@@ -320,7 +320,7 @@
 				(entitlement-value "com.apple.Safari.SocialHelper"))))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
-		(prefix-prefix "${HOME}/Library/Cookies")
+		(subpath-prefix "${HOME}/Library/Cookies")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilesafari")
@@ -329,7 +329,7 @@
 				(entitlement-value "com.apple.Safari.SocialHelper"))))
 	(require-all
 		(extension-class "com.apple.sharing.airdrop.readonly")
-		(prefix-prefix "${HOME}/Library/Mail")
+		(subpath-prefix "${HOME}/Library/Mail")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
@@ -363,65 +363,65 @@
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.mobilemail")))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Mail")
+		(subpath-prefix "${HOME}/Library/Mail")
 		(extension-class "com.apple.mediaserverd.read")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read-write")
-		(prefix-prefix "${HOME}/Library/Mail")
+		(subpath-prefix "${HOME}/Library/Mail")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
-		(prefix-prefix "${HOME}/Library/Mail")
+		(subpath-prefix "${HOME}/Library/Mail")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
 		(extension-class "com.apple.sharing.airdrop.readonly")
-		(prefix-prefix "${HOME}/Library/ReplayKit")
+		(subpath-prefix "${HOME}/Library/ReplayKit")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.ReplayKit.RPVideoEditorExtension")))
 	(require-all
 		(extension-class "com.apple.mediaserverd.read-write")
 		(extension "com.apple.sandbox.application-group")
 		(regex #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+/")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.nsurlsessiond.readonly")
 		(extension "com.apple.sandbox.application-group")
 		(regex #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+/")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.sharing.airdrop.readonly")
 		(extension "com.apple.sandbox.application-group")
 		(regex #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+/")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read-write")
 		(extension "com.apple.sandbox.application-group")
 		(regex #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+/")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
 		(extension "com.apple.sandbox.application-group")
 		(regex #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+/")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.mediaserverd.read")
 		(extension "com.apple.sandbox.application-group")
 		(regex #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+$" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
 		(extension "com.apple.sandbox.application-group")
 		(regex #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+$" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
 		(require-any
 			(require-all
-				(prefix-prefix "${HOME}/Library/OnDemandResources/AssetPacks")
+				(subpath-prefix "${HOME}/Library/OnDemandResources/AssetPacks")
 				(extension "com.apple.odr-assets"))
 			(require-all
 				(subpath "/private/var/containers/Data/System/com.apple.ondemandd/Library/AssetPacks")
@@ -430,7 +430,7 @@
 		(extension-class "com.apple.mediaserverd.read")
 		(require-any
 			(require-all
-				(prefix-prefix "${HOME}/Library/OnDemandResources/AssetPacks")
+				(subpath-prefix "${HOME}/Library/OnDemandResources/AssetPacks")
 				(extension "com.apple.odr-assets"))
 			(require-all
 				(subpath "/private/var/containers/Data/System/com.apple.ondemandd/Library/AssetPacks")
@@ -448,7 +448,7 @@
 			(extension "com.apple.security.exception.files.home-relative-path.read-only")
 			(extension "com.apple.security.exception.files.home-relative-path.read-write")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Assets")
+		(subpath-prefix "${HOME}/Library/Assets")
 		(extension "com.apple.assets.read")
 		(extension-class "com.apple.mediaserverd.read"))
 	(require-all
@@ -456,18 +456,18 @@
 		(extension "com.apple.assets.read")
 		(extension-class "com.apple.mediaserverd.read"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Mobile Documents")
+		(subpath-prefix "${HOME}/Library/Mobile Documents")
 		(extension "com.apple.librarian.ubiquity-container")
 		(extension-class "com.apple.mediaserverd.read"))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read-write")
-		(prefix-prefix "${HOME}/Library/Mobile Documents")
+		(subpath-prefix "${HOME}/Library/Mobile Documents")
 		(require-any
 			(extension "com.apple.librarian.ubiquity-container")
 			(require-entitlement "com.apple.private.librarian.container-proxy")))
 	(require-all
 		(extension-class "com.apple.app-sandbox.read")
-		(prefix-prefix "${HOME}/Library/Mobile Documents")
+		(subpath-prefix "${HOME}/Library/Mobile Documents")
 		(require-any
 			(extension "com.apple.librarian.ubiquity-container")
 			(require-entitlement "com.apple.private.librarian.container-proxy")))
@@ -509,15 +509,15 @@
 				(extension "com.apple.tcc.kTCCServicePhotos")))))
 (allow file-link
 	(require-all
-		(require-not (prefix-prefix "${HOME}/Library/AddressBook"))
+		(require-not (subpath-prefix "${HOME}/Library/AddressBook"))
 		(require-any
-			(require-not (prefix-prefix "${HOME}/Media"))
+			(require-not (subpath-prefix "${HOME}/Media"))
 			(require-entitlement "platform-application"))))
 (allow file-map-executable)
 (allow file-read*
-	(prefix-prefix "${HOME}/Library/Carrier Bundles/Overlay")
+	(subpath-prefix "${HOME}/Library/Carrier Bundles/Overlay")
 	(regex #"^/System/Library/Carrier Bundles//carrier[.]plist$" #"^/System/Library/Carrier Bundles/.+/carrier[.]plist$")
-	(prefix-prefix "${HOME}/Library/Preferences/com.apple.carrier.plist")
+	(literal-prefix "${HOME}/Library/Preferences/com.apple.carrier.plist")
 	(regex #"^/System/Library/Carrier Bundles/[.]png$" #"^/System/Library/Carrier Bundles/.+[.]png$")
 	(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
 	(subpath "/Developer")
@@ -527,7 +527,7 @@
 	(extension "com.apple.security.exception.files.home-relative-path.read-only")
 	(extension "com.apple.sandbox.executable")
 	(literal "/private/var/Managed Preferences/mobile/.GlobalPreferences.plist")
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
 	(subpath "/System/Library")
 	(subpath "/usr/lib")
 	(subpath "/usr/share")
@@ -539,26 +539,26 @@
 	(regex #"^/private/var/containers/Data/System/[^/]+/" #"^/private/var/containers/Data/System/[^/]+$")
 	(require-all
 		(regex #"^/private/var/mobile/Library/Carrier Bundles//carrier[.]plist$" #"^/private/var/mobile/Library/Carrier Bundles/.+/carrier[.]plist$" #"^/private/var/euser[0-9]+/Library/Carrier Bundles/.*/carrier[.]plist$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(regex #"^/private/var/mobile/Library/Carrier Bundles/[.]png$" #"^/private/var/mobile/Library/Carrier Bundles/.+[.]png$" #"^/private/var/euser[0-9]+/Library/Carrier Bundles/.*[.]png$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Carrier Bundles")
+		(subpath-prefix "${HOME}/Library/Carrier Bundles")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilemail"))
 			(require-entitlement "com.apple.security.exception.carrier-bundle.read")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Application Support/Ubiquity/genstore")
+		(subpath-prefix "${HOME}/Library/Application Support/Ubiquity/genstore")
 		(extension "com.apple.librarian.ubiquity-revision"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Mobile Documents")
+		(subpath-prefix "${HOME}/Library/Mobile Documents")
 		(require-any
 			(extension "com.apple.librarian.ubiquity-container")
 			(require-entitlement "com.apple.private.librarian.container-proxy")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Application Support/CloudDocs/session/r")
+		(subpath-prefix "${HOME}/Library/Application Support/CloudDocs/session/r")
 		(vnode-type REGULAR-FILE)
 		(extension "com.apple.clouddocs.version"))
 	(require-all
@@ -588,21 +588,21 @@
 	(require-all
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/StoreKit/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/StoreKit$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/StoreKit/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/StoreKit$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/iTunesArtwork$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/iTunesArtwork$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
-		(prefix-prefix "${HOME}/XcodeBuiltProducts")
+		(subpath-prefix "${HOME}/XcodeBuiltProducts")
 		(debug-mode))
 	(require-all
 		(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
@@ -614,19 +614,19 @@
 		(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
 		(require-entitlement "com.apple.system.set-alert-tone"))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Purchases")
+		(subpath-prefix "${HOME}/Media/Purchases")
 		(require-any
 			(require-entitlement "com.apple.media.ringtones.read-only")
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilemail"))))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/Ringtones")
+		(subpath-prefix "${HOME}/Media/iTunes_Control/Ringtones")
 		(require-any
 			(require-entitlement "com.apple.media.ringtones.read-only")
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilemail"))))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes/Ringtones.plist")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes/Ringtones.plist")
 		(require-any
 			(require-entitlement "com.apple.media.ringtones.read-only")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -638,16 +638,16 @@
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilemail"))))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Purchases")
+		(subpath-prefix "${HOME}/Media/Purchases")
 		(require-entitlement "com.apple.media.ringtones.read-write"))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/Ringtones")
+		(subpath-prefix "${HOME}/Media/iTunes_Control/Ringtones")
 		(require-entitlement "com.apple.media.ringtones.read-write"))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes/Ringtones.plist")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes/Ringtones.plist")
 		(require-entitlement "com.apple.media.ringtones.read-write"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/SpringBoard/LockBackgroundThumbnail.jpg")
+		(literal-prefix "${HOME}/Library/SpringBoard/LockBackgroundThumbnail.jpg")
 		(require-any
 			(require-entitlement "com.apple.system.get-wallpaper")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -656,7 +656,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/SpringBoard/HomeBackgroundThumbnail.jpg")
+		(literal-prefix "${HOME}/Library/SpringBoard/HomeBackgroundThumbnail.jpg")
 		(require-any
 			(require-entitlement "com.apple.system.get-wallpaper")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -665,7 +665,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/SpringBoard/LockVideo.mov")
+		(literal-prefix "${HOME}/Library/SpringBoard/LockVideo.mov")
 		(require-any
 			(require-entitlement "com.apple.system.get-wallpaper")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -674,7 +674,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/SpringBoard/HomeVideo.mov")
+		(literal-prefix "${HOME}/Library/SpringBoard/HomeVideo.mov")
 		(require-any
 			(require-entitlement "com.apple.system.get-wallpaper")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -683,7 +683,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/SpringBoard/OriginalLockVideo.mov")
+		(literal-prefix "${HOME}/Library/SpringBoard/OriginalLockVideo.mov")
 		(require-any
 			(require-entitlement "com.apple.system.get-wallpaper")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -692,7 +692,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/SpringBoard/OriginalHomeVideo.mov")
+		(literal-prefix "${HOME}/Library/SpringBoard/OriginalHomeVideo.mov")
 		(require-any
 			(require-entitlement "com.apple.system.get-wallpaper")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -701,7 +701,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/SpringBoard/.LockBackground.cpbitmap")
+		(literal-prefix "${HOME}/Library/SpringBoard/.LockBackground.cpbitmap")
 		(require-any
 			(require-entitlement "com.apple.system.get-wallpaper")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -710,7 +710,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/SpringBoard/LockBackground.cpbitmap")
+		(literal-prefix "${HOME}/Library/SpringBoard/LockBackground.cpbitmap")
 		(require-any
 			(require-entitlement "com.apple.system.get-wallpaper")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -719,7 +719,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/SpringBoard/.HomeBackground.cpbitmap")
+		(literal-prefix "${HOME}/Library/SpringBoard/.HomeBackground.cpbitmap")
 		(require-any
 			(require-entitlement "com.apple.system.get-wallpaper")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -728,7 +728,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/SpringBoard/HomeBackground.cpbitmap")
+		(literal-prefix "${HOME}/Library/SpringBoard/HomeBackground.cpbitmap")
 		(require-any
 			(require-entitlement "com.apple.system.get-wallpaper")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -746,28 +746,28 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes")
+		(subpath-prefix "${HOME}/Media/iTunes_Control/iTunes")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
 		(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-wal")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-wal")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-shm")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-shm")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-journal")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-journal")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies")
+		(literal-prefix "${HOME}/Library/Cookies")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.iTunesStore.NSURLCache")
+		(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.iTunesStore.NSURLCache")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -783,7 +783,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Purchases")
+		(subpath-prefix "${HOME}/Media/Purchases")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -791,7 +791,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Podcasts")
+		(subpath-prefix "${HOME}/Media/Podcasts")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -799,7 +799,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control")
+		(subpath-prefix "${HOME}/Media/iTunes_Control")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -807,7 +807,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Books")
+		(subpath-prefix "${HOME}/Media/Books")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -815,11 +815,11 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioRequestURLCache")
+		(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioRequestURLCache")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Music")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioImageCache")
+		(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioImageCache")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Music")))
 	(require-all
@@ -837,7 +837,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-wal")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-wal")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -847,7 +847,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-shm")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-shm")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -857,7 +857,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-journal")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-journal")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -867,7 +867,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -877,7 +877,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -887,7 +887,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-wal")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-wal")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -897,7 +897,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-shm")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-shm")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -907,7 +907,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-journal")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-journal")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -917,7 +917,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -927,7 +927,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies")
+		(literal-prefix "${HOME}/Library/Cookies")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -938,7 +938,7 @@
 			(require-entitlement "com.apple.container2")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/ConfigurationProfiles/CloudConfigurationDetails.plist$" #"^/private/var/mobile/Library/UserConfigurationProfiles/CloudConfigurationDetails.plist$" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/CloudConfigurationDetails.plist$")
-		(prefix-prefix "${FRONT_USER_HOME}")
+		(subpath-prefix "${FRONT_USER_HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.Maps")
@@ -954,13 +954,13 @@
 				(entitlement-value "com.apple.mobilesafari")
 				(entitlement-value "com.apple.webapp"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/WebClips")
+		(subpath-prefix "${HOME}/Library/WebClips")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilesafari")
 				(entitlement-value "com.apple.webapp"))))
 	(require-all
-		(prefix-prefix "${HOME}/Media/DCIM")
+		(subpath-prefix "${HOME}/Media/DCIM")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilesafari")
@@ -970,7 +970,7 @@
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilesafari")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Safari")
+		(subpath-prefix "${HOME}/Media/Safari")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilesafari")))
 	(require-all
@@ -982,7 +982,7 @@
 				(entitlement-value "com.apple.safarifetcherd")
 				(entitlement-value "com.apple.Safari.SocialHelper"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies")
+		(subpath-prefix "${HOME}/Library/Cookies")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilesafari")
@@ -990,7 +990,7 @@
 				(entitlement-value "com.apple.safarifetcherd")
 				(entitlement-value "com.apple.Safari.SocialHelper"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Safari")
+		(subpath-prefix "${HOME}/Library/Safari")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilesafari")
@@ -1000,25 +1000,25 @@
 				(entitlement-value "com.apple.mobilemail")
 				(entitlement-value "com.apple.mobilenotes"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Notes")
+		(subpath-prefix "${HOME}/Library/Notes")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilemail")
 				(entitlement-value "com.apple.mobilenotes"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.notes.sharedstore.lock")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.notes.sharedstore.lock")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilemail")
 				(entitlement-value "com.apple.mobilenotes"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.notes.objectcreation.lock")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.notes.objectcreation.lock")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilemail")
 				(entitlement-value "com.apple.mobilenotes"))))
 	(require-all
-		(prefix-prefix "${HOME}/Media")
+		(subpath-prefix "${HOME}/Media")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
@@ -1027,15 +1027,15 @@
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/Logs/PersistentConnection/com[.]apple[.]mobilemail" #"^/private/var/mobile/Library/Logs/CrashReporter/PersistentConnection/com[.]apple[.]mobilemail" #"^/private/var/euser[0-9]+/Library/Logs/(CrashReporter/)?PersistentConnection/com[.]apple[.]mobilemail")
-		(prefix-prefix "${FRONT_USER_HOME}")
+		(subpath-prefix "${FRONT_USER_HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences/com.apple.dataaccess.launchd")
+		(literal-prefix "${HOME}/Library/Preferences/com.apple.dataaccess.launchd")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences/com.apple.AOSNotification.launchd")
+		(literal-prefix "${HOME}/Library/Preferences/com.apple.AOSNotification.launchd")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
@@ -1047,7 +1047,7 @@
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/DataAccess")
+		(subpath-prefix "${HOME}/Library/Caches/DataAccess")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
@@ -1056,7 +1056,7 @@
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/ConfigurationProfiles$" #"^/private/var/mobile/Library/ConfigurationProfiles/" #"^/private/var/mobile/Library/UserConfigurationProfiles$" #"^/private/var/mobile/Library/UserConfigurationProfiles/" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles$" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/")
-		(prefix-prefix "${FRONT_USER_HOME}")
+		(subpath-prefix "${FRONT_USER_HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
@@ -1065,33 +1065,33 @@
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoMail$" #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoMail/" #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/PairedSyncServiceRestrictions$" #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/PairedSyncServiceRestrictions/" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/(NanoMail|PairedSyncServiceRestrictions)$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/(NanoMail|PairedSyncServiceRestrictions)/")
-		(prefix-prefix "${HOME}")
+		(subpath-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Logs/Mail")
+		(subpath-prefix "${HOME}/Library/Logs/Mail")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/DataAccess")
+		(subpath-prefix "${HOME}/Library/DataAccess")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Calendar")
+		(subpath-prefix "${HOME}/Library/Calendar")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Mail")
+		(subpath-prefix "${HOME}/Library/Mail")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/com[.]apple[.]NanoMail" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/com[.]apple[.]NanoMail")
-		(prefix-prefix "${HOME}")
+		(subpath-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoMaps$" #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoMaps/" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/NanoMaps$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/NanoMaps/")
-		(prefix-prefix "${HOME}")
+		(subpath-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
@@ -1099,7 +1099,7 @@
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/SMS")
+		(subpath-prefix "${HOME}/Library/SMS")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
@@ -1107,33 +1107,33 @@
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.storeservices/AppPurchaseHistory.6.sqlitedb-wal")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.storeservices/AppPurchaseHistory.6.sqlitedb-wal")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.ios.StoreKitUIService")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.storeservices/AppPurchaseHistory.6.sqlitedb-shm")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.storeservices/AppPurchaseHistory.6.sqlitedb-shm")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.ios.StoreKitUIService")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.storeservices/AppPurchaseHistory.6.sqlitedb-journal")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.storeservices/AppPurchaseHistory.6.sqlitedb-journal")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.ios.StoreKitUIService")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.storeservices/AppPurchaseHistory.6.sqlitedb")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.storeservices/AppPurchaseHistory.6.sqlitedb")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.ios.StoreKitUIService")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.storeservices")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.storeservices")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.ios.StoreKitUIService")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/Preferences/com.apple.restrictionspassword.plist" #"^/private/var/euser[0-9]+/Library/Preferences/com.apple.restrictionspassword.plist")
-		(prefix-prefix "${HOME}")
+		(subpath-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.WebContentFilter.remoteUI.WebContentAnalysisUI")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/com[.]apple[.]stocks[.]bridge$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/com[.]apple[.]stocks[.]bridge$")
-		(prefix-prefix "${HOME}")
+		(subpath-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.stocks.watchkitextension")))
 	(require-all
@@ -1143,101 +1143,101 @@
 	(require-all
 		(require-not (regex #"^/private/var/mobile/Library/Preferences/com.apple.apsalerts.plist" #"^/private/var/euser[0-9]+/Library/Preferences/com.apple.apsalerts.plist"))
 		(require-any
-			(prefix-prefix "${HOME}/Media/iTunes_Control/Artwork")
-			(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes")
+			(subpath-prefix "${HOME}/Media/iTunes_Control/Artwork")
+			(subpath-prefix "${HOME}/Media/iTunes_Control/iTunes")
 			(subpath "/AppleInternal")
 			(subpath "/Applications")
 			(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
-			(prefix-prefix "${HOME}/Library/Carrier Bundles/Overlay")
+			(subpath-prefix "${HOME}/Library/Carrier Bundles/Overlay")
 			(regex #"^/System/Library/Carrier Bundles//carrier[.]plist$" #"^/System/Library/Carrier Bundles/.+/carrier[.]plist$")
-			(prefix-prefix "${HOME}/Library/Preferences/com.apple.carrier.plist")
+			(literal-prefix "${HOME}/Library/Preferences/com.apple.carrier.plist")
 			(regex #"^/System/Library/Carrier Bundles/[.]png$" #"^/System/Library/Carrier Bundles/.+[.]png$")
-			(prefix-prefix "${HOME}/Media/com.apple.itunes.lock_sync")
+			(literal-prefix "${HOME}/Media/com.apple.itunes.lock_sync")
 			(require-all
 				(regex #"^/private/var/mobile/Library/Carrier Bundles//carrier[.]plist$" #"^/private/var/mobile/Library/Carrier Bundles/.+/carrier[.]plist$" #"^/private/var/euser[0-9]+/Library/Carrier Bundles/.*/carrier[.]plist$")
-				(prefix-prefix "${HOME}"))
+				(subpath-prefix "${HOME}"))
 			(require-all
 				(regex #"^/private/var/mobile/Library/Carrier Bundles/[.]png$" #"^/private/var/mobile/Library/Carrier Bundles/.+[.]png$" #"^/private/var/euser[0-9]+/Library/Carrier Bundles/.*[.]png$")
-				(prefix-prefix "${HOME}"))
+				(subpath-prefix "${HOME}"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/Preferences/com.apple.mobilephone.speeddial.plist")
+				(literal-prefix "${HOME}/Library/Preferences/com.apple.mobilephone.speeddial.plist")
 				(extension "com.apple.tcc.kTCCServiceAddressBook"))
 			(require-all
-				(prefix-prefix "${HOME}/Library/AddressBook")
+				(subpath-prefix "${HOME}/Library/AddressBook")
 				(extension "com.apple.tcc.kTCCServiceAddressBook"))
 			(require-all
 				(extension "com.apple.sandbox.application-group")
 				(regex #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+/")
-				(prefix-prefix "${HOME}"))
+				(subpath-prefix "${HOME}"))
 			(require-all
 				(extension "com.apple.sandbox.application-group")
 				(regex #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+$" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+$")
-				(prefix-prefix "${HOME}"))
+				(subpath-prefix "${HOME}"))
 			(require-all
-				(require-not (prefix-prefix "${HOME}/Library/Caches/GeoServices/tguid.bin"))
+				(require-not (literal-prefix "${HOME}/Library/Caches/GeoServices/tguid.bin"))
 				(require-any
 					(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
-					(prefix-prefix "${FRONT_USER_HOME}/Library/Caches/GeoServices")
+					(subpath-prefix "${FRONT_USER_HOME}/Library/Caches/GeoServices")
 					(subpath "/private/var/containers/Data/System/com.apple.geod")
-					(prefix-prefix "${HOME}/Library/Caches/DateFormats.plist")
+					(literal-prefix "${HOME}/Library/Caches/DateFormats.plist")
 					(subpath "/Library/Dictionaries")
-					(prefix-prefix "${HOME}/Library/Dictionaries")
+					(subpath-prefix "${HOME}/Library/Dictionaries")
 					(literal "/private/var/preferences/com.apple.security.plist")
 					(literal "/private/var/preferences/com.apple.NetworkStatistics.plist")
 					(literal "/private/var/preferences/com.apple.networkd.plist")
 					(literal "/private/var/preferences/SystemConfiguration/com.apple.radios.plist")
-					(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
-					(prefix-prefix "${HOME}/Library/Caches/com.apple.UIStatusBar")
-					(prefix-prefix "${HOME}/Library/Caches/com.apple.IconsCache")
+					(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/.GlobalPreferences.plist")
+					(subpath-prefix "${HOME}/Library/Caches/com.apple.UIStatusBar")
+					(subpath-prefix "${HOME}/Library/Caches/com.apple.IconsCache")
 					(literal "/private/var/preferences/SystemConfiguration/com.apple.sinaweibo.plist")
 					(literal "/private/var/preferences/SystemConfiguration/com.apple.twitter.plist")
 					(literal "/private/var/preferences/SystemConfiguration/com.apple.facebook.plist")
 					(literal "/private/var/preferences/SystemConfiguration/com.apple.linkedin.plist")
 					(literal "/private/var/preferences/SystemConfiguration/com.apple.accounts.exists.plist")
-					(prefix-prefix "${HOME}/Library/Fonts")
+					(subpath-prefix "${HOME}/Library/Fonts")
 					(extension "com.apple.app-sandbox.read-write")
 					(extension "com.apple.app-sandbox.read")
 					(literal "/com.apple.xpc.launchd.bootstrap.plist")
-					(prefix-prefix "${HOME}/Library/Caches/com.apple.keyboards")
-					(prefix-prefix "${HOME}/Library/Keyboard/LocalDictionary")
-					(prefix-prefix "${HOME}/Library/VoiceServices/Assets")
-					(prefix-prefix "${HOME}/Library/Assets/com_apple_MobileAsset_VoiceServicesVocalizerVoice")
-					(prefix-prefix "${HOME}/Library/Caches/com.apple.itunesstored/url-resolution.plist")
-					(prefix-prefix "${HOME}/Media/com.apple.itunes.lock_sync")
-					(prefix-prefix "${HOME}/Media/Vibrations/UserGeneratedVibrationPatterns.plist")
+					(subpath-prefix "${HOME}/Library/Caches/com.apple.keyboards")
+					(literal-prefix "${HOME}/Library/Keyboard/LocalDictionary")
+					(subpath-prefix "${HOME}/Library/VoiceServices/Assets")
+					(subpath-prefix "${HOME}/Library/Assets/com_apple_MobileAsset_VoiceServicesVocalizerVoice")
+					(literal-prefix "${HOME}/Library/Caches/com.apple.itunesstored/url-resolution.plist")
+					(literal-prefix "${HOME}/Media/com.apple.itunes.lock_sync")
+					(literal-prefix "${HOME}/Media/Vibrations/UserGeneratedVibrationPatterns.plist")
 					(subpath "/Library/Ringtones")
-					(prefix-prefix "${HOME}/Library/Caches/Checkpoint.plist")
+					(literal-prefix "${HOME}/Library/Caches/Checkpoint.plist")
 					(require-all
 						(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices$" #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices/" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/GeoServices/")
-						(prefix-prefix "${HOME}"))
+						(subpath-prefix "${HOME}"))
 					(require-all
 						(regex #"^/private/var/mobile/Library/GameKit/Data/[^/]+.gcdata$" #"^/private/var/euser[0-9]+/Library/GameKit/Data/[^/]+.gcdata$")
-						(prefix-prefix "${HOME}"))
+						(subpath-prefix "${HOME}"))
 					(require-all
 						(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/[.]GlobalPreferences$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/[.]GlobalPreferences$")
-						(prefix-prefix "${HOME}"))
+						(subpath-prefix "${HOME}"))
 					(require-all
-						(prefix-prefix "${HOME}/Library/OnDemandResources/AssetPacks")
+						(subpath-prefix "${HOME}/Library/OnDemandResources/AssetPacks")
 						(extension "com.apple.odr-assets"))
 					(require-all
 						(subpath "/private/var/containers/Data/System/com.apple.ondemandd/Library/AssetPacks")
 						(extension "com.apple.odr-assets"))
 					(require-all
-						(prefix-prefix "${HOME}/Library/Assets")
+						(subpath-prefix "${HOME}/Library/Assets")
 						(extension "com.apple.assets.read"))
 					(require-all
 						(subpath "/private/var/MobileAsset")
 						(extension "com.apple.assets.read"))
 					(require-all
-						(prefix-prefix "${HOME}/Library/Application Support/Ubiquity/genstore")
+						(subpath-prefix "${HOME}/Library/Application Support/Ubiquity/genstore")
 						(extension "com.apple.librarian.ubiquity-revision"))
 					(require-all
-						(prefix-prefix "${HOME}/Library/Mobile Documents")
+						(subpath-prefix "${HOME}/Library/Mobile Documents")
 						(require-any
 							(extension "com.apple.librarian.ubiquity-container")
 							(require-entitlement "com.apple.private.librarian.container-proxy")))
 					(require-all
-						(prefix-prefix "${HOME}/Library/Application Support/CloudDocs/session/r")
+						(subpath-prefix "${HOME}/Library/Application Support/CloudDocs/session/r")
 						(vnode-type REGULAR-FILE)
 						(extension "com.apple.clouddocs.version"))
 					(require-all
@@ -1266,42 +1266,42 @@
 						(extension "com.apple.revisiond.revision"))
 					(require-all
 						(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/com[.]apple[.]ToneLibrary$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/com[.]apple[.]ToneLibrary$")
-						(prefix-prefix "${HOME}"))
+						(subpath-prefix "${HOME}"))
 					(require-all
 						(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
 						(extension "com.apple.tcc.kTCCServicePhotos"))
 					(require-all
-						(prefix-prefix "${HOME}/Media")
+						(subpath-prefix "${HOME}/Media")
 						(extension "com.apple.avasset.read-only")
 						(extension "com.apple.tcc.kTCCServicePhotos"))
 					(require-all
-						(prefix-prefix "${HOME}/Media/PhotoData/syncInfo.plist")
+						(literal-prefix "${HOME}/Media/PhotoData/syncInfo.plist")
 						(extension "com.apple.tcc.kTCCServicePhotos"))
 					(require-all
-						(prefix-prefix "${HOME}/Media/PhotoData/Thumbnails")
+						(subpath-prefix "${HOME}/Media/PhotoData/Thumbnails")
 						(extension "com.apple.tcc.kTCCServicePhotos"))
 					(require-all
-						(prefix-prefix "${HOME}/Media/PhotoData/Sync/FaceAlbumThumbnails")
+						(subpath-prefix "${HOME}/Media/PhotoData/Sync/FaceAlbumThumbnails")
 						(extension "com.apple.tcc.kTCCServicePhotos"))
 					(require-all
-						(prefix-prefix "${HOME}/Media/PhotoData/Metadata")
+						(subpath-prefix "${HOME}/Media/PhotoData/Metadata")
 						(extension "com.apple.tcc.kTCCServicePhotos"))
 					(require-all
-						(prefix-prefix "${HOME}/Media/PhotoData/Photos.sqlite-wal")
+						(literal-prefix "${HOME}/Media/PhotoData/Photos.sqlite-wal")
 						(extension "com.apple.tcc.kTCCServicePhotos"))
 					(require-all
-						(prefix-prefix "${HOME}/Media/PhotoData/Photos.sqlite-shm")
+						(literal-prefix "${HOME}/Media/PhotoData/Photos.sqlite-shm")
 						(extension "com.apple.tcc.kTCCServicePhotos"))
 					(require-all
-						(prefix-prefix "${HOME}/Media/PhotoData/Photos.sqlite-journal")
+						(literal-prefix "${HOME}/Media/PhotoData/Photos.sqlite-journal")
 						(extension "com.apple.tcc.kTCCServicePhotos"))
 					(require-all
-						(prefix-prefix "${HOME}/Media/PhotoData/Photos.sqlite")
+						(literal-prefix "${HOME}/Media/PhotoData/Photos.sqlite")
 						(extension "com.apple.tcc.kTCCServicePhotos"))
 					(require-all
-						(require-not (prefix-prefix "${HOME}/Library/FairPlay"))
+						(require-not (subpath-prefix "${HOME}/Library/FairPlay"))
 						(require-not (literal "/usr/sbin/fairplayd"))
-						(require-not (prefix-prefix "${HOME}/Media"))
+						(require-not (subpath-prefix "${HOME}/Media"))
 						(require-any
 							(literal "/dev/ptmx")
 							(literal "/dev/aes_0")
@@ -1312,7 +1312,7 @@
 							(literal "/dev/dtracehelper")
 							(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.icloud.findmydevice.managed/Library")
 							(subpath "/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles/Library/ConfigurationProfiles/PublicInfo")
-							(prefix-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
+							(literal-prefix "${FRONT_USER_HOME}/Library/Caches/com.apple.MobileGestalt.plist")
 							(require-all
 								(extension "com.apple.sandbox.system-container")
 								(require-entitlement "com.apple.security.system-container"))
@@ -1335,7 +1335,7 @@
 									(regex #"^/private/var/containers/Shared/SystemGroup/[^/]+/" #"^/private/var/containers/Shared/SystemGroup/[^/]+$")))
 							(require-all
 								(regex #"^/private/var/mobile/Library/ConfigurationProfiles/PublicInfo$" #"^/private/var/mobile/Library/ConfigurationProfiles/PublicInfo/" #"^/private/var/mobile/Library/UserConfigurationProfiles/PublicInfo$" #"^/private/var/mobile/Library/UserConfigurationProfiles/PublicInfo/" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/PublicInfo$" #"^/private/var/euser[0-9]+/Library/(User)?ConfigurationProfiles/PublicInfo/")
-								(prefix-prefix "${FRONT_USER_HOME}"))
+								(subpath-prefix "${FRONT_USER_HOME}"))
 							(require-all
 								(regex #"^/private/var/Managed Preferences/mobile/com[.]apple[.].+[.]plist$")
 								(require-entitlement "com.apple.bulletinboard.dataprovider"))
@@ -1356,81 +1356,81 @@
 									(literal "/private/etc/group")
 									(literal "/private/etc/passwd")
 									(require-all
-										(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-wal")
+										(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-wal")
 										(require-entitlement "com.apple.coreduetd.people"))
 									(require-all
-										(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-shm")
+										(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-shm")
 										(require-entitlement "com.apple.coreduetd.people"))
 									(require-all
-										(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
+										(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 										(require-entitlement "com.apple.coreduetd.people"))
 									(require-all
-										(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
+										(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
 										(require-entitlement "com.apple.coreduetd.people"))
 									(require-all
-										(prefix-prefix "${HOME}/Library/CoreDuet/People")
+										(literal-prefix "${HOME}/Library/CoreDuet/People")
 										(require-entitlement "com.apple.coreduetd.people")))))))))))
 (allow file-read-data
 	(require-all
 		(regex #"^/private/var/mobile/Library/ExternalAccessory/ea[.0-9]+$" #"^/private/var/euser[0-9]+/Library/ExternalAccessory/ea[.0-9]+$")
-		(prefix-prefix "${FRONT_USER_HOME}")))
+		(subpath-prefix "${FRONT_USER_HOME}")))
 (allow file-read-metadata
-	(prefix-prefix "${HOME}/Library/Carrier Bundles")
-	(prefix-prefix "${HOME}/Library")
-	(prefix-prefix "${HOME}/Library/Mobile Documents")
-	(prefix-prefix "${HOME}")
-	(prefix-prefix "${HOME}/Library/Preferences")
-	(prefix-prefix "${HOME}/Library/DeviceRegistry")
-	(prefix-prefix "${HOME}/Library/Caches/powerlog.launchd")
+	(subpath-prefix "${HOME}/Library/Carrier Bundles")
+	(literal-prefix "${HOME}/Library")
+	(literal-prefix "${HOME}/Library/Mobile Documents")
+	(literal-prefix "${HOME}")
+	(literal-prefix "${HOME}/Library/Preferences")
+	(literal-prefix "${HOME}/Library/DeviceRegistry")
+	(literal-prefix "${HOME}/Library/Caches/powerlog.launchd")
 	(vnode-type DIRECTORY)
 	(vnode-type SYMLINK)
 	(literal "/private/var")
-	(prefix-prefix "${HOME}/Library/GameKit/Data")
+	(literal-prefix "${HOME}/Library/GameKit/Data")
 	(literal "/private/var/run/printd")
-	(prefix-prefix "${HOME}/Library/Caches/com.apple.DictionaryServices")
-	(prefix-prefix "${HOME}/Library/PPTDevice")
-	(prefix-prefix "${HOME}/Media")
+	(literal-prefix "${HOME}/Library/Caches/com.apple.DictionaryServices")
+	(literal-prefix "${HOME}/Library/PPTDevice")
+	(literal-prefix "${HOME}/Media")
 	(literal "/private/var/run/syslog")
 	(require-all
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/iTunesMetadata[.]plist$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/iTunesMetadata[.]plist$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(vnode-type DIRECTORY)
 		(require-any
-			(prefix-prefix "${HOME}/Library/DeviceRegistry")
+			(literal-prefix "${HOME}/Library/DeviceRegistry")
 			(require-all
 				(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+$")
-				(prefix-prefix "${HOME}"))))
+				(subpath-prefix "${HOME}"))))
 	(require-all
 		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "platform-application"))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "platform-application"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "com.apple.system.set-alert-tone"))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "com.apple.system.set-alert-tone"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-any
 			(require-entitlement "com.apple.media.ringtones.read-only")
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilemail"))))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-any
 			(require-entitlement "com.apple.media.ringtones.read-only")
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilemail"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-any
 			(require-entitlement "com.apple.system.get-wallpaper")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -1439,7 +1439,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-any
 			(require-entitlement "com.apple.system.get-wallpaper")
 			(require-entitlement "com.apple.private.signing-identifier"
@@ -1448,14 +1448,14 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
 		(vnode-type DIRECTORY)
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches")
+		(literal-prefix "${HOME}/Library/Caches/sharedCaches")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -1463,7 +1463,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches")
+		(literal-prefix "${HOME}/Library/Caches/sharedCaches")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -1471,7 +1471,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -1479,7 +1479,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -1488,26 +1488,26 @@
 			(require-entitlement "com.apple.container2")))
 	(require-all
 		(vnode-type DIRECTORY)
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches")
+		(literal-prefix "${HOME}/Library/Caches/sharedCaches")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Music")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches")
+		(literal-prefix "${HOME}/Library/Caches/sharedCaches")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Music")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.iCloudDriveApp")))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.iCloudDriveApp")))
 	(require-all
 		(vnode-type DIRECTORY)
 		(require-any
 			(require-all
-				(prefix-prefix "${HOME}/Library/com.apple.iTunesStore")
+				(literal-prefix "${HOME}/Library/com.apple.iTunesStore")
 				(require-any
 					(require-entitlement "com.apple.private.signing-identifier"
 						(entitlement-value "com.apple.mobilesafari"))
@@ -1517,7 +1517,7 @@
 							(entitlement-value "com.apple.itunesu")))
 					(require-entitlement "com.apple.container2")))
 			(require-all
-				(prefix-prefix "${HOME}/Library/com.apple.iTunesStore/LocalStorage")
+				(literal-prefix "${HOME}/Library/com.apple.iTunesStore/LocalStorage")
 				(require-any
 					(require-entitlement "com.apple.private.signing-identifier"
 						(entitlement-value "com.apple.mobilesafari"))
@@ -1527,7 +1527,7 @@
 							(entitlement-value "com.apple.itunesu")))
 					(require-entitlement "com.apple.container2")))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/com.apple.iTunesStore")
+		(literal-prefix "${HOME}/Library/com.apple.iTunesStore")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -1537,7 +1537,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/com.apple.iTunesStore/LocalStorage")
+		(literal-prefix "${HOME}/Library/com.apple.iTunesStore/LocalStorage")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -1547,7 +1547,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -1557,7 +1557,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -1567,15 +1567,15 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilesafari")))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilesafari")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilesafari")
@@ -1583,7 +1583,7 @@
 				(entitlement-value "com.apple.safarifetcherd")
 				(entitlement-value "com.apple.Safari.SocialHelper"))))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilesafari")
@@ -1592,83 +1592,83 @@
 				(entitlement-value "com.apple.Safari.SocialHelper"))))
 	(require-all
 		(vnode-type DIRECTORY)
-		(prefix-prefix "${HOME}/Library/Caches")
+		(literal-prefix "${HOME}/Library/Caches")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilemail")
 				(entitlement-value "com.apple.mobilenotes"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches")
+		(literal-prefix "${HOME}/Library/Caches")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilemail")
 				(entitlement-value "com.apple.mobilenotes"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
 		(vnode-type DIRECTORY)
 		(require-any
 			(require-all
-				(prefix-prefix "${FRONT_USER_HOME}/Library/Logs/PersistentConnection")
+				(literal-prefix "${FRONT_USER_HOME}/Library/Logs/PersistentConnection")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.mobilemail")))
 			(require-all
-				(prefix-prefix "${FRONT_USER_HOME}/Library/Logs/CrashReporter/PersistentConnection")
+				(literal-prefix "${FRONT_USER_HOME}/Library/Logs/CrashReporter/PersistentConnection")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.mobilemail")))))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Logs/PersistentConnection")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Logs/PersistentConnection")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Logs/CrashReporter/PersistentConnection")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Logs/CrashReporter/PersistentConnection")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
 		(vnode-type DIRECTORY)
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.storeservices")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.storeservices")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.ios.StoreKitUIService")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.storeservices")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.storeservices")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.ios.StoreKitUIService")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.stocks.watchkitextension")))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.stocks.watchkitextension")))
 	(require-all
 		(vnode-type DIRECTORY)
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.DictionaryServices"))
+		(literal-prefix "${HOME}/Library/Caches/com.apple.DictionaryServices"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(extension "com.apple.tcc.kTCCServicePhotos"))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(extension "com.apple.tcc.kTCCServicePhotos"))
 	(require-all
-		(prefix-prefix "${HOME}/Media/PhotoData/Thumbnails")
+		(literal-prefix "${HOME}/Media/PhotoData/Thumbnails")
 		(extension "com.apple.tcc.kTCCServicePhotos"))
 	(require-all
-		(prefix-prefix "${HOME}/Media/PhotoData")
+		(literal-prefix "${HOME}/Media/PhotoData")
 		(extension "com.apple.tcc.kTCCServicePhotos"))
 	(require-all
 		(vnode-type REGULAR-FILE)
@@ -1677,19 +1677,19 @@
 		(vnode-type REGULAR-FILE)
 		(extension "com.apple.private.safe-move.send"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences")
+		(literal-prefix "${HOME}/Library/Preferences")
 		(require-entitlement "com.apple.bulletinboard.dataprovider"))
 	(require-all
-		(prefix-prefix "${HOME}")
+		(literal-prefix "${HOME}")
 		(require-entitlement "com.apple.bulletinboard.dataprovider")))
 (allow file-write*
-	(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.PeoplePicker.plist")
-	(prefix-prefix "${HOME}/Media/com.apple.itunes.lock_sync")
+	(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.PeoplePicker.plist")
+	(literal-prefix "${HOME}/Media/com.apple.itunes.lock_sync")
 	(regex #"^/private/var/containers/Data/System/[^/]+/")
 	(extension "com.apple.security.exception.files.absolute-path.read-write")
 	(extension "com.apple.security.exception.files.home-relative-path.read-write")
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-journal")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-journal")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -1699,17 +1699,17 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/WebClips")
+		(subpath-prefix "${HOME}/Library/WebClips")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilesafari")
 				(entitlement-value "com.apple.webapp"))))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.youtube.dp.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.youtube.dp.plist")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilesafari")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies")
+		(subpath-prefix "${HOME}/Library/Cookies")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilesafari")
@@ -1717,7 +1717,7 @@
 				(entitlement-value "com.apple.safarifetcherd")
 				(entitlement-value "com.apple.Safari.SocialHelper"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Safari")
+		(subpath-prefix "${HOME}/Library/Safari")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilesafari")
@@ -1727,101 +1727,101 @@
 				(entitlement-value "com.apple.mobilemail")
 				(entitlement-value "com.apple.mobilenotes"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Notes")
+		(subpath-prefix "${HOME}/Library/Notes")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilemail")
 				(entitlement-value "com.apple.mobilenotes"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.notes.sharedstore.lock")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.notes.sharedstore.lock")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilemail")
 				(entitlement-value "com.apple.mobilenotes"))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.notes.objectcreation.lock")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.notes.objectcreation.lock")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(require-any
 				(entitlement-value "com.apple.mobilemail")
 				(entitlement-value "com.apple.mobilenotes"))))
 	(require-all
 		(regex #"^/private/var/mobile/Library/Logs/PersistentConnection/com[.]apple[.]mobilemail" #"^/private/var/mobile/Library/Logs/CrashReporter/PersistentConnection/com[.]apple[.]mobilemail" #"^/private/var/euser[0-9]+/Library/Logs/(CrashReporter/)?PersistentConnection/com[.]apple[.]mobilemail")
-		(prefix-prefix "${FRONT_USER_HOME}")
+		(subpath-prefix "${FRONT_USER_HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoMail$" #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoMail/" #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/PairedSyncServiceRestrictions$" #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/PairedSyncServiceRestrictions/" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/(NanoMail|PairedSyncServiceRestrictions)$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/(NanoMail|PairedSyncServiceRestrictions)/")
-		(prefix-prefix "${HOME}")
+		(subpath-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Logs/Mail")
+		(subpath-prefix "${HOME}/Library/Logs/Mail")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/DataAccess")
+		(subpath-prefix "${HOME}/Library/DataAccess")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Calendar")
+		(subpath-prefix "${HOME}/Library/Calendar")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Mail")
+		(subpath-prefix "${HOME}/Library/Mail")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.OTASyncState.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.OTASyncState.plist")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.OTASyncAgent.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.OTASyncAgent.plist")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.MailAccount-ExtProperties.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.MailAccount-ExtProperties.plist")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.mail.composition.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.mail.composition.plist")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.cloud.quota.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.cloud.quota.plist")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/com[.]apple[.]NanoMail" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/NanoPreferencesSync/NanoDomains/com[.]apple[.]NanoMail")
-		(prefix-prefix "${HOME}")
+		(subpath-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoMaps$" #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+/NanoMaps/" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/NanoMaps$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+/NanoMaps/")
-		(prefix-prefix "${HOME}")
+		(subpath-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.internal.Voltaire.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.internal.Voltaire.plist")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.assistant.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.assistant.plist")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.skyhookwireless.wps.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.skyhookwireless.wps.plist")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.NanoMailKit.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.NanoMailKit.plist")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.GMM.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.GMM.plist")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/SMS")
+		(subpath-prefix "${HOME}/Library/SMS")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
@@ -1829,38 +1829,38 @@
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Maps")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.storeservices/AppPurchaseHistory.6.sqlitedb-journal")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.storeservices/AppPurchaseHistory.6.sqlitedb-journal")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.ios.StoreKitUIService")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/Preferences/com.apple.restrictionspassword.plist" #"^/private/var/euser[0-9]+/Library/Preferences/com.apple.restrictionspassword.plist")
-		(prefix-prefix "${HOME}")
+		(subpath-prefix "${HOME}")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.WebContentFilter.remoteUI.WebContentAnalysisUI")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences/com.apple.mobilephone.speeddial.plist")
+		(literal-prefix "${HOME}/Library/Preferences/com.apple.mobilephone.speeddial.plist")
 		(extension "com.apple.tcc.kTCCServiceAddressBook"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/AddressBook")
+		(subpath-prefix "${HOME}/Library/AddressBook")
 		(extension "com.apple.tcc.kTCCServiceAddressBook"))
 	(require-all
 		(extension "com.apple.sandbox.application-group")
 		(regex #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+/")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
-		(require-not (prefix-prefix "${HOME}/Library/Preferences/com.apple.springboard.plist"))
-		(require-not (prefix-prefix "${HOME}/Library/Caches/GeoServices/tguid.bin"))
-		(require-not (prefix-prefix "${HOME}/Library/Caches/DateFormats.plist"))
+		(require-not (literal-prefix "${HOME}/Library/Preferences/com.apple.springboard.plist"))
+		(require-not (literal-prefix "${HOME}/Library/Caches/GeoServices/tguid.bin"))
+		(require-not (literal-prefix "${HOME}/Library/Caches/DateFormats.plist"))
 		(require-any
-			(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.EmojiPreferences.plist")
-			(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.Preferences.plist")
+			(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.EmojiPreferences.plist")
+			(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.Preferences.plist")
 			(extension "com.apple.app-sandbox.read-write")
-			(prefix-prefix "${HOME}/Library/Caches/com.apple.keyboards")
-			(prefix-prefix "${HOME}/Library/Keyboard/LocalDictionary")
-			(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.mediaaccessibility.public.plist")
-			(prefix-prefix "${HOME}/Media/com.apple.itunes.lock_sync")
+			(subpath-prefix "${HOME}/Library/Caches/com.apple.keyboards")
+			(literal-prefix "${HOME}/Library/Keyboard/LocalDictionary")
+			(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.mediaaccessibility.public.plist")
+			(literal-prefix "${HOME}/Media/com.apple.itunes.lock_sync")
 			(require-all
-				(prefix-prefix "${HOME}/Library/Mobile Documents")
+				(subpath-prefix "${HOME}/Library/Mobile Documents")
 				(require-any
 					(extension "com.apple.librarian.ubiquity-container")
 					(require-entitlement "com.apple.private.librarian.container-proxy")))
@@ -1877,7 +1877,7 @@
 				(subpath "/private/var/.DocumentRevisions-V100/staging")
 				(extension "com.apple.revisiond.staging"))
 			(require-all
-				(require-not (prefix-prefix "${HOME}/Media"))
+				(require-not (subpath-prefix "${HOME}/Media"))
 				(require-any
 					(require-all
 						(extension "com.apple.sandbox.system-container")
@@ -1892,10 +1892,10 @@
 					(require-all
 						(require-not (vnode-type BLOCK-DEVICE))
 						(require-not (vnode-type CHARACTER-DEVICE))
-						(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
+						(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db-journal")
 						(require-entitlement "com.apple.coreduetd.people"))))))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Mobile Documents")
+		(subpath-prefix "${HOME}/Library/Mobile Documents")
 		(require-any
 			(extension "com.apple.librarian.ubiquity-container")
 			(require-entitlement "com.apple.private.librarian.container-proxy")))
@@ -1914,46 +1914,46 @@
 	(require-all
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.springboard.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.springboard.plist")
 		(require-entitlement "com.apple.system.set-alert-tone"))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Purchases")
+		(subpath-prefix "${HOME}/Media/Purchases")
 		(require-entitlement "com.apple.media.ringtones.read-write"))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/Ringtones")
+		(subpath-prefix "${HOME}/Media/iTunes_Control/Ringtones")
 		(require-entitlement "com.apple.media.ringtones.read-write"))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes/Ringtones.plist")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes/Ringtones.plist")
 		(require-entitlement "com.apple.media.ringtones.read-write"))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes")
+		(subpath-prefix "${HOME}/Media/iTunes_Control/iTunes")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.itunesstored.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.itunesstored.plist")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
 		(vnode-type DIRECTORY)
-		(prefix-prefix "${HOME}/Library/Cookies")
+		(literal-prefix "${HOME}/Library/Cookies")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-wal")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-wal")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-shm")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-shm")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies")
+		(literal-prefix "${HOME}/Library/Cookies")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-journal")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-journal")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.iTunesStore.NSURLCache")
+		(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.iTunesStore.NSURLCache")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -1961,7 +1961,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control")
+		(subpath-prefix "${HOME}/Media/iTunes_Control")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -1969,7 +1969,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Books")
+		(subpath-prefix "${HOME}/Media/Books")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -1977,20 +1977,20 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioRequestURLCache")
+		(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioRequestURLCache")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Music")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioImageCache")
+		(subpath-prefix "${HOME}/Library/Caches/sharedCaches/com.apple.Radio.RadioImageCache")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.Music")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.cloud.quota.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.cloud.quota.plist")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.iCloudDriveApp")))
 	(require-all
 		(vnode-type DIRECTORY)
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2000,7 +2000,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-wal")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-wal")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2010,7 +2010,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-shm")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-shm")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2020,7 +2020,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2030,7 +2030,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2040,7 +2040,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-journal")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb-journal")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2050,7 +2050,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.mobileipod.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.mobileipod.plist")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2060,7 +2060,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.itunesstored.plist")
+		(literal-prefix "${FRONT_USER_HOME}/Library/Preferences/com.apple.itunesstored.plist")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2071,7 +2071,7 @@
 			(require-entitlement "com.apple.container2")))
 	(require-all
 		(vnode-type DIRECTORY)
-		(prefix-prefix "${HOME}/Library/Cookies")
+		(literal-prefix "${HOME}/Library/Cookies")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2081,7 +2081,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-wal")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-wal")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2091,7 +2091,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-shm")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb-shm")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2101,7 +2101,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2111,7 +2111,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies")
+		(literal-prefix "${HOME}/Library/Cookies")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2124,16 +2124,16 @@
 	(require-all
 		(vnode-type DIRECTORY)
 		(require-any
-			(prefix-prefix "${HOME}/Library/DeviceRegistry")
+			(literal-prefix "${HOME}/Library/DeviceRegistry")
 			(require-all
 				(regex #"^/private/var/mobile/Library/DeviceRegistry/[-0-9A-Z]+$" #"^/private/var/euser[0-9]+/Library/DeviceRegistry/[-0-9A-Z]+$")
-				(prefix-prefix "${HOME}"))))
+				(subpath-prefix "${HOME}"))))
 	(require-all
-		(require-not (prefix-prefix "${HOME}/Library/Logs/CrashReporter/CFNetwork_"))
+		(require-not (literal-prefix "${HOME}/Library/Logs/CrashReporter/CFNetwork_"))
 		(require-any
 			(require-all
 				(vnode-type DIRECTORY)
-				(prefix-prefix "${HOME}/Library/Caches/sharedCaches")
+				(literal-prefix "${HOME}/Library/Caches/sharedCaches")
 				(require-any
 					(require-entitlement "com.apple.private.signing-identifier"
 						(require-any
@@ -2142,14 +2142,14 @@
 					(require-entitlement "com.apple.container2")))
 			(require-all
 				(vnode-type DIRECTORY)
-				(prefix-prefix "${HOME}/Library/Caches/sharedCaches")
+				(literal-prefix "${HOME}/Library/Caches/sharedCaches")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.Music")))
 			(require-all
 				(vnode-type DIRECTORY)
 				(require-any
 					(require-all
-						(prefix-prefix "${HOME}/Library/com.apple.iTunesStore")
+						(literal-prefix "${HOME}/Library/com.apple.iTunesStore")
 						(require-any
 							(require-entitlement "com.apple.private.signing-identifier"
 								(entitlement-value "com.apple.mobilesafari"))
@@ -2159,7 +2159,7 @@
 									(entitlement-value "com.apple.itunesu")))
 							(require-entitlement "com.apple.container2")))
 					(require-all
-						(prefix-prefix "${HOME}/Library/com.apple.iTunesStore/LocalStorage")
+						(literal-prefix "${HOME}/Library/com.apple.iTunesStore/LocalStorage")
 						(require-any
 							(require-entitlement "com.apple.private.signing-identifier"
 								(entitlement-value "com.apple.mobilesafari"))
@@ -2170,7 +2170,7 @@
 							(require-entitlement "com.apple.container2")))))
 			(require-all
 				(vnode-type DIRECTORY)
-				(prefix-prefix "${HOME}/Library/Caches")
+				(literal-prefix "${HOME}/Library/Caches")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(require-any
 						(entitlement-value "com.apple.mobilemail")
@@ -2179,42 +2179,42 @@
 				(vnode-type DIRECTORY)
 				(require-any
 					(require-all
-						(prefix-prefix "${FRONT_USER_HOME}/Library/Logs/PersistentConnection")
+						(literal-prefix "${FRONT_USER_HOME}/Library/Logs/PersistentConnection")
 						(require-entitlement "com.apple.private.signing-identifier"
 							(entitlement-value "com.apple.mobilemail")))
 					(require-all
-						(prefix-prefix "${FRONT_USER_HOME}/Library/Logs/CrashReporter/PersistentConnection")
+						(literal-prefix "${FRONT_USER_HOME}/Library/Logs/CrashReporter/PersistentConnection")
 						(require-entitlement "com.apple.private.signing-identifier"
 							(entitlement-value "com.apple.mobilemail")))))
 			(require-all
-				(prefix-prefix "${HOME}/Library/Preferences/com.apple.dataaccess.launchd")
+				(literal-prefix "${HOME}/Library/Preferences/com.apple.dataaccess.launchd")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.mobilemail")))
 			(require-all
-				(prefix-prefix "${HOME}/Library/Preferences/com.apple.AOSNotification.launchd")
+				(literal-prefix "${HOME}/Library/Preferences/com.apple.AOSNotification.launchd")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.mobilemail")))
 			(require-all
 				(vnode-type DIRECTORY)
-				(prefix-prefix "${HOME}/Library/Caches/com.apple.storeservices")
+				(literal-prefix "${HOME}/Library/Caches/com.apple.storeservices")
 				(require-entitlement "com.apple.private.signing-identifier"
 					(entitlement-value "com.apple.ios.StoreKitUIService")))
 			(require-all
 				(vnode-type DIRECTORY)
-				(prefix-prefix "${HOME}/Library/Caches/com.apple.DictionaryServices"))
+				(literal-prefix "${HOME}/Library/Caches/com.apple.DictionaryServices"))
 			(require-all
-				(require-not (prefix-prefix "${HOME}/Library/Preferences/com.apple.Accessibility.plist"))
-				(require-not (prefix-prefix "${HOME}/Library/Preferences/com.apple.UIKit.plist"))
+				(require-not (literal-prefix "${HOME}/Library/Preferences/com.apple.Accessibility.plist"))
+				(require-not (literal-prefix "${HOME}/Library/Preferences/com.apple.UIKit.plist"))
 				(vnode-type REGULAR-FILE)
 				(extension "com.apple.private.safe-move.send")))))
 (allow file-write-data
 	(literal "/dev/ptmx")
 	(literal "/dev/aes_0")
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
 		(require-entitlement "com.apple.itunesstored.private"))
 	(require-all
-		(prefix-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb")
+		(literal-prefix "${HOME}/Media/iTunes_Control/iTunes/MediaLibrary.sqlitedb")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2224,7 +2224,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
+		(literal-prefix "${HOME}/Library/Cookies/com.apple.itunesstored.2.sqlitedb")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(entitlement-value "com.apple.mobilesafari"))
@@ -2234,12 +2234,12 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Caches/com.apple.storeservices/AppPurchaseHistory.6.sqlitedb")
+		(literal-prefix "${HOME}/Library/Caches/com.apple.storeservices/AppPurchaseHistory.6.sqlitedb")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.ios.StoreKitUIService")))
 	(require-all
 		(regex #"^/private/var/mobile/Library/ExternalAccessory/ea[.0-9]+$" #"^/private/var/euser[0-9]+/Library/ExternalAccessory/ea[.0-9]+$")
-		(prefix-prefix "${FRONT_USER_HOME}"))
+		(subpath-prefix "${FRONT_USER_HOME}"))
 	(require-all
 		(vnode-type REGULAR-FILE)
 		(extension "com.apple.private.safe-move.send"))
@@ -2257,7 +2257,7 @@
 			(literal "/dev/dtracehelper")
 			(literal "/dev/null")
 			(require-all
-				(prefix-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
+				(literal-prefix "${HOME}/Library/CoreDuet/People/interactionC.db")
 				(require-entitlement "com.apple.coreduetd.people")))))
 (allow file-write-mode
 	(require-all
@@ -2267,9 +2267,9 @@
 	(require-all
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/Inbox/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/Inbox$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/Inbox/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/Inbox$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Purchases")
+		(subpath-prefix "${HOME}/Media/Purchases")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -2277,7 +2277,7 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Media/Podcasts")
+		(subpath-prefix "${HOME}/Media/Podcasts")
 		(require-any
 			(require-entitlement "com.apple.private.signing-identifier"
 				(require-any
@@ -2285,11 +2285,11 @@
 					(entitlement-value "com.apple.itunesu")))
 			(require-entitlement "com.apple.container2")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences/com.apple.dataaccess.launchd")
+		(literal-prefix "${HOME}/Library/Preferences/com.apple.dataaccess.launchd")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
-		(prefix-prefix "${HOME}/Library/Preferences/com.apple.AOSNotification.launchd")
+		(literal-prefix "${HOME}/Library/Preferences/com.apple.AOSNotification.launchd")
 		(require-entitlement "com.apple.private.signing-identifier"
 			(entitlement-value "com.apple.mobilemail")))
 	(require-all
@@ -3061,11 +3061,11 @@
 	(require-all
 		(extension "com.apple.sandbox.container")
 		(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)$")
-		(prefix-prefix "${HOME}"))
+		(subpath-prefix "${HOME}"))
 	(require-all
 		(extension "com.apple.sandbox.application-group")
 		(regex #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+/")
-		(prefix-prefix "${HOME}")))
+		(subpath-prefix "${HOME}")))
 (allow network-outbound
 	(require-all
 		(require-not (literal "/private/var/tmp/launchd/sock"))
@@ -3074,7 +3074,7 @@
 			(require-all
 				(extension "com.apple.sandbox.container")
 				(regex #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/tmp$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Library$" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents/" #"^/private/var/mobile/Containers/Data/[^/]+/[-0-9A-Z]+/Documents$" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)/" #"^/private/var/euser[0-9]+/Containers/Data/[^/]+/[-0-9A-Z]+/((tmp|Library)|Documents)$")
-				(prefix-prefix "${HOME}"))
+				(subpath-prefix "${HOME}"))
 			(require-all
 				(literal "/private/var/run/lockdown.sock")
 				(require-entitlement "platform-application"))
@@ -3093,10 +3093,10 @@
 					(require-all
 						(extension "com.apple.sandbox.application-group")
 						(regex #"^/private/var/mobile/Containers/Shared/AppGroup/[-0-9A-Z]+/" #"^/private/var/euser[0-9]+/Containers/Shared/AppGroup/[-0-9A-Z]+/")
-						(prefix-prefix "${HOME}"))
+						(subpath-prefix "${HOME}"))
 					(require-all
 						(regex #"^/private/var/mobile/Library/ExternalAccessory/ea[.0-9]+$" #"^/private/var/euser[0-9]+/Library/ExternalAccessory/ea[.0-9]+$")
-						(prefix-prefix "${FRONT_USER_HOME}")))))))
+						(subpath-prefix "${FRONT_USER_HOME}")))))))
 (allow nvram*)
 (allow nvram-delete)
 (allow nvram-get)
