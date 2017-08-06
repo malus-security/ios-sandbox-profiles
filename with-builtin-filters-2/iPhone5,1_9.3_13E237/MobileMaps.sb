@@ -636,7 +636,7 @@
 				(subpath "/private/var/.DocumentRevisions-V100/PerUID")
 				(extension "com.apple.revisiond.revision"))
 			(require-all
-				(regex #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps/$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps/.+$" #"^/private/var/euser[0-9]+/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps/(?|.+)$")
+				(regex #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps/$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps/.+$" #"^/private/var/euser[0-9]+/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps/.+$")
 				(subpath-prefix "${HOME}")))))
 (allow file-read-data
 	(require-all
@@ -735,7 +735,7 @@
 				(subpath "/private/var/.DocumentRevisions-V100/staging")
 				(extension "com.apple.revisiond.staging"))
 			(require-all
-				(regex #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps/$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps/.+$" #"^/private/var/euser[0-9]+/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps/(?|.+)$")
+				(regex #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps/$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps/.+$" #"^/private/var/euser[0-9]+/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]Maps/.+$")
 				(subpath-prefix "${HOME}"))
 			(require-all
 				(vnode-type DIRECTORY)

@@ -486,7 +486,7 @@
 		(regex #"^/private/var/mobile/Library/Logs/PersistentConnection/com[.]apple[.]lowtide" #"^/private/var/mobile/Library/Logs/CrashReporter/PersistentConnection/com[.]apple[.]lowtide" #"^/private/var/euser[0-9]+/Library/Logs/(CrashReporter/)?PersistentConnection/com[.]apple[.]lowtide")
 		(subpath-prefix "${FRONT_USER_HOME}"))
 	(require-all
-		(regex #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide/$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide/.+$" #"^/private/var/euser[0-9]+/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide/(?|.+)$")
+		(regex #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide/$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide/.+$" #"^/private/var/euser[0-9]+/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide/.+$")
 		(subpath-prefix "${HOME}"))
 	(require-all
 		(regex #"^/private/var/mobile/Library/SyncedPreferences/com[.]apple[.]lowtide[.]plist" #"^/private/var/mobile/Library/SyncedPreferences/com[.]apple[.]lowtide-.+[.]plist" #"^/private/var/euser[0-9]+/Library/SyncedPreferences/com[.]apple[.]lowtide-.*[.]plist")
@@ -733,7 +733,7 @@
 				(regex #"^/private/var/mobile/Library/Logs/PersistentConnection/com[.]apple[.]lowtide" #"^/private/var/mobile/Library/Logs/CrashReporter/PersistentConnection/com[.]apple[.]lowtide" #"^/private/var/euser[0-9]+/Library/Logs/(CrashReporter/)?PersistentConnection/com[.]apple[.]lowtide")
 				(subpath-prefix "${FRONT_USER_HOME}"))
 			(require-all
-				(regex #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide/$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide/.+$" #"^/private/var/euser[0-9]+/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide/(?|.+)$")
+				(regex #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide/$" #"^/private/var/mobile/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide/.+$" #"^/private/var/euser[0-9]+/Library/Caches/com.apple.iTunesStore/ISURLBag/com[.]apple[.]lowtide/.+$")
 				(subpath-prefix "${HOME}"))
 			(require-all
 				(vnode-type DIRECTORY)
